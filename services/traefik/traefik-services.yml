@@ -7,8 +7,10 @@ spec:
   type: LoadBalancer
   ports:
     - targetPort: web
+      name: web
       port: 80
     - targetPort: websecure
+      name: websecure
       port: 443
   selector:
     app: traefik
