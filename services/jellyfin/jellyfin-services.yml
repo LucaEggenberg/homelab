@@ -7,13 +7,8 @@ metadata:
   namespace: jellyfin 
 spec:
   ports:
-  - name: web-tcp
-    port: 8096
-    protocol: TCP
-    targetPort: 8096
-  - name: web-udp
-    port: 8096
-    protocol: UDP
-    targetPort: 8096
+  - targetPort: web
+    name: web
+    port: 80
   selector:
     app: jellyfin
