@@ -29,20 +29,21 @@ spec:
         - name: TZ
           value: Europe/Zurich
         volumeMounts:
-        - name: smb
+        - mountPath: '/config'
+          readonly: false
+          name: smb
           subPath: config
-          mountPath: '/config'
-        - name: smb
+        - mountPath: '/movies'
+          readonly: false
+          name: smb
           subPath: movies
-          mountPath: '/movies'
+        - mountPath: '/shows'
           readonly: false
-        - name: smb
+          name: smb
           subPath: shows
-          mountPath: '/shows'
-          readonly: false
         volumes:
-        - name: smb
-          persistentVolumeClaim:
-            claimName: pjellyfin-smb-pvc
+          - name: smb
+            persistentVolumeClaim:
+              claimName: pjellyfin-smb-pvc
 
         
