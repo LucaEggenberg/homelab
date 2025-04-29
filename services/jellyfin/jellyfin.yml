@@ -1,0 +1,48 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: jellyfin
+  labels: 
+    app: jellyfin
+    app.kubernetes.io/instance: jellyfin
+    app.kubernetes.io/name: jellyfin
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: jellyfin
+  template:
+    metadata:
+      labels:
+        app: jellyfin
+        app.kubernetes.io/name: jellyfin
+    spec:
+      containers:
+      - name: jellyfin
+        image: jellyfin/jellyfin
+        imagePullPolicy: Always
+        ports:
+        - name: web
+          containerPort: 8096
+          protocol: TCP
+        env:
+        - name: TZ
+          value: Europe/Zurich
+        volumeMounts:
+        - name: smb
+          subPath: config
+          mountPath: '/config'
+        - name: smb
+          subPath: movies
+          mountPath: '/movies'
+          readonly: false
+        - name: smb
+          subPath: shows
+          mountPath: '/shows'
+          readonly: false
+        volumes:
+        - name: smb
+          persistentVolumeClaim:
+            claimName: pvc-jellyfin-smb
+
+        
