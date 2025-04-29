@@ -12,6 +12,6 @@ spec:
     services:
     - name: jellyfin
       namespace: jellyfin
-      port: 8096
+      port: 80
   tls:
     secretName: jellyfin-certificate-secret
