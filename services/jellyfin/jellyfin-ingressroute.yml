@@ -11,6 +11,7 @@ spec:
     kind: Rule
     services:
     - name: jellyfin
+      namespace: jellyfin
       port: 8096
   tls:
     secretName: jellyfin-certificate-secret
