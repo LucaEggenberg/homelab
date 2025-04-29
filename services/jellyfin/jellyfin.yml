@@ -41,9 +41,9 @@ spec:
           readonly: false
           name: smb
           subPath: shows
-        volumes:
-          - name: smb
-            persistentVolumeClaim:
-              claimName: pjellyfin-smb-pvc
+      volumes:
+        - name: smb
+          persistentVolumeClaim:
+            claimName: pjellyfin-smb-pvc
 
         
