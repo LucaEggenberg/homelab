@@ -44,6 +44,6 @@ spec:
       volumes:
         - name: smb
           persistentVolumeClaim:
-            claimName: pjellyfin-smb-pvc
+            claimName: jellyfin-smb-pvc
 
         
