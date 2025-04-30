@@ -8,7 +8,7 @@ metadata:
   name: jellyfin
   namespace: jellyfin
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: jellyfin
