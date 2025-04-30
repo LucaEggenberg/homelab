@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+  sources:
+    - repoURL: https://charts.jetstack.io
+      targetRevision: v1.17.2
+      helm:
+        valueFiles:
+          - $values/kubernetes/services/cert-manager/cert-manager-helm-values.yml
+      chart: cert-manager
+    - repoURL: https://github.com/LucaEggenberg/HomeLab
+      path: kubernetes/services/cert-manager
+      targetRevision: HEAD
+      ref: values
