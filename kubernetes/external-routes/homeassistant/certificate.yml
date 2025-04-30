@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: homeassistant-ingressroute-certificate
+spec:
+  secretName: homeassistant-certificate-secret
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+  - homeassistant.eggenberg.io

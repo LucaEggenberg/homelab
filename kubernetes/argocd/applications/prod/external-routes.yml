@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: external-routes
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/LucaEggenberg/HomeLab
+    path: kubernetes/external-routes
+    targetRevision: HEAD
+    directory:
+      recurse: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: external-routes
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+
