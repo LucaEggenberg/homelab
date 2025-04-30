@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+spec:
+  destination:
+    namespace: traefik
+    server: https://kubernetes.default.svc
+  sources:
+  - repoURL: https://traefik.github.io/charts
+    chart: traefik
+    targetRevision: 35.2.0
+    helm:
+      valueFiles:
+        - $values/services/traefik/traefik-helm-values.yml
+  - path: services/traefik
+    repoURL: https://github.com/LucaEggenberg/HomeLab
+    targetRevision: HEAD
+    ref: values
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: false
+      selfHeal: false
