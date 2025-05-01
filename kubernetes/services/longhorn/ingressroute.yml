@@ -10,7 +10,7 @@ spec:
   - match: Host(`longhorn.eggenberg.io`)
     kind: Rule
     services:
-    - name: longhorn
+    - name: longhorn-frontend
       port: 80
   tls:
     secretName: longhorn-certificate-secret
