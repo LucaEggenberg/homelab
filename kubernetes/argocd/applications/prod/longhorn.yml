@@ -9,7 +9,7 @@ spec:
       - CreateNamespace=true
   project: default
   sources:
-  - repoURL: https://charts.longhorn.io/
+  - repoURL: https://charts.longhorn.io
     chart: longhorn
     targetRevision: v1.8.1
     helm:
