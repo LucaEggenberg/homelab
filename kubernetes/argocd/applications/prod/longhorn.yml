@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: longhorn
+  namespace: argocd
+spec:
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+  project: default
+  sources:
+  - repoURL: https://charts.longhorn.io/
+    chart: longhorn
+    targetRevision: v1.8.1
+    helm:
+      valueFiles:
+        - $values/kubernetes/services/longhorn/longhron-helm-values.yml
+  - path: kubernetes/services/longhorn
+    repoURL: https://github.com/LucaEggenberg/HomeLab
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: longhorn-system
