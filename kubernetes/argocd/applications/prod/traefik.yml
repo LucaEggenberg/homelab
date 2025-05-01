@@ -12,7 +12,7 @@ spec:
     targetRevision: 35.2.0
     helm:
       valueFiles:
-        - $values/kubernetes/services/traefik/traefik-helm-values.yml
+        - $values/kubernetes/services/traefik/helm-values.yml
   - path: kubernetes/services/traefik
     repoURL: https://github.com/LucaEggenberg/HomeLab
     targetRevision: HEAD
