@@ -4,13 +4,6 @@ metadata:
   name: cert-manager
 spec:
   project: default
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: cert-manager
-  syncPolicy:
-    automated: {}
-    syncOptions:
-      - CreateNamespace=true
   sources:
     - repoURL: https://charts.jetstack.io
       targetRevision: v1.17.2
@@ -22,3 +15,10 @@ spec:
       path: kubernetes/services/cert-manager
       targetRevision: HEAD
       ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true

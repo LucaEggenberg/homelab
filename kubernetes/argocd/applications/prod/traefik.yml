@@ -3,9 +3,7 @@ kind: Application
 metadata:
   name: traefik
 spec:
-  destination:
-    namespace: traefik
-    server: https://kubernetes.default.svc
+  project: default
   sources:
   - repoURL: https://traefik.github.io/charts
     chart: traefik
@@ -17,10 +15,10 @@ spec:
     repoURL: https://github.com/LucaEggenberg/HomeLab
     targetRevision: HEAD
     ref: values
-  project: default
+  destination:
+    namespace: traefik
+    server: https://kubernetes.default.svc
   syncPolicy:
+    automated: {}
     syncOptions:
       - CreateNamespace=true
-    automated:
-      prune: false
-      selfHeal: false
