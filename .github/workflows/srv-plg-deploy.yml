@@ -17,5 +17,13 @@ jobs:
       - name: get services
         id: get_services
         run: |
-          echo $(ls docker/srv-plg)
+          SERVICEDIRECTORIES=$(ls docker/srv-plg/services)
+          echo "servicedirs=$SERVICEDIRECTORIES" >> $GITHUB_OUTPUT
+      
+      - name: Deploy Services
+        run: |
+          while IFS=read -r SERVICE_PATH; do
+            
+            echo "Deploying service in $SERVICE_PATH"
 
+          done <<< "${{ steps.get_services.outputs.servicedirs}}"
