@@ -7,6 +7,6 @@ spec:
     app: pterodactyl
   ports:
     - name: web
-      protocol: TCP
       port: 80
-      containerPort: 80
+      protocol: TCP
+      targetPort: 80
