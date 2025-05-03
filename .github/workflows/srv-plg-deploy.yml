@@ -17,5 +17,6 @@ jobs:
       - name: get services
         id: get_services
         run: |
-          echo $(ls)
+          SERVICES=$(find services -type d -exec test -f '{}/docker-compose.yml \; -print')
+          echo $SERVICES
 
