@@ -1,6 +1,32 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: pterodactyl-db
+spec:
+  selector:
+    app: pterodactyl-db
+  ports:
+    - name: web
+      port: 3306
+      protocol: TCP
+      targetPort: 3306
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pterodactyl-cache
+spec:
+  selector:
+    app: pterodactyl-cache
+  ports:
+    - name: web
+      port: 6379
+      protocol: TCP
+      targetPort: 6379
+---
+apiVersion: v1
+kind: Service
+metadata:
   name: pterodactyl
 spec:
   selector:
