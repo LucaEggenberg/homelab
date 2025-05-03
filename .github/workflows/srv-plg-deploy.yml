@@ -17,6 +17,5 @@ jobs:
       - name: get services
         id: get_services
         run: |
-          SERVICES=$(find services -type d -exec test -f '{}/docker-compose.yml \; -print')
-          echo $SERVICES
+          echo $(ls docker/srv-plg)
 
