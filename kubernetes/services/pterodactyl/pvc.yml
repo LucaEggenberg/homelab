@@ -1,11 +1,23 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: pterodactyl-claim
+  name: pterodactyl-panel
 spec:
   storageClassName: longhorn
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 4Gi
+      storage: 2Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pterodactyl-database
+spec:
+  storageClassName: longhorn
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi

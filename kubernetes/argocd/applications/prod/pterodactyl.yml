@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pterodactyl
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/LucaEggenberg/HomeLab
+    path: kubernetes/services/pterodactyl
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: pterodactyl
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
