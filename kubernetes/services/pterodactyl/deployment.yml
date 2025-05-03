@@ -1,4 +1,4 @@
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pterodactyl-cache
@@ -17,7 +17,7 @@ spec:
         name: pterodactyl-cache
       restartPolicy: Always
 ---
-apiVersion: app/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: pterodactyl-db
