@@ -1,28 +1,38 @@
-apiVersion: apps/v1
+apiVersion: app/v1
 kind: Deployment
 metadata:
-  name: pterodactyl
+  name: pterodactyl-cache
 spec:
-  selector:
+  selector: 
     matchLabels:
-      app: pterodactyl
+      app: pterodactyl-cache
   replicas: 1
-  progressDeadlineSeconds: 600
-  revisionHistoryLimit: 2
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
-        app: pterodactyl
-      annotations:
-        deploy-date: "deploy-date-value"
+        app: pterodactyl-cache
     spec:
       containers:
-      - name: cache
-        image: redis:alpine
-
-      - name: database
+      - image: redis:alpine
+        name: pterodactyl-cache
+      restartPolicy: Always
+---
+apiVersion: app/v1
+kind: Deployment
+metadata:
+  name: pterodactyl-db
+spec:
+  selector: 
+    matchLabels:
+      app: pterodactyl-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pterodactyl-db
+    spec:
+      containers:
+      - name: pterodactyl-db
         image: mariadb:latest
         env:
           - name: MYSQL_DATABASE
@@ -44,7 +54,32 @@ spec:
         volumeMounts:
           - mountPath: /var/lib/mysql
             name: pterodactyl-database
-      
+      volumes:
+      - name: pterodactyl-database
+        persistentVolumeClaim:
+          claimName: pterodactyl-database
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pterodactyl
+spec:
+  selector:
+    matchLabels:
+      app: pterodactyl
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pterodactyl
+      annotations:
+        deploy-date: "deploy-date-value"
+    spec:
+      containers:
       - name: pterodactyl
         image: ghcr.io/pterodactyl/panel:latest
         ports: 
@@ -64,7 +99,7 @@ spec:
           - name: CACHE_DRIVER
             value: redis
           - name: DB_HOST
-            value: database
+            value: pterodactyl-db
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
@@ -75,7 +110,7 @@ spec:
           - name: QUEUE_DRIVER
             value: redis
           - name: REDIS_HOST
-            value: cache
+            value: pterodactyl-cache
           - name: SESSION_DRIVER
             value: redis
           - name: TRUSTED_PROXIES
@@ -97,6 +132,4 @@ spec:
       - name: pterodactyl-panel
         persistentVolumeClaim:
           claimName: pterodactyl-panel
-      - name: pterodactyl-database
-        persistentVolumeClaim:
-          claimName: pterodactyl-database
+      
