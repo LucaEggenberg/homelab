@@ -17,7 +17,7 @@ jobs:
       - name: get services
         id: get_services
         run: |
-          SERVICEDIRECTORIES="$(ls docker/srv-plg/services)"
+          SERVICES="$(cat docker/srv-plg/apps)"
           echo "servicedirs=$SERVICEDIRECTORIES" >> $GITHUB_OUTPUT
       
       - name: Deploy Services
