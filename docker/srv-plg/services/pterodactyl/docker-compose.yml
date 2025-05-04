@@ -13,13 +13,20 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/var/lib/docker/containers/:/var/lib/docker/containers/"
-      - "/etc/pterodactyl/:/etc/pterodactyl/"
-      - "/var/lib/pterodactyl/:/var/lib/pterodactyl/"
-      - "/var/log/pterodactyl/:/var/log/pterodactyl/"
-      - "/tmp/pterodactyl/:/tmp/pterodactyl/"
       - "/etc/ssl/certs:/etc/ssl/certs:ro"
+
+      - "/apps/pterodactyl/etc:/etc/pterodactyl/"
+      - "/apps/pterodactyl/lib/:/var/lib/pterodactyl/"
+      - "/apps/pterodactyl/log/:/var/log/pterodactyl/"
+      - "/apps/pterodactyl/temp/:/tmp/pterodactyl/"
       # Required for ssl if you use let's encrypt. uncomment to use.
       #- "/etc/letsencrypt/:/etc/letsencrypt/"
+    labels:
+      traefik.enable: true
+      traefik.http.routers.gameserver-plg-https.tls: true
+      traefik.http.routers.gameserver-plg-https.tls.certresolver: cloudflare
+      traefik.http.routers.gameserver-plg-https.entrypoints: websecure
+      traefik.http.routers.gameserver-plg-https.rule: Host(`gameserver.srv-plg-1.eggenberg.io`)
 networks:
   wings0:
     name: wings0

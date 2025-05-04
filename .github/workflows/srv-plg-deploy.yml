@@ -21,4 +21,4 @@ jobs:
             echo "do something with '$path'"
             echo "$(ls $path)"
 
-          done <docker/srv-plg/apps
+          done < docker/srv-plg/apps
