@@ -18,10 +18,11 @@ jobs:
         id: get_services
         run: |
           SERVICES="$(cat docker/srv-plg/apps)"
-          echo "servicedirs=$SERVICEDIRECTORIES" >> $GITHUB_OUTPUT
+          echo "servicedirs=$SERVICES" >> $GITHUB_OUTPUT
       
       - name: Deploy Services
         run: |
+
           while IFS=read -r SERVICE_PATH; do
             
             echo "Deploying service in $SERVICE_PATH"
