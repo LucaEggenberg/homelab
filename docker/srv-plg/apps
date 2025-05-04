@@ -1,2 +1,2 @@
-docker/srv-plg/pterodactyl
-docker/srv-plg/traefik
+docker/srv-plg/services/pterodactyl
+docker/srv-plg/services/traefik
