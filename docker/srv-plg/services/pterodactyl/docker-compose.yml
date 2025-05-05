@@ -3,6 +3,7 @@ services:
     image: ghcr.io/pterodactyl/wings:v1.6.1
     restart: always
     networks:
+      - frontend
       - wings0
     tty: true
     environment:
