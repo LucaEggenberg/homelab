@@ -1,10 +1,14 @@
 services:
   wings:
-    image: ghcr.io/pterodactyl/wings:v1.6.1
+    image: ghcr.io/pterodactyl/wings:latest
+    container_name: pterodactyl_wings
     restart: always
     networks:
       - frontend
-      - wings0
+    expose:
+      - "8080"
+      - "2022"
+      - "443"
     tty: true
     environment:
       TZ: "UTC"
@@ -16,12 +20,10 @@ services:
       - "/var/lib/docker/containers/:/var/lib/docker/containers/"
       - "/etc/ssl/certs:/etc/ssl/certs:ro"
 
-      - "/apps/pterodactyl/etc:/etc/pterodactyl/"
-      - "/apps/pterodactyl/lib/:/var/lib/pterodactyl/"
-      - "/apps/pterodactyl/log/:/var/log/pterodactyl/"
-      - "/apps/pterodactyl/temp/:/tmp/pterodactyl/"
-      # Required for ssl if you use let's encrypt. uncomment to use.
-      #- "/etc/letsencrypt/:/etc/letsencrypt/"
+      - "/etc/pterodactyl/:/etc/pterodactyl/"
+      - "/var/lib/pterodactyl/:/var/lib/pterodactyl/"
+      - "/var/log/pterodactyl/:/var/log/pterodactyl/"
+      - "/tmp/pterodactyl/:/tmp/pterodactyl/"
     labels:
       traefik.enable: true
       traefik.http.routers.gameserver-plg-https.tls: true
@@ -29,11 +31,5 @@ services:
       traefik.http.routers.gameserver-plg-https.entrypoints: websecure
       traefik.http.routers.gameserver-plg-https.rule: Host(`gameserver.srv-plg-1.eggenberg.io`)
 networks:
-  wings0:
-    name: wings0
-    driver: bridge
-    ipam:
-      config:
-        - subnet: "172.21.0.0/16"
-    driver_opts:
-      com.docker.network.bridge.name: wings0
+  frontend:
+    external: true
