@@ -8,6 +8,11 @@ module "private_vlan" {
     vlan_id     = 10
 }
 
+output "private_network_id" {
+    value = module.private_vlan.network_id
+    description = "private network id"
+}
+
 module "public_vlan" {
     source      = "../../../modules/ubiquiti/network"
 
@@ -19,6 +24,12 @@ module "public_vlan" {
     vlan_id     = 20
 }
 
+output "public_network_id" {
+    value = module.public_vlan.network_id
+    description = "public network id"
+}
+
+
 module "iot_vlan" {
     source      = "../../../modules/ubiquiti/network"
 
@@ -27,16 +38,6 @@ module "iot_vlan" {
     subnet      = "10.10.30.0/24"
     dhcp_enabled = true
     vlan_id     = 30
-}
-
-output "private_network_id" {
-    value = module.private_vlan.network_id
-    description = "private network id"
-}
-
-output "public_network_id" {
-    value = module.public_vlan.network_id
-    description = "public network id"
 }
 
 output "iot_network_id" {

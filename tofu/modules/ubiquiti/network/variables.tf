@@ -31,56 +31,20 @@ variable "dhcp_start" {
     default     = null 
 }
 
-variable "dhcp_end" {
+variable "dhcp_stop" {
     type        = string
     description = "dhcp end address"
     default     = null
 }
 
-variable "gateway_ip" {
-  type        = string
-  description = "gatway address"
-  default     = null
-}
-
-variable "dns_servers" {
+variable "dhcp_dns" {
   type        = list(string)
   description = "dns servers"
   default     = []
 }
 
-variable "domain_name" {
-  type        = string
-  description = "network domain name"
-  default     = null
-}
-
-variable "auto_scale_network" {
+variable "enabled" {
   type        = bool
-  description = "auto scale network"
-  default     = false
-}
-
-variable "dhcpv6_enabled" {
-  type        = bool
-  description = "dhcpv6 enabled for network"
-  default     = false
-}
-
-variable "dhcpv6_start" {
-  type        = string
-  description = "dhcpv6 start address"
-  default     = null
-}
-
-variable "dhcpv6_end" {
-  type        = string
-  description = "dhcpv6 end address"
-  default     = null
-}
-
-variable "dhcpv6_ra_enabled" {
-  type        = bool
-  description = "dhcpv6 router advertisements enabled"
-  default     = false
+  description = "dns servers"
+  default     = true
 }
