@@ -11,5 +11,5 @@ provider "unifi" {
   # Configuration options
   api_key = var.api_key
   api_url = "https://10.10.10.1/"
-  allow_insecure = false
+  allow_insecure = true
 }

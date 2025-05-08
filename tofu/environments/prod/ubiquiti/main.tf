@@ -1,21 +1,14 @@
-module "private_vlan" {
-    source      = "../../../modules/ubiquiti/network"
-
+resource "unifi_network" "private_vlan" {
     name        = "Private"
     purpose     = "vlan-only"
     subnet      = "10.10.10.0/24"
+    dhcp_dns    = ["10.10.10.1", "1.1.1.1", "1.0.0.1"]
     dhcp_enabled = true
+    dhcp_start  = "10.10.10.50"
     vlan_id     = 10
 }
 
-output "private_network_id" {
-    value = module.private_vlan.network_id
-    description = "private network id"
-}
-
-module "public_vlan" {
-    source      = "../../../modules/ubiquiti/network"
-
+resource "unifi_network" "public_vlan" {
     name        = "Public"
     purpose     = "vlan-only"
     subnet      = "10.10.20.0/24"
@@ -24,23 +17,11 @@ module "public_vlan" {
     vlan_id     = 20
 }
 
-output "public_network_id" {
-    value = module.public_vlan.network_id
-    description = "public network id"
-}
-
-
-module "iot_vlan" {
-    source      = "../../../modules/ubiquiti/network"
-
+resource "unifi_network" "iot_vlan" {
     name        = "IOT"
     purpose     = "vlan-only"
     subnet      = "10.10.30.0/24"
     dhcp_enabled = true
+    dhcp_start  = "10.10.30.50"
     vlan_id     = 30
-}
-
-output "iot_network_id" {
-    value = module.iot_vlan.network_id
-    description = "iot network id"
 }
