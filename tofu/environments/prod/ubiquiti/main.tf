@@ -1,27 +1,27 @@
-resource "unifi_network" "private_vlan" {
-    name        = "Private"
-    purpose     = "vlan-only"
-    subnet      = "10.10.10.0/24"
-    dhcp_dns    = ["10.10.10.1", "1.1.1.1", "1.0.0.1"]
-    dhcp_enabled = true
-    dhcp_start  = "10.10.10.50"
-    vlan_id     = 10
-}
+resource "unifi_port_forward" "cloudflare_http" {
+    for_each = toset([
+        "173.245.48.0/20",
+        "103.21.244.0/22",
+        "103.22.200.0/22",
+        "103.31.4.0/22",
+        "141.101.64.0/18",
+        "108.162.192.0/18",
+        "190.93.240.0/20",
+        "188.114.96.0/20",
+        "197.234.240.0/22",
+        "198.41.128.0/17",
+        "162.158.0.0/15",
+        "104.16.0.0/13",
+        "104.24.0.0/14",
+        "172.64.0.0/13",
+        "131.0.72.0/22"
+    ])
 
-resource "unifi_network" "public_vlan" {
-    name        = "Public"
-    purpose     = "vlan-only"
-    subnet      = "10.10.20.0/24"
-    dhcp_enabled = true
-    dhcp_start  = "10.10.20.100" # 0-39 for static ips, 40-99 for kube-lb
-    vlan_id     = 20
-}
-
-resource "unifi_network" "iot_vlan" {
-    name        = "IOT"
-    purpose     = "vlan-only"
-    subnet      = "10.10.30.0/24"
-    dhcp_enabled = true
-    dhcp_start  = "10.10.30.50"
-    vlan_id     = 30
+    name        = "cloudflare"
+    protocol    = "tcp_udp"
+    port_forward_interface  = "wan"
+    src_ip      = each.key
+    dst_port    = "443,80"
+    fwd_ip      = "10.10.20.40"
+    fwd_port    = "443,80"
 }
