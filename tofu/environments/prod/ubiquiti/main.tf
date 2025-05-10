@@ -81,6 +81,30 @@ resource "unifi_dns_record" "srv-plg-1" {
     record = "10.10.20.11"
 }
 
+resource "unifi_dns_record" "kube-pod-1" {
+    name   = "kube-prod-1.eggenberg.io"
+    type   = "A"
+    record = "10.10.20.21"
+}
+
+resource "unifi_dns_record" "kube-pod-2" {
+    name   = "kube-prod-2.eggenberg.io"
+    type   = "A"
+    record = "10.10.20.22"
+}
+
+resource "unifi_dns_record" "kube-pod-3" {
+    name   = "kube-prod-3.eggenberg.io"
+    type   = "A"
+    record = "10.10.20.23"
+}
+
+resource "unifi_dns_record" "kube" {
+    name   = "kube.eggenberg.io"
+    type   = "A"
+    record = "10.10.20.40"
+}
+
 resource "unifi_dns_record" "srv-plg-1_cname" {
 
     for_each = toset([
@@ -90,12 +114,6 @@ resource "unifi_dns_record" "srv-plg-1_cname" {
     name   = join(".", [each.key, "srv-plg-1.eggenberg.io"])
     type   = "CNAME"
     record = "srv-plg-1.eggenberg.io"
-}
-
-resource "unifi_dns_record" "kube" {
-    name   = "kube.eggenberg.io"
-    type   = "A"
-    record = "10.10.20.40"
 }
 
 resource "unifi_dns_record" "kube_cname" {
