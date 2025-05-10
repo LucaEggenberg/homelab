@@ -1,8 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: pterodactyl-read-secret
   namespace: default
+  name: read-decrypted-pterodactyl-secret
 rules:
 - apiGroups: [""]
   resources: ["secrets"]
@@ -12,7 +12,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: bind-pterodactyl-sa-secret
+  name: bind-pterodactyl-sa-to-decrypted-secret
   namespace: default
 subjects:
 - kind: ServiceAccount
@@ -20,5 +20,5 @@ subjects:
   namespace: pterodactyl
 roleRef:
   kind: Role
-  name: pterodactyl-read-secret
+  name: read-decrypted-pterodactyl-secret
   apiGroup: rbac.authorization.k8s.io
