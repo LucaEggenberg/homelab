@@ -1,33 +1,77 @@
 ### Network ###
 resource "unifi_network" "private_vlan" {
-    name        = "Private"
-    purpose     = "vlan-only"
-    subnet      = "10.10.10.0/24"
-    dhcp_dns    = ["10.10.10.1", "1.1.1.1", "1.0.0.1"]
-    dhcp_enabled = true
-    dhcp_start  = "10.10.10.50"
-    dhcp_stop   = "10.10.10.254"
-    vlan_id     = 1
+    # 6724ffec8a9cad6cf6065f50
+    name                = "Private"
+    dhcp_dns            = ["10.10.10.1", "1.1.1.1", "1.0.0.1"]
+    dhcp_relay_enabled  = false
+    dhcp_v6_dns         = []
+    dhcp_v6_enabled     = false
+    dhcp_v6_start       = "::2"
+    dhcp_v6_stop        = "::7d1"
+    dhcpd_boot_enabled   = false
+    igmp_snooping       = false
+    ipv6_pd_start       = "::2"
+    ipv6_pd_stop        = "::7d1"
+    ipv6_ra_enable      = true
+    ipv6_ra_priority    = "high"
+    ipv6_ra_valid_lifetime = 0
+    multicast_dns       = true
+    purpose             = "corporate"
+    subnet              = "10.10.10.0/24"
+    dhcp_enabled        = true
+    dhcp_start          = "10.10.10.50"
+    dhcp_stop           = "10.10.10.254"
+    vlan_id             = 0
 }
 
 resource "unifi_network" "public_vlan" {
-    name        = "Public"
-    purpose     = "vlan-only"
-    subnet      = "10.10.20.0/24"
-    dhcp_enabled = true
-    dhcp_start  = "10.10.20.100"
-    dhcp_stop   = "10.10.20.254"
-    vlan_id     = 2
+    # 6724ff5bf24a5f421b54136f
+    name                = "Public"
+    dhcp_dns            = []
+    dhcp_relay_enabled  = false
+    dhcp_v6_dns         = []
+    dhcp_v6_enabled     = false
+    dhcp_v6_start       = "::2"
+    dhcp_v6_stop        = "::7d1"
+    dhcpd_boot_enabled  = false
+    igmp_snooping       = false
+    ipv6_pd_start       = "::2"
+    ipv6_pd_stop        = "::7d1"
+    ipv6_ra_enable      = true
+    ipv6_ra_priority    = "high"
+    ipv6_ra_valid_lifetime = 0
+    multicast_dns       = false
+    purpose             = "corporate"
+    subnet              = "10.10.20.0/24"
+    dhcp_enabled        = true
+    dhcp_start          = "10.10.20.100"
+    dhcp_stop           = "10.10.20.254"
+    vlan_id             = 2
 }
 
 resource "unifi_network" "iot_vlan" {
-    name        = "Public"
-    purpose     = "vlan-only"
-    subnet      = "10.10.20.0/24"
-    dhcp_enabled = true
-    dhcp_start  = "10.10.30.50"
-    dhcp_stop   = "10.10.30.254"
-    vlan_id     = 3
+    # 672500a4f24a5f421b541389
+    name                = "IOT"
+    dhcp_dns            = []
+    dhcp_relay_enabled  = false
+    dhcp_v6_dns         = []
+    dhcp_v6_enabled     = false
+    dhcp_v6_start       = "::2"
+    dhcp_v6_stop        = "::7d1"
+    dhcpd_boot_enabled   = false
+    igmp_snooping       = false
+    ipv6_pd_start       = "::2"
+    ipv6_pd_stop        = "::7d1"
+    ipv6_ra_enable      = true
+    ipv6_ra_priority    = "high"
+    ipv6_ra_valid_lifetime = 0
+    multicast_dns       = true
+    purpose             = "corporate"
+    subnet              = "10.10.30.0/24"
+    dhcp_enabled        = true
+    dhcp_start          = "10.10.30.50"
+    dhcp_stop           = "10.10.30.254"
+    vlan_id             = 3
 }
 
 ### Dns-Entries ###
