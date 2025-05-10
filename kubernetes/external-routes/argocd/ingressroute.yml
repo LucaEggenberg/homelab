@@ -7,7 +7,7 @@ spec:
   entryPoints:
   - websecure
   routes:
-  - match: Host(`argocd.kube.eggenberg.io.io`)
+  - match: Host(`argocd.kube.eggenberg.io`)
     kind: Rule
     services:
     - name: argocd-server
