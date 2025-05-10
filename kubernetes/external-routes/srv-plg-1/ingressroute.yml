@@ -6,7 +6,7 @@ spec:
   entryPoints:
   - websecure
   routes:
-  - match: "Host(`*.srv-plg-1.eggenberg.io`) || Host(`game.eggenberg.io`)"
+  - match: Host(`game.eggenberg.io`)
     kind: Rule
     services:
     - name: srv-plg-1
