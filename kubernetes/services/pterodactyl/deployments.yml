@@ -48,11 +48,13 @@ spec:
               secretKeyRef:
                 key: DB_PASSWORD
                 name: pterodactyl-secret
+                namespace: default
           - name: MYSQL_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
                 key: DB_ROOT_PASSWORD
                 name: pterodactyl-secret
+                namespace: default
           - name: MYSQL_USER
             value: pterodactyl
         args:
@@ -111,6 +113,7 @@ spec:
               secretKeyRef:
                 key: DB_PASSWORD
                 name: pterodactyl-secret
+                namespace: default
           - name: DB_PORT
             value: "3306"
           - name: QUEUE_DRIVER
