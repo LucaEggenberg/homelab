@@ -9,8 +9,16 @@ spec:
   routes:
   - match: Host(`argocd.kube.eggenberg.io`)
     kind: Rule
+    priority: 10
     services:
     - name: argocd-server
-      port: 443
+      port: 80
+  - match: Host(`argocd.kube.eggenberg.io`) && Header(`Content-Type`, `application/grpc`)
+    kind: Rule
+    priority: 11
+    services:
+      - name: argocd-server
+        port: 80
+        scheme: h2c
   tls:
     secretName: argocd-certificate-secret
