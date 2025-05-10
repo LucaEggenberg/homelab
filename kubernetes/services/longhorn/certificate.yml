@@ -9,4 +9,4 @@ spec:
     name: cloudflare-clusterissuer
     kind: ClusterIssuer
   dnsNames:
-  - longhorn.eggenberg.io
+  - longhorn.kube.eggenberg.io
