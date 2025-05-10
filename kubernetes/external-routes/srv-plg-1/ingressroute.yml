@@ -6,6 +6,11 @@ spec:
   entryPoints:
   - websecure
   routes:
+  - match: Host(`*.srv-plg-1.eggenberg.io`)
+    kind: Rule
+    services:
+    - name: srv-plg-1
+      port: 443
   - match: Host(`game.eggenberg.io`)
     kind: Rule
     services:

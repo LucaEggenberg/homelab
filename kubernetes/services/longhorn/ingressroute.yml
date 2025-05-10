@@ -7,7 +7,7 @@ spec:
   entryPoints:
   - websecure
   routes:
-  - match: Host(`longhorn.eggenberg.io`)
+  - match: Host(`longhorn.kube.eggenberg.io`)
     kind: Rule
     services:
     - name: longhorn-frontend

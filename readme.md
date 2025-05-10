@@ -11,10 +11,9 @@ Exploring the world of IT-Infrastructure and expanding my knowledge this reposit
 ## `/tofu` ![terraform](https://img.shields.io/badge/Terraform-0F2733?&style=plasticc&logo=terraform&logoColor=844FBA) ![opentofu](https://img.shields.io/badge/OpenTofu-0F2733?&style=plasticc&logo=opentofu&logoColor=F0CD13)
 Contains OpenTofu configurations for managing infrastructure components:
 
--   Network definitions
-    - VLans
-    - Port-forwards
--   DNS configurations 
+- Network definitions
+- Port-forwards
+- DNS configurations 
 
 ### Usage
 1. initialize `tofu init`
