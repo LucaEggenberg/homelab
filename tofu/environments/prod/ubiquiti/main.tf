@@ -5,19 +5,19 @@ resource "unifi_dns_record" "srv-plg-1" {
     record = "10.10.20.11"
 }
 
-resource "unifi_dns_record" "kube-pod-1" {
+resource "unifi_dns_record" "kube-prod-1" {
     name   = "kube-prod-1.eggenberg.io"
     type   = "A"
     record = "10.10.20.21"
 }
 
-resource "unifi_dns_record" "kube-pod-2" {
+resource "unifi_dns_record" "kube-prod-2" {
     name   = "kube-prod-2.eggenberg.io"
     type   = "A"
     record = "10.10.20.22"
 }
 
-resource "unifi_dns_record" "kube-pod-3" {
+resource "unifi_dns_record" "kube-prod-3" {
     name   = "kube-prod-3.eggenberg.io"
     type   = "A"
     record = "10.10.20.23"
