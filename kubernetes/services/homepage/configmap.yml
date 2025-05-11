@@ -47,7 +47,7 @@ data:
         - Argocd:
             icon: argo-cd.svg
             href: https://argocd.kube.eggenberg.io
-            description: k8s gitobs
+            description: k8s gitops
         - Longhorn:
             icon: longhorn.svg
             href: https://longhorn.kube.eggenberg.io
@@ -63,7 +63,7 @@ data:
         - Flaresolverr:
             icon: flaresolverr.svg
             href: https:flaresolverr.kube.eggenberg.io
-            description: 
+            description: proxy bypass
     - Monitoring:
         - Coming soon:
             href: http://localhost/
