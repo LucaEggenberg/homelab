@@ -58,11 +58,11 @@ data:
             description: game panel
         - Qbittorrent:
             icon: qbittorrent.svg
-            href: https://sonarr.kube.eggenberg.io
-            description: show organizer
+            href: https://qbittorrent.kube.eggenberg.io
+            description: torrent client
         - Flaresolverr:
             icon: flaresolverr.svg
-            href: https:flaresolverr.kube.eggenberg.io
+            href: https://flaresolverr.kube.eggenberg.io
             description: proxy bypass
     - Monitoring:
         - Coming soon:
