@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: flaresolverr-ingressroute-certificate
-  namespace: jellyfin
+  namespace: media
 spec:
   secretName: flaresolverr-certificate-secret
   issuerRef:
