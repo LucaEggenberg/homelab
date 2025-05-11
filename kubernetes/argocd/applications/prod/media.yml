@@ -8,6 +8,8 @@ spec:
     repoURL: https://github.com/LucaEggenberg/HomeLab
     path: kubernetes/services/media
     targetRevision: HEAD
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: media
