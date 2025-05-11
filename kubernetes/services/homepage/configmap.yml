@@ -45,7 +45,7 @@ data:
         
     - Management:
         - Argocd:
-            icon: argocd.svg
+            icon: argo-cd.svg
             href: https://argocd.kube.eggenberg.io
             description: k8s gitobs
         - Longhorn:
@@ -63,6 +63,7 @@ data:
         - Flaresolverr:
             icon: flaresolverr.svg
             href: https:flaresolverr.kube.eggenberg.io
+            description: 
     - Monitoring:
         - Coming soon:
             href: http://localhost/
