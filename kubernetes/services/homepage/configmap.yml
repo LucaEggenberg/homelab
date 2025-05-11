@@ -8,11 +8,11 @@ metadata:
 data:
   kubernetes.yaml: |
     mode: cluster
-  settings.yaml: ""
-  #settings.yaml: |
-  #  providers:
-  #    longhorn:
-  #      url: https://longhorn.my.network
+  # settings.yaml: ""
+  settings.yaml: |
+   providers:
+     longhorn:
+       url: https://longhorn.kube.eggenberg.io
   custom.css: ""
   custom.js: ""
   bookmarks.yaml: |
