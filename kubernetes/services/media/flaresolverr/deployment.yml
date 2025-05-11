@@ -20,7 +20,7 @@ spec:
             protocol: TCP
         env:
           - name: "LOG_HTML"
-            value: false
+            value: "false"
           - name: "CAPTCHA_SOLVER"
             value: "none"
       restartPolicy: Always
