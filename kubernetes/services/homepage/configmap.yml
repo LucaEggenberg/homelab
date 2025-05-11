@@ -30,16 +30,43 @@ data:
             icon: jellyseerr.svg
             href: https://jellyseerr.eggenberg.io
             description: Download queue
-            
-    - My Second Group:
-        - My Second Service:
+        - Prowlarr:
+            icon: prowlarr.svg
+            href: https://prowlarr.kube.eggenberg.io
+            description: indexer
+        - Radarr:
+            icon: radarr.svg
+            href: https://radarr.kube.eggenberg.io
+            description: movie organizer
+        - Sonarr:
+            icon: sonarr.svg
+            href: https://sonarr.kube.eggenberg.io
+            description: show organizer
+        
+    - Management:
+        - Argocd:
+            icon: argocd.svg
+            href: https://argocd.kube.eggenberg.io
+            description: k8s gitobs
+        - Longhorn:
+            icon: longhorn.svg
+            href: https://longhorn.kube.eggenberg.io
+            description: k8s storage
+        - Pterodactyl
+            icon: pterodactyl.svg
+            href: https://pterodactyl.eggenberg.io
+            description: game panel
+        - Qbittorrent:
+            icon: qbittorrent.svg
+            href: https://sonarr.kube.eggenberg.io
+            description: show organizer
+        - Flaresolverr:
+            icon: flaresolverr.svg
+            href: https:flaresolverr.kube.eggenberg.io
+    - Monitoring:
+        - Coming soon:
             href: http://localhost/
-            description: Homepage is the best
-
-    - My Third Group:
-        - My Third Service:
-            href: http://localhost/
-            description: Homepage is 😎
+            description: Loading...
   widgets.yaml: |
     - kubernetes:
         cluster:
