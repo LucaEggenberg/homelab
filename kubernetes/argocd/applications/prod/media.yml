@@ -1,16 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: jellyfin
+  name: media
 spec:
   project: default
   source:
     repoURL: https://github.com/LucaEggenberg/HomeLab
-    path: kubernetes/services/jellyfin
+    path: kubernetes/services/media
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: jellyfin
+    namespace: media
   syncPolicy:
     automated: {}
     syncOptions:
