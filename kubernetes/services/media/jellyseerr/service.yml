@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jellyseerr
+  namespace: jellyfin 
+spec:
+  ports:
+  - name: web
+    port: 5050
+  selector:
+    app: jellyseerr

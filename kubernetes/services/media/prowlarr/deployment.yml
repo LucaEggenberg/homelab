@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prowlarr
+spec:
+  selector: 
+    matchLabels:
+      app: prowlarr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: prowlarr
+    spec:
+      containers:
+      - image: lscr.io/linuxserver/prowlarr:latest
+        name: prowlarr
+        ports:
+          - containerPort: 9696
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /config
+            name: smb
+            subPath: arrstack/prowlarr
+          - mountPath: /media
+            name: smb
+      volumes:
+        - name: smb
+          persistentVolumeClaim:
+            claimName: jellyfin-smb-pvc
+      restartPolicy: Always

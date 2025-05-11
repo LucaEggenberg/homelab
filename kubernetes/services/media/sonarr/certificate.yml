@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: sonarr-ingressroute-certificate
+  namespace: jellyfin
+spec:
+  secretName: sonarr-certificate-secret
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+  - sonarr.kube.eggenberg.io

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: radarr
+spec:
+  selector: 
+    matchLabels:
+      app: radarr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: radarr
+    spec:
+      containers:
+      - image: lscr.io/linuxserver/radarr:latest
+        name: radarr
+        ports:
+          - containerPort: 7878
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /config
+            name: smb
+            subPath: arrstack/radarr
+          - mountPath: /media
+            name: smb
+      volumes:
+        - name: smb
+          persistentVolumeClaim:
+            claimName: jellyfin-smb-pvc
+      restartPolicy: Always

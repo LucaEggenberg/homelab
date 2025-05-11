@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: flaresolverr-ingressroute
+  namespace: jellyfin
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: Host(`flaresolverr.kube.eggenberg.io`)
+    kind: Rule
+    services:
+    - name: flaresolverr
+      port: 8096
+  tls:
+    secretName: flaresolverr-certificate-secret

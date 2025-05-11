@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+spec:
+  selector: 
+    matchLabels:
+      app: sonarr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      containers:
+      - image: lscr.io/linuxserver/sonarr:latest
+        name: sonarr
+        ports:
+          - containerPort: 8989
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /config
+            name: smb
+            subPath: arrstack/sonarr
+          - mountPath: /media
+            name: smb
+      volumes:
+        - name: smb
+          persistentVolumeClaim:
+            claimName: jellyfin-smb-pvc
+      restartPolicy: Always

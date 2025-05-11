@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jellyseerr
+spec:
+  selector: 
+    matchLabels:
+      app: jellyseerr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jellyseerr
+    spec:
+      containers:
+      - image: fallenbagel/jellyseerr:latest
+        name: jellyseerr
+        ports:
+          - containerPort: 5055
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /app/config
+            name: smb
+            subPath: arrstack/jellyseerr
+      volumes:
+        - name: smb
+          persistentVolumeClaim:
+            claimName: jellyfin-smb-pvc
+      restartPolicy: Always

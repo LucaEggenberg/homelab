@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qbittorrent
+spec:
+  selector: 
+    matchLabels:
+      app: qbittorrent
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: qbittorrent
+    spec:
+      containers:
+      - image: lscr.io/linuxserver/qbittorrent:latest
+        name: qbittorrent
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /config
+            name: smb
+            subPath: arrstack/qbittorrent
+          - mountPath: /media
+            name: smb
+      volumes:
+        - name: smb
+          persistentVolumeClaim:
+            claimName: jellyfin-smb-pvc
+      restartPolicy: Always
