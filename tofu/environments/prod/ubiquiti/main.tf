@@ -5,6 +5,12 @@ resource "unifi_dns_record" "srv-plg-1" {
     record = "10.10.20.11"
 }
 
+resource "unifi_dns_record" "storage" {
+    name   = "storage.eggenberg.io"
+    type   = "A"
+    record = "10.10.10.20"
+}
+
 resource "unifi_dns_record" "kube-prod-1" {
     name   = "kube-prod-1.eggenberg.io"
     type   = "A"
@@ -27,6 +33,12 @@ resource "unifi_dns_record" "kube" {
     name   = "kube.eggenberg.io"
     type   = "A"
     record = "10.10.20.40"
+}
+
+resource "unifi_dns_record" "homepage" {
+    name   = "home.eggenberg.io"
+    type   = "CNAME"
+    record = "kube.eggenberg.io"
 }
 
 resource "unifi_dns_record" "srv-plg-1_cname" {

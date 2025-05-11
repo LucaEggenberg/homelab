@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: homepages
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/LucaEggenberg/HomeLab
+    path: kubernetes/services/homepage
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: homepage
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
