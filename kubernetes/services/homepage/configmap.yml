@@ -52,7 +52,7 @@ data:
             icon: longhorn.svg
             href: https://longhorn.kube.eggenberg.io
             description: k8s storage
-        - Pterodactyl
+        - Pterodactyl:
             icon: pterodactyl.svg
             href: https://pterodactyl.eggenberg.io
             description: game panel
