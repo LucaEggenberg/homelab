@@ -6,6 +6,6 @@ metadata:
 spec:
   ports:
   - name: web
-    port: 5050
+    port: 5055
   selector:
     app: jellyseerr

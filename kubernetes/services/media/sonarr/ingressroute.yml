@@ -11,6 +11,6 @@ spec:
     kind: Rule
     services:
     - name: sonarr
-      port: 7878
+      port: 8989
   tls:
     secretName: sonarr-certificate-secret

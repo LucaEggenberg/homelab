@@ -11,6 +11,6 @@ spec:
     kind: Rule
     services:
     - name: flaresolverr
-      port: 8096
+      port: 8191
   tls:
     secretName: flaresolverr-certificate-secret

@@ -5,7 +5,7 @@ metadata:
   namespace: media 
 spec:
   ports:
-  - name: gui
+  - name: web
     port: 8080
   - name: web-tcp
     port: 6881
