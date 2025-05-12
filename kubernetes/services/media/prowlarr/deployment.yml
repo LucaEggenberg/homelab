@@ -21,7 +21,6 @@ spec:
         volumeMounts:
           - mountPath: /config
             name: arrstack
-            subPath: prowlarr
           - mountPath: /media
             name: smb
       volumes:
@@ -30,5 +29,5 @@ spec:
             claimName: jellyfin-smb-pvc
         - name: arrstack
           persistentVolumeClaim:
-            claimName: arrstack-pvc
+            claimName: prowlarr-pvc
       restartPolicy: Always

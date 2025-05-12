@@ -21,9 +21,8 @@ spec:
         volumeMounts:
           - mountPath: /app/config
             name: arrstack
-            subPath: jellyseerr
       volumes:
         - name: arrstack
           persistentVolumeClaim:
-            claimName: arrstack-pvc
+            claimName: jellyseerr-pvc
       restartPolicy: Always
