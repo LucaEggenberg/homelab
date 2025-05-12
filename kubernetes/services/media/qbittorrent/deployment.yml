@@ -30,6 +30,28 @@ spec:
             name: arrstack
           - mountPath: /media
             name: smb
+      - image: qmcgaw/gluetun
+        name: gluetun
+        env:
+          - name: VPN_SERVICE_PROVIDER
+            value: "private internet access"
+          - name: OPENVPN_USER
+            valueFrom:
+              secretKeyRef:
+                key: PIA_USER
+                name: pia-secrets
+          - name: OPENVPN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: PIA_PASSWORD
+                name: pia-secrets
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+        volumeMounts:
+        - mountPath: /gluetun
+          name: gluetun
       volumes:
         - name: smb
           persistentVolumeClaim:
@@ -37,4 +59,7 @@ spec:
         - name: arrstack
           persistentVolumeClaim:
             claimName: qbittorrent-pvc
+        - name: gluetun
+          persistentVolumeClaim:
+            claimName: gluetun-pvc
       restartPolicy: Always
