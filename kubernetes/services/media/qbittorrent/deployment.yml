@@ -20,12 +20,15 @@ spec:
             protocol: TCP
         volumeMounts:
           - mountPath: /config
-            name: smb
-            subPath: arrstack/qbittorrent
+            name: arrstack
+            subPath: qbittorrent
           - mountPath: /media
             name: smb
       volumes:
         - name: smb
           persistentVolumeClaim:
             claimName: jellyfin-smb-pvc
+        - name: arrstack
+          persistentVolumeClaim:
+            claimName: arrstack-pvc
       restartPolicy: Always

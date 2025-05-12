@@ -20,10 +20,10 @@ spec:
             protocol: TCP
         volumeMounts:
           - mountPath: /app/config
-            name: smb
-            subPath: arrstack/jellyseerr
+            name: arrstack
+            subPath: jellyseerr
       volumes:
-        - name: smb
+        - name: arrstack
           persistentVolumeClaim:
-            claimName: jellyfin-smb-pvc
+            claimName: arrstack-pvc
       restartPolicy: Always
