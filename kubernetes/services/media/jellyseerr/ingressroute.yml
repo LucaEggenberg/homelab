@@ -7,7 +7,7 @@ spec:
   entryPoints:
   - websecure
   routes:
-  - match: Host(`jellyseerr.kube.eggenberg.io`)
+  - match: Host(`jellyseerr.eggenberg.io`)
     kind: Rule
     services:
     - name: jellyseerr

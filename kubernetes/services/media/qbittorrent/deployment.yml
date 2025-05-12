@@ -17,7 +17,14 @@ spec:
         name: qbittorrent
         ports:
           - containerPort: 8080
+            name: web
             protocol: TCP
+          - containerPort: 6881
+            name: web-tcp
+            protocol: TCP
+          - containerPort: 6881
+            name: web-udp
+            protocol: UDP
         volumeMounts:
           - mountPath: /config
             name: arrstack

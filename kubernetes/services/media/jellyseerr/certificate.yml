@@ -9,4 +9,4 @@ spec:
     name: cloudflare-clusterissuer
     kind: ClusterIssuer
   dnsNames:
-  - jellyseerr.kube.eggenberg.io
+  - jellyseerr.eggenberg.io
