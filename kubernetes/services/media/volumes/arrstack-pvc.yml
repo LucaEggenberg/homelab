@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: jellyserr-pvc
+  name: jellyseerr-pvc
 spec:
   storageClassName: longhorn
   accessModes:
