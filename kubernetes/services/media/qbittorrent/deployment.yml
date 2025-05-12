@@ -35,6 +35,8 @@ spec:
         env:
           - name: VPN_SERVICE_PROVIDER
             value: "private internet access"
+          - name: SERVER_REGIONS
+            value: "Switzerland"
           - name: OPENVPN_USER
             valueFrom:
               secretKeyRef:
