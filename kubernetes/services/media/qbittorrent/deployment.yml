@@ -34,26 +34,20 @@ spec:
         name: gluetun
         env:
           - name: VPN_SERVICE_PROVIDER
-            value: "private internet access"
-          - name: SERVER_REGIONS
+            value: "protonvpn"
+          - name: SERVER_COUNTRIES
             value: "Switzerland"
-          - name: OPENVPN_USER
+          - name: VPN_TYPE
+            value: "wireguard"
+          - name: WIREGUARD_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
-                key: PIA_USER
-                name: pia-secrets
-          - name: OPENVPN_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: PIA_PASSWORD
-                name: pia-secrets
+                key: WIREGUARD_PRIVATE_KEY
+                name: proton-secrets
         securityContext:
           capabilities:
             add:
               - NET_ADMIN
-        volumeMounts:
-        - mountPath: /gluetun
-          name: gluetun
       volumes:
         - name: smb
           persistentVolumeClaim:
@@ -61,7 +55,4 @@ spec:
         - name: arrstack
           persistentVolumeClaim:
             claimName: qbittorrent-pvc
-        - name: gluetun
-          persistentVolumeClaim:
-            claimName: gluetun-pvc
       restartPolicy: Always
