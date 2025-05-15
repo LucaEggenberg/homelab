@@ -30,24 +30,6 @@ spec:
             name: arrstack
           - mountPath: /media
             name: smb
-      - image: qmcgaw/gluetun
-        name: gluetun
-        env:
-          - name: VPN_SERVICE_PROVIDER
-            value: "protonvpn"
-          - name: SERVER_COUNTRIES
-            value: "Switzerland"
-          - name: VPN_TYPE
-            value: "wireguard"
-          - name: WIREGUARD_PRIVATE_KEY
-            valueFrom:
-              secretKeyRef:
-                key: WIREGUARD_PRIVATE_KEY
-                name: proton-secrets
-        securityContext:
-          capabilities:
-            add:
-              - NET_ADMIN
       volumes:
         - name: smb
           persistentVolumeClaim:
