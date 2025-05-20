@@ -43,10 +43,6 @@ spec:
               secretKeyRef:
                 key: WIREGUARD_PRIVATE_KEY
                 name: proton-secrets
-          - name: VPN_PORT_FORWARDING
-            value: on
-          - name: VPN_PORT_FORWARDING_PROVIDER
-            value: protonvpn
         volumeMounts:
           - name: tun
             mountPath: /dev/net/tun
