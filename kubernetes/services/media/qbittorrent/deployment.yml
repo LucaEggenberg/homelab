@@ -33,11 +33,13 @@ spec:
         
       - image: qmcgaw/gluetun
         name: gluetun
+        devices:
+          - /dev/net/tun:/dev/net/tun
         env:
           - name: VPN_SERVICE_PROVIDER
-            value: "protonvpn"
+            value: protonvpn
           - name: VPN_TYPE
-            value: "wireguard"
+            value: wireguard
           - name: WIREGUARD_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
