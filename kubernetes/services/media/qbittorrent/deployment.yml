@@ -40,6 +40,8 @@ spec:
             value: wireguard
           - name: VPN_PORT_FORWARDING
             value: "on"
+          - name: WIREGUARD_MTU
+            value: "1410"
           - name: WIREGUARD_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
