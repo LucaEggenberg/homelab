@@ -38,6 +38,8 @@ spec:
             value: protonvpn
           - name: VPN_TYPE
             value: wireguard
+          - name: VPN_PORT_FORWARDING
+            value: "on"
           - name: WIREGUARD_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
