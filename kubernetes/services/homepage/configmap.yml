@@ -29,7 +29,7 @@ data:
         - Jellyseerr:
             icon: jellyseerr.svg
             href: https://jellyseerr.eggenberg.io
-            description: Download queue
+            description: Queue Downloads
         - Prowlarr:
             icon: prowlarr.svg
             href: https://prowlarr.kube.eggenberg.io
@@ -42,7 +42,11 @@ data:
             icon: sonarr.svg
             href: https://sonarr.kube.eggenberg.io
             description: show organizer
-        
+        - Qbittorrent:
+            icon: qbittorrent.svg
+            href: https://qbittorrent.kube.eggenberg.io
+            description: torrent client
+
     - Management:
         - Argocd:
             icon: argo-cd.svg
@@ -52,22 +56,22 @@ data:
             icon: longhorn.svg
             href: https://longhorn.kube.eggenberg.io
             description: k8s storage
-        - Pterodactyl:
-            icon: pterodactyl.svg
-            href: https://pterodactyl.eggenberg.io
-            description: game panel
-        - Qbittorrent:
-            icon: qbittorrent.svg
-            href: https://qbittorrent.kube.eggenberg.io
-            description: torrent client
-        - Flaresolverr:
-            icon: flaresolverr.svg
-            href: https://flaresolverr.kube.eggenberg.io
-            description: proxy bypass
+        - Kestra:
+            icon: kestra.svg
+            href: https://kestra.kube.eggenberg.io
+            description: declarative workflow orchestration
+        
+        
     - Monitoring:
         - Coming soon:
             href: http://localhost/
             description: Loading...
+          
+    - Apps:
+        - Pterodactyl:
+            icon: pterodactyl.svg
+            href: https://pterodactyl.eggenberg.io
+            description: game panel
   widgets.yaml: |
     - kubernetes:
         cluster:
