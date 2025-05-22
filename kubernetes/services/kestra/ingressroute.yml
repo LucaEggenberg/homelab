@@ -10,6 +10,7 @@ spec:
   - match: Host(`kestra.kube.eggenberg.io`)
     kind: Rule
     services:
-    
+    - name: kestra-service
+      port: 8080
   tls:
     secretName: kestra-certificate-secret
