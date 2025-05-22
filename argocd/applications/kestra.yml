@@ -1,16 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pterodactyl
+  name: kestra
+  namespace: argocd
 spec:
   project: default
-  source:
+  sources:
+  - repoURL: https://helm.kestra.io/
+    chart: kestra
+    targetRevision: 0.22.4
+    helm:
+      valueFiles:
+        - $values/applications/kubernetes/kestra/helm-values.yml
+  - path: applications/kubernetes/kestra
     repoURL: https://github.com/LucaEggenberg/HomeLab
-    path: kubernetes/services/pterodactyl
     targetRevision: HEAD
+    ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: pterodactyl
+    namespace: kestra
   syncPolicy:
     automated: {}
     syncOptions:

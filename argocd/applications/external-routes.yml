@@ -6,7 +6,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/LucaEggenberg/HomeLab
-    path: kubernetes/external-routes
+    path: applications/kubernetes/external-routes
     targetRevision: HEAD
     directory:
       recurse: true

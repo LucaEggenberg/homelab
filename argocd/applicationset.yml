@@ -20,7 +20,7 @@ spec:
       source:
         repoURL: https://github.com/LucaEggenberg/HomeLab
         targetRevision: HEAD
-        path: kubernetes/argocd/applications/{{.cluster}}
+        path: argocd/applications
       destination:
         server: '{{.url}}'
         namespace: argocd

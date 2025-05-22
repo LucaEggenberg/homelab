@@ -1,18 +1,20 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: homepage
+  name: media
 spec:
   project: default
   source:
     repoURL: https://github.com/LucaEggenberg/HomeLab
-    path: kubernetes/services/homepage
+    path: applications/kubernetes/media
     targetRevision: HEAD
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: homepage
+    namespace: media
   syncPolicy:
     automated: {}
     syncOptions:
-      - Replace=true
       - CreateNamespace=true
+

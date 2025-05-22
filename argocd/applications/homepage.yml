@@ -1,25 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kestra
-  namespace: argocd
+  name: homepage
 spec:
   project: default
-  sources:
-  - repoURL: https://helm.kestra.io/
-    chart: kestra
-    targetRevision: 0.22.4
-    helm:
-      valueFiles:
-        - $values/kubernetes/services/kestra/helm-values.yml
-  - path: kubernetes/services/kestra
+  source:
     repoURL: https://github.com/LucaEggenberg/HomeLab
+    path: applications/kubernetes/homepage
     targetRevision: HEAD
-    ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: kestra
+    namespace: homepage
   syncPolicy:
     automated: {}
     syncOptions:
+      - Replace=true
       - CreateNamespace=true

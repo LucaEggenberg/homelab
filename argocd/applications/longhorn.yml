@@ -1,24 +1,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sealed-secrets
+  name: longhorn
   namespace: argocd
 spec:
   project: default
   sources:
-  - repoURL: https://bitnami-labs.github.io/sealed-secrets
-    chart: sealed-secrets
-    targetRevision: 2.17.2
+  - repoURL: https://charts.longhorn.io
+    chart: longhorn
+    targetRevision: v1.8.1
     helm:
       valueFiles:
-        - $values/kubernetes/services/sealed-secrets/helm-values.yml
-  - path: kubernetes/services/sealed-secrets/
+        - $values/applications/kubernetes/longhorn/helm-values.yml
+  - path: applications/kubernetes/longhorn
     repoURL: https://github.com/LucaEggenberg/HomeLab
     targetRevision: HEAD
     ref: values
   destination:
     server: https://kubernetes.default.svc
-    namespace: kube-system
+    namespace: longhorn-system
   syncPolicy:
     automated: {}
     syncOptions:
