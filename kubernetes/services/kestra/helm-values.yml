@@ -1,5 +1,11 @@
-deployments:
-  standalone:
-    dind:
-      enabled: true
-      rootless: false
+dind:
+  image:
+    tag: dind
+  args:
+    - --log-level=fatal
+  securityContext:
+    runAsUser: 0
+    runAsGroup: 0
+securityContext:
+  runAsUser: 0
+  runAsGroup: 0
