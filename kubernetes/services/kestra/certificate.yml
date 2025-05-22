@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kestra-ingressroute-certificate
+  namespace: kestra
+spec:
+  secretName: kestra-certificate-secret
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+  - kestra.kube.eggenberg.io
