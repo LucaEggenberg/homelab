@@ -1,0 +1,5 @@
+deployments:
+  standalone:
+    dind:
+      enabled: true
+      rootless: false
