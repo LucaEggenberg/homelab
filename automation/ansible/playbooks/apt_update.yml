@@ -1,0 +1,11 @@
+- name: Apt Update and upgrade
+  hosts: ubuntu_servers
+  become: yes
+  tasks:
+    - name: Run apt update
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Run apt upgrade
+      ansible.builtin.apt:
+        upgrade: yes
