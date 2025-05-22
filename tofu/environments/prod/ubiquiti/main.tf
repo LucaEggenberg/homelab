@@ -61,7 +61,8 @@ resource "unifi_dns_record" "kube_cname" {
         "sonarr",
         "radarr",
         "flaresolverr",
-        "qbittorrent"
+        "qbittorrent",
+        "kestra"
     ])
 
     name   = join(".", [each.key, "kube.eggenberg.io"])
