@@ -62,7 +62,7 @@ spec:
         env:
           - name: DNS_ADDRESSES
             value: "1.1.1.1,1.0.0.1"
-          - name: DNS_OVER_TLS
+          - name: DOT
             value: "off"
           - name: VPN_SERVICE_PROVIDER
             value: protonvpn
