@@ -1,55 +1,80 @@
-### Dns-Entries ###
+### DHCP & DNS ###
 locals {
   base_domain = "eggenberg.io"
 
-  a_records = {
-    "srv-plg-1"   = "10.10.20.11"
-    "storage"     = "10.10.10.20"
-    "kube-prod-1" = "10.10.20.21"
-    "kube-prod-2" = "10.10.20.22"
-    "kube-prod-3" = "10.10.20.23"
-    "kube"        = "10.10.20.40"
+  homelab_servers = {
+    "srv-plg-1" = {
+      ip          = "10.10.20.11"
+      mac = "00:11:22:33:44:55"
+      cnames = ["gameserver"]
+    }
+    "strg-prod-1" = {
+      ip          = "10.10.10.20"
+      mac = "AA:BB:CC:DD:EE:FF"
+    }
+    "kube-prod-1" = {
+      ip          = "10.10.20.21"
+      mac = "11:22:33:44:55:66"
+    }
+    "kube-prod-2" = {
+      ip          = "10.10.20.22"
+      mac = "22:33:44:55:66:77"
+    }
+    "kube-prod-3" = {
+      ip          = "10.10.20.23"
+      mac = "33:44:55:66:77:88"
+    }
+    "kube" = { # LB
+      ip          = "10.10.20.40"
+      cnames = [
+        "argocd",
+        "longhorn",
+        "prowlarr",
+        "sonarr",
+        "radarr",
+        "flaresolverr",
+        "qbittorrent",
+        "kestra"
+      ]
+    }
   }
-
-  srv_plg_1_cnames = toset([
-    "gameserver"
-  ])
-
-  kube_cnames = toset([
-    "argocd",
-    "longhorn",
-    "prowlarr",
-    "sonarr",
-    "radarr",
-    "flaresolverr",
-    "qbittorrent",
-    "home",
-    "kestra"
-  ])
 }
 
+# DNS entry for every server
 resource "unifi_dns_record" "a_records" {
-  for_each = local.a_records
+  for_each = local.homelab_servers
 
   name   = "${each.key}.${local.base_domain}"
   type   = "A"
   record = each.value
 }
 
-resource "unifi_dns_record" "srv_plg_1_cname" {
-  for_each = local.srv_plg_1_cnames
-
-  name   = "${each.key}.srv-plg-1.${local.base_domain}"
+# Generate CNAME records if defined
+resource "unifi_dns_record" "cnames" {
+  for_each = {
+    for server_name, server_data in local.homelab_servers :
+    server_name => [
+      for cname in (lookup(server_data, "cnames", [])) : {
+        host_name = server_name
+        cname     = cname
+      }
+    ]
+    if lookup(server_data, "cnames", []) != []
+  }
+  
+  name   = "${each.value.cname}.${each.value.host_name}.${local.base_domain}"
   type   = "CNAME"
-  record = "srv-plg-1.${local.base_domain}"
+  record = "${each.value.host_name}.${local.base_domain}"
 }
 
-resource "unifi_dns_record" "kube_cname" {
-  for_each = local.kube_cnames
-
-  name   = "${each.key}.kube.${local.base_domain}"
-  type   = "CNAME"
-  record = "kube.${local.base_domain}"
+resource "unifi_device" "devices" {
+    for_each = {
+        for k, v in locals.homelab_servers : k => v
+        if contains(keys(v), "mac")
+    } 
+    
+    mac = each.value.mac
+    name = each.key
 }
 
 ### Port-Forwards ###
