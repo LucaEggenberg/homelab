@@ -4,28 +4,27 @@ locals {
 
   homelab_servers = {
     "srv-plg-1" = {
-      ip          = "10.10.20.11"
-      mac = "00:11:22:33:44:55"
+      ip     = "10.10.20.11"
       cnames = ["gameserver"]
     }
     "strg-prod-1" = {
-      ip          = "10.10.10.20"
-      mac = "AA:BB:CC:DD:EE:FF"
+      ip     = "10.10.10.20"
+      cnames = []
     }
     "kube-prod-1" = {
-      ip          = "10.10.20.21"
-      mac = "11:22:33:44:55:66"
+      ip     = "10.10.20.21"
+      cnames = []
     }
     "kube-prod-2" = {
-      ip          = "10.10.20.22"
-      mac = "22:33:44:55:66:77"
+      ip     = "10.10.20.22"
+      cnames = []
     }
     "kube-prod-3" = {
-      ip          = "10.10.20.23"
-      mac = "33:44:55:66:77:88"
+      ip     = "10.10.20.23"
+      cnames = []
     }
     "kube" = { # LB
-      ip          = "10.10.20.40"
+      ip = "10.10.20.40"
       cnames = [
         "argocd",
         "longhorn",
@@ -54,27 +53,17 @@ resource "unifi_dns_record" "cnames" {
   for_each = {
     for server_name, server_data in local.homelab_servers :
     server_name => [
-      for cname in (lookup(server_data, "cnames", [])) : {
+      for cname in(lookup(server_data, "cnames", [])) : {
         host_name = server_name
         cname     = cname
       }
     ]
     if lookup(server_data, "cnames", []) != []
   }
-  
+
   name   = "${each.value.cname}.${each.value.host_name}.${local.base_domain}"
   type   = "CNAME"
   record = "${each.value.host_name}.${local.base_domain}"
-}
-
-resource "unifi_device" "devices" {
-    for_each = {
-        for k, v in locals.homelab_servers : k => v
-        if contains(keys(v), "mac")
-    } 
-    
-    mac = each.value.mac
-    name = each.key
 }
 
 ### Port-Forwards ###
