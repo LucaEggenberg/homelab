@@ -15,6 +15,9 @@ spec:
       containers:
       - image: lscr.io/linuxserver/qbittorrent:latest
         name: qbittorrent
+        env:
+          - name: QBITTORRENT_LISTEN_INTERFACE
+            value: tun0
         ports:
           - containerPort: 8080
             name: web
@@ -30,10 +33,35 @@ spec:
             name: arrstack
           - mountPath: /media
             name: smb
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 6
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        resources:
+          limits:
+            cpu: "1000m" # 1 CPU core
+            memory: "1Gi" # 1 GB of memory
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
         
-      - image: qmcgaw/gluetun
+      - image: qmcgaw/gluetun:latest
         name: gluetun
         env:
+          - name: DNS_ADDRESSES
+            value: "1.1.1.1,1.0.0.1"
           - name: VPN_SERVICE_PROVIDER
             value: protonvpn
           - name: VPN_TYPE
@@ -55,6 +83,29 @@ spec:
             add:
               - NET_ADMIN
           privileged: true
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 8000 # Gluetun's healthcheck port
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 10
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 8000
+          initialDelaySeconds: 60
+          periodSeconds: 15
+          timeoutSeconds: 3
+          failureThreshold: 5
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "256Mi"
+          requests:
+            cpu: "200m"
+            memory: "128Mi"
 
       volumes:
         - name: smb
