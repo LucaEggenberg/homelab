@@ -33,6 +33,7 @@ jobs:
 
       - name: Deploy deployments-flows
         uses: kestra-io/deploy-action@master
+        if: ${{ -d './automation/kestra/deployments' }}
         with:
           namespace: deployments
           directory: ./automation/kestra/deployments
@@ -41,6 +42,7 @@ jobs:
       
       - name: Deploy maintenance-flows
         uses: kestra-io/deploy-action@master
+        if: ${{ -d './automation/kestra/maintenance' }}
         with:
           namespace: maintenance
           directory: ./automation/kestra/maintenance
@@ -49,6 +51,7 @@ jobs:
 
       - name: Deploy provisioning-flows
         uses: kestra-io/deploy-action@master
+        if: ${{ -d './automation/kestra/provisioning' }}
         with:
           namespace: provisioning
           directory: ./automation/kestra/provisioning
