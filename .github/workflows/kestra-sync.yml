@@ -21,11 +21,12 @@ jobs:
         with:
           directory: ./automation/kestra
           resource: flow
-          server: $server_url
+          server: ${{ env.server_url }}
   
   deploy:
     runs-on: self-hosted
     name: Kestra deploy
+    needs: [ validate ]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -36,7 +37,7 @@ jobs:
           namespace: deployments
           directory: ./automation/kestra/deployments
           resource: flow
-          server: $server_url
+          server: ${{ env.server_url }}
       
       - name: Deploy maintenance-flows
         uses: kestra-io/deploy-action@master
@@ -44,7 +45,7 @@ jobs:
           namespace: maintenance
           directory: ./automation/kestra/maintenance
           resource: flow
-          server: $server_url
+          server: ${{ env.server_url }}
 
       - name: Deploy provisioning-flows
         uses: kestra-io/deploy-action@master
@@ -52,4 +53,4 @@ jobs:
           namespace: provisioning
           directory: ./automation/kestra/provisioning
           resource: flow
-          server: $server_url
+          server: ${{ env.server_url }}
