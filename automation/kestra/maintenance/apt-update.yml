@@ -1,0 +1,29 @@
+id: apt-update
+namespace: maintenance
+
+variables:
+  ansible-playbook: automation/ansible/playbooks/upgrade-aptpackages.yml
+
+tasks:
+  id: ansible-job
+  type: io.kestra.plugin.core.flow.WorkingDirectory
+  inputFiles:
+    id_rsa: "{{ secret('ANSIBLE_SSH_KEY') }}"
+  tasks:
+    - id: git-clone
+      type: io.kestra.plugin.git.Clone
+      url: "{{ globals['github-repo'] }}"
+      directory: automation/ansible
+      branch: main
+    
+    - id: ansible-playbook 
+      type: io.kestra.plugin.ansible.cli.AnsibleCLI
+      taskRunner:
+        type: io.kestra.plugin.scripts.runner.docker.Docker
+        image: docker.io/cytopia/ansible:latest-tools
+      env:
+        "ANSIBLE_HOST_KEY_CHECKING": false
+        "ANSIBLE_REMOTE_USER": "ansible"
+      commands:
+        - "ansible-playbook - i automation/ansible/inventory --key-file id_rsa {{ vars.ansible-playbook }}"
+
