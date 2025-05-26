@@ -1,3 +1,16 @@
+configuration:
+  kestra:
+    variables:
+      globals:
+        github-repo: https://github.com/LucaEggenberg/homelab
+
+extraEnv:
+  - name: SECRET_ANSIBLE_SSH_KEY
+    valueFrom:
+      secretKeyRef: 
+        key: ANSIBLE_SSH_KEY
+        name: kestra-secrets
+
 dind:
   image:
     tag: dind
@@ -9,9 +22,3 @@ dind:
 securityContext:
   runAsUser: 0
   runAsGroup: 0
-extraEnv:
-  name: SECRET_ANSIBLE_SSH_KEY
-  valueFrom:
-    secretKeyRef: 
-      key: ANSIBLE_SSH_KEY
-      name: kestra-secrets
