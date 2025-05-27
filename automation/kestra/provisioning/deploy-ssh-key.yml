@@ -1,11 +1,23 @@
-id: apt-update
-namespace: maintenance
+id: ssh-deploy
+namespace: provisioning
+
+inputs:
+  - id: user-name
+    type: STRING
+    required: true
+    defaults:
+      - "ansible"
+  - id: ssh-key
+    type: FILE
+    required: false
+    description: "public key"
 
 variables:
-  ansible-playbook: automation/ansible/playbooks/upgrade-aptpackages.yml
+  ansible-playbook: automation/ansible/playbooks/ssh-deploy.yml
+  hosts: ubuntu_servers
 
 tasks:
-  id: ansible-job
+  id: deploy-ssh-key
   type: io.kestra.plugin.core.flow.WorkingDirectory
   inputFiles:
     id_rsa: "{{ secret('ANSIBLE_SSH_KEY') }}"
@@ -25,5 +37,6 @@ tasks:
         "ANSIBLE_HOST_KEY_CHECKING": "False"
         "ANSIBLE_REMOTE_USER": "ansible"
       commands:
-        - ansible-playbook - i automation/ansible/inventory --key-file id_rsa "{{ vars.ansible-playbook }}"
+        - ansible-playbook - i automation/ansible/inventory --key-file id_rsa "{{ vars.ansible-playbook }}" --extra-vars "hosts={{ vars.hosts }} user_name={{ inputs.user-name }} ssh_key={{ inputs.ssh-key }}"
+
 

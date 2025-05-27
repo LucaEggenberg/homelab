@@ -1,22 +1,19 @@
 - hosts: "{{ hosts }}"
-  become: yes
-  vars:
-    user_name: ansible
-    ssh_key: "{{ lookup('file', '../ansible.pub') }}"
+  become: true
   tasks:
-    - name: create service-user for ansible
+    - name: create user
       user:
         name: "{{ user_name }}"
         shell: /bin/bash
         groups: sudo
-        append: yes
+        append: true
         state: present
     
     - name: check .ssh dir
       file:
         path: "/home/{{ user_name }}/.ssh"
         state: directory
-        mode '0700'
+        mode: '0700'
         owner: "{{ user_name }}"
         group: "{{ user_name }}"
 
