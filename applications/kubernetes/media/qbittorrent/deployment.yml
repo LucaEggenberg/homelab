@@ -12,52 +12,56 @@ spec:
       labels:
         app: qbittorrent
     spec:
+      securityContext:
+        sysctls:
+          - name: net.ipv4.conf.all.src_valid_mark
+            value: "1"
+          - name: net.ipv6.conf.all.disable_ipv6
+            value: "1"
       containers:
-      - image: lscr.io/linuxserver/qbittorrent:latest
+      - image: ghcr.io/hotio/qbittorrent
         name: qbittorrent
-        env:
-          - name: QBITTORRENT_LISTEN_INTERFACE
-            value: tun0
         ports:
           - containerPort: 8080
-            name: web
+            name: webtcp
             protocol: TCP
-          - containerPort: 6881
-            name: web-tcp
-            protocol: TCP
-          - containerPort: 6881
-            name: web-udp
+          - containerPort: 8080
+            name: webudp
             protocol: UDP
+        env:
+          - name: UMASK
+            value: "002"
+          - name: TZ
+            value: "UTC"
+          - name: WEBUI_PORTS
+            value: "8080/tcp,8080/udp"
+         
+          - name: VPN_ENABLED
+            value: "true"
+          - name: VPN_CONF
+            value: wg0
+          - name: VPN_PROVIDER
+            value: proton
+          - name: VPN_LAN_NETWORK
+            value: 10.10.0.0/16
+          - name: VPN_LAN_LEAK_ENABLED
+            value: "false"
+          - name: VPN_AUTO_PORT_FORWARD
+            value: "true"
+          - name: VPN_FIREWALL_TYPE
+            value: "auto"
         volumeMounts:
           - mountPath: /config
             name: arrstack
           - mountPath: /media
             name: smb
-        
-      - image: qmcgaw/gluetun:latest
-        name: gluetun
-        env:
-          - name: VPN_SERVICE_PROVIDER
-            value: protonvpn
-          - name: VPN_TYPE
-            value: wireguard
-          - name: VPN_PORT_FORWARDING
-            value: "on"
-          - name: WIREGUARD_MTU
-            value: "1410"
-          - name: WIREGUARD_PRIVATE_KEY
-            valueFrom:
-              secretKeyRef:
-                key: WIREGUARD_PRIVATE_KEY
-                name: proton-secrets
-        volumeMounts:
-          - name: tun
-            mountPath: /dev/net/tun
+          - mountPath: /config/wg0.conf
+            name: smb
+            subPath: vpn/wg0.conf
         securityContext:
           capabilities:
             add:
               - NET_ADMIN
-
       volumes:
         - name: smb
           persistentVolumeClaim:
@@ -65,8 +69,4 @@ spec:
         - name: arrstack
           persistentVolumeClaim:
             claimName: qbittorrent-pvc
-        - name: tun
-          hostPath:
-            path: /dev/net/tun
-            type: CharDevice
       restartPolicy: Always
