@@ -23,18 +23,15 @@ spec:
         name: qbittorrent
         ports:
           - containerPort: 8080
-            name: webtcp
+            name: web
             protocol: TCP
-          - containerPort: 8080
-            name: webudp
-            protocol: UDP
         env:
           - name: UMASK
             value: "002"
           - name: TZ
             value: "UTC"
           - name: WEBUI_PORTS
-            value: "8080/tcp,8080/udp"
+            value: "8080"
          
           - name: VPN_ENABLED
             value: "true"
@@ -55,7 +52,7 @@ spec:
             name: arrstack
           - mountPath: /media
             name: smb
-          - mountPath: /config/wg0.conf
+          - mountPath: /config/wireguard/wg0.conf
             name: smb
             subPath: vpn/wg0.conf
         securityContext:
