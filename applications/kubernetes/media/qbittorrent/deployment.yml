@@ -35,7 +35,7 @@ spec:
                 key: WIREGUARD_PRIVATE_KEY
                 name: proton-secrets
           - name: WIREGUARD_ENDPOINT_IP
-            value: "89.222.96.1:51820"
+            value: "89.222.96.1"
           - name: WIREGUARD_ADDRESSES
             value: "10.2.0.2/32"
           - name: DNS_ADDRESS
