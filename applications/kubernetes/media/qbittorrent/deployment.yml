@@ -12,63 +12,73 @@ spec:
       labels:
         app: qbittorrent
     spec:
-      initContainers:
+      containers:
       - image: qmcgaw/gluetun:latest
         name: gluetun
         env:
           - name: VPN_SERVICE_PROVIDER
             value: protonvpn
-          - name: VPN_TYPE
-            value: wireguard
           - name: VPN_PORT_FORWARDING
             value: "on"
-          - name: WIREGUARD_MTU
-            value: "1410"
+          - name: TZ
+            value: UTC/UTC
+          - name: VPN_PORT_FORWARDING_UP_COMMAND
+            value: /bin/sh -c 'wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:8080/api/v2/app/setPreferences 2>&1'
+          # Wireguard-settings
+          - name: VPN_TYPE
+            value: wireguard
+          - name: WIREGUARD_PUBLIC_KEY
+            value: "pzBOn/wT1A/bBr0xa/7hJ5o9rX58Lb3pUxipBdC8DV4="
           - name: WIREGUARD_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
                 key: WIREGUARD_PRIVATE_KEY
                 name: proton-secrets
+          - name: WIREGUARD_ENDPOINT_IP
+            value: "89.222.96.1:51820"
+          - name: WIREGUARD_ADDRESSES
+            value: "10.2.0.2/32"
+          - name: DNS_ADDRESS
+            value: "10.2.0.1"
+        volumeMounts:
+          - mountPath: /gluetun
+            name: gluetun
         securityContext:
           capabilities:
             add:
               - NET_ADMIN
-      
-      - name: ping
-        image: busybox
-        command:
-        - sh
-        - -c
-        - |
-          sleep 30
-          while ! ping -c 1 8.8.8.8; do
-            echo "Ping failed, retrying in 5"
-            sleep 5
-          done
-          echo "ping succesfull, exiting"
-          
-      containers:
+        readinessProbe:
+          httpGet:
+            path: /v1/openvpn/portforwarded
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /v1/openvpn/status
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 3
+  
       - image: lscr.io/linuxserver/qbittorrent:latest
         name: qbittorrent
         env:
-          - name: QBITTORRENT_LISTEN_INTERFACE
-            value: tun0
+          - name: TZ
+            value: UTC/UTC
+          - name: WEBUI_PORT
+            value: "8080"
         ports:
           - containerPort: 8080
             name: web
             protocol: TCP
-          - containerPort: 6881
-            name: web-tcp
-            protocol: TCP
-          - containerPort: 6881
-            name: web-udp
-            protocol: UDP
         volumeMounts:
           - mountPath: /config
             name: arrstack
           - mountPath: /media
             name: smb
-        
+
       volumes:
         - name: smb
           persistentVolumeClaim:
@@ -76,4 +86,7 @@ spec:
         - name: arrstack
           persistentVolumeClaim:
             claimName: qbittorrent-pvc
+        - name: gluetun
+          persistentVolumeClaim:
+            claimName: gluetun-pvc 
       restartPolicy: Always
