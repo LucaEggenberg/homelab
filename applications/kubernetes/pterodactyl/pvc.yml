@@ -2,6 +2,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pterodactyl-panel
+  longhorn.io/recurring-job-selector: |
+      [{ 
+        "group": "longhorn-daily",
+        "isGroup": true 
+      }]
 spec:
   storageClassName: longhorn
   accessModes:
@@ -14,6 +19,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pterodactyl-database
+  longhorn.io/recurring-job-selector: |
+      [{ 
+        "group": "longhorn-daily",
+        "isGroup": true 
+      }]
 spec:
   storageClassName: longhorn
   accessModes:

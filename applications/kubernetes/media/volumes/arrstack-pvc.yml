@@ -2,6 +2,12 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: jellyseerr-pvc
+  annotations:
+    longhorn.io/recurring-job-selector: |
+      [{ 
+        "group": "longhorn-daily",
+        "isGroup": true 
+      }]
 spec:
   storageClassName: longhorn
   accessModes:
@@ -14,6 +20,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: prowlarr-pvc
+  longhorn.io/recurring-job-selector: |
+      [{ 
+        "group": "longhorn-weekly",
+        "isGroup": true 
+      }]
 spec:
   storageClassName: longhorn
   accessModes:
@@ -26,6 +37,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: qbittorrent-pvc
+  longhorn.io/recurring-job-selector: |
+      [{ 
+        "group": "longhorn-daily",
+        "isGroup": true 
+      }]
 spec:
   storageClassName: longhorn
   accessModes:
@@ -38,6 +54,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: radarr-pvc
+  longhorn.io/recurring-job-selector: |
+      [{ 
+        "group": "longhorn-weekly",
+        "isGroup": true 
+      }]
 spec:
   storageClassName: longhorn
   accessModes:
@@ -50,6 +71,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: sonarr-pvc
+  longhorn.io/recurring-job-selector: |
+      [{ 
+        "group": "longhorn-weekly",
+        "isGroup": true 
+      }]
 spec:
   storageClassName: longhorn
   accessModes:
@@ -62,6 +88,11 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: gluetun-pvc
+  longhorn.io/recurring-job-selector: |
+      [{ 
+        "group": "longhorn-daily",
+        "isGroup": true 
+      }]
 spec:
   storageClassName: longhorn
   accessModes:
