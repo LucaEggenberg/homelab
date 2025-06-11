@@ -1,2 +1,2 @@
 defaultSettings:
-  backupTarget: 'nfs://10.10.10.20:/mnt/Storage/backups/kube'
+  backupTarget: 'nfs://storage.eggenberg.io:/mnt/Storage/backups/kube'
