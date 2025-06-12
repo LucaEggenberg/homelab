@@ -2,14 +2,10 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: jellyseerr-pvc
-  annotations:
-    longhorn.io/recurring-job-selector: |
-      [{ 
-        "group": "longhorn-daily-backup",
-        "isGroup": true 
-      }]
+  labels:
+    longhorn.io/application: jellyseerr
 spec:
-  storageClassName: longhorn
+  storageClassName: longhorn-daily-backup
   accessModes:
     - ReadWriteOnce
   resources:
@@ -20,13 +16,10 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: prowlarr-pvc
-  longhorn.io/recurring-job-selector: |
-      [{ 
-        "group": "longhorn-weekly-backup",
-        "isGroup": true 
-      }]
+  labels:
+    longhorn.io/application: prowlarr
 spec:
-  storageClassName: longhorn
+  storageClassName: longhorn-weekly-backup
   accessModes:
     - ReadWriteOnce
   resources:
@@ -37,13 +30,10 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: qbittorrent-pvc
-  longhorn.io/recurring-job-selector: |
-      [{ 
-        "group": "longhorn-daily-backup",
-        "isGroup": true 
-      }]
+  labels:
+    longhorn.io/application: qbittorrent
 spec:
-  storageClassName: longhorn
+  storageClassName: longhorn-weekly-backup
   accessModes:
     - ReadWriteOnce
   resources:
@@ -54,13 +44,10 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: radarr-pvc
-  longhorn.io/recurring-job-selector: |
-      [{ 
-        "group": "longhorn-weekly-backup",
-        "isGroup": true 
-      }]
+  labels:
+    longhorn.io/application: radarr
 spec:
-  storageClassName: longhorn
+  storageClassName: longhorn-daily-backup
   accessModes:
     - ReadWriteOnce
   resources:
@@ -71,13 +58,10 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: sonarr-pvc
-  longhorn.io/recurring-job-selector: |
-      [{ 
-        "group": "longhorn-weekly-backup",
-        "isGroup": true 
-      }]
+  labels:
+    longhorn.io/application: sonarr
 spec:
-  storageClassName: longhorn
+  storageClassName: longhorn-daily-backup
   accessModes:
     - ReadWriteOnce
   resources:
@@ -88,13 +72,10 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: gluetun-pvc
-  longhorn.io/recurring-job-selector: |
-      [{ 
-        "group": "longhorn-daily-backup",
-        "isGroup": true 
-      }]
+  labels:
+    longhorn.io/application: gluetun
 spec:
-  storageClassName: longhorn
+  storageClassName: longhorn-daily-backup
   accessModes:
     - ReadWriteOnce
   resources:

@@ -2,13 +2,10 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pterodactyl-panel
-  longhorn.io/recurring-job-selector: |
-      [{ 
-        "group": "longhorn-daily-backup",
-        "isGroup": true 
-      }]
+  labels:
+    longhorn.io/application: pterodactyl-panel
 spec:
-  storageClassName: longhorn
+  storageClassName: longhorn-daily-backup
   accessModes:
     - ReadWriteOnce
   resources:
@@ -19,13 +16,10 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pterodactyl-database
-  longhorn.io/recurring-job-selector: |
-      [{ 
-        "group": "longhorn-daily-backup",
-        "isGroup": true 
-      }]
+  labels:
+    longhorn.io/application: pterodactyl-database
 spec:
-  storageClassName: longhorn
+  storageClassName: longhorn-daily-backup
   accessModes:
     - ReadWriteOnce
   resources:
