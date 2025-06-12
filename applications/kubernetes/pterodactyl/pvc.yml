@@ -4,7 +4,7 @@ metadata:
   name: pterodactyl-panel
   longhorn.io/recurring-job-selector: |
       [{ 
-        "group": "longhorn-daily",
+        "group": "longhorn-daily-backup",
         "isGroup": true 
       }]
 spec:
@@ -21,7 +21,7 @@ metadata:
   name: pterodactyl-database
   longhorn.io/recurring-job-selector: |
       [{ 
-        "group": "longhorn-daily",
+        "group": "longhorn-daily-backup",
         "isGroup": true 
       }]
 spec:

@@ -5,7 +5,7 @@ metadata:
   annotations:
     longhorn.io/recurring-job-selector: |
       [{ 
-        "group": "longhorn-daily",
+        "group": "longhorn-daily-backup",
         "isGroup": true 
       }]
 spec:
@@ -22,7 +22,7 @@ metadata:
   name: prowlarr-pvc
   longhorn.io/recurring-job-selector: |
       [{ 
-        "group": "longhorn-weekly",
+        "group": "longhorn-weekly-backup",
         "isGroup": true 
       }]
 spec:
@@ -39,7 +39,7 @@ metadata:
   name: qbittorrent-pvc
   longhorn.io/recurring-job-selector: |
       [{ 
-        "group": "longhorn-daily",
+        "group": "longhorn-daily-backup",
         "isGroup": true 
       }]
 spec:
@@ -56,7 +56,7 @@ metadata:
   name: radarr-pvc
   longhorn.io/recurring-job-selector: |
       [{ 
-        "group": "longhorn-weekly",
+        "group": "longhorn-weekly-backup",
         "isGroup": true 
       }]
 spec:
@@ -73,7 +73,7 @@ metadata:
   name: sonarr-pvc
   longhorn.io/recurring-job-selector: |
       [{ 
-        "group": "longhorn-weekly",
+        "group": "longhorn-weekly-backup",
         "isGroup": true 
       }]
 spec:
@@ -90,7 +90,7 @@ metadata:
   name: gluetun-pvc
   longhorn.io/recurring-job-selector: |
       [{ 
-        "group": "longhorn-daily",
+        "group": "longhorn-daily-backup",
         "isGroup": true 
       }]
 spec:
