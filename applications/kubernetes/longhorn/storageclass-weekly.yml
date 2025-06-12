@@ -15,8 +15,13 @@ parameters:
   unmapMarkSnapChainRemoved: "ignored"
   disableRevisionCounter: "true"
   dataEngine: "v1"
-  recurringJobSelector: |
-    [
-      {"group": "longhorn-snapshots", "isGroup": true},
-      {"group": "longhorn-weekly-backup", "isGroup": true}
-    ]
+  recurringJobSelector: '[
+    {
+      "name":"longhorn-snapshots",
+      "isGroup":true
+    },
+    {
+      "name":"longhorn-weekly-backup",
+      "isGroup":true
+    }
+  ]'
