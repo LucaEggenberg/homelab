@@ -1,0 +1,67 @@
+grafana:
+  enabled: true
+  persistence:
+    enabled: true
+    storageClassName: "longhorn-daily-backup"
+    size: 5Gi 
+
+  admin:
+    existingSecret: "grafana-secrets"
+    secretKey: "ADMIN_PASSWORD"
+
+  ingress:
+    enabled: false
+
+alertmanager:
+  enabled: false
+
+prometheus:
+  prometheusSpec:
+    retention: 90d
+
+    storageSpec:
+      enabled: true
+      existingClaim: "prometheus-smb-pvc"
+
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector: {} # Monitors services in all namespaces
+    podMonitorNamespaceSelector: {}     # Monitors pods in all namespaces
+    ruleNamespaceSelector: {}           # Applies rules to all namespaces
+
+  service:
+    type: ClusterIP
+
+# host-level metrics (CPU, memory, disk I/O)
+nodeExporter:
+  enabled: true
+  daemonset:
+    enabled: true
+  service:
+    port: 9100
+
+# metrics about kubernetes object state (pods, deployments, nodes, ...)
+kubeStateMetrics:
+  enabled: true
+  service:
+    port: 8080
+
+kubeRbacProxy:
+  enabled: true
+
+kubelet:
+  enabled: true
+  serviceMonitor:
+    enabled: true
+
+kubeApiServer:
+  enabled: true
+kubeControllerManager:
+  enabled: true
+kubeScheduler:
+  enabled: true
+kubeProxy:
+  enabled: true
+kubeEtcd:
+  enabled: true
