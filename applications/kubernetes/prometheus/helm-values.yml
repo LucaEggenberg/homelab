@@ -7,7 +7,7 @@ grafana:
 
   admin:
     existingSecret: "grafana-secrets"
-    secretKey: "ADMIN_PASSWORD"
+    secretKey: "admin-password"
 
   ingress:
     enabled: false
