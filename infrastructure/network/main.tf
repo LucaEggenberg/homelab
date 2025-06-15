@@ -6,7 +6,7 @@ locals {
       ip     = "10.10.20.11"
       cnames = ["gameserver"]
     }
-    "strg-prod-1" = {
+    "storage" = {
       ip     = "10.10.10.20"
       cnames = []
     }
@@ -25,6 +25,7 @@ locals {
     "kube" = { # LB
       ip = "10.10.20.40"
       cnames = [
+        "homepage",
         "argocd",
         "longhorn",
         "prowlarr",
@@ -63,20 +64,23 @@ resource "unifi_dns_record" "a_records" {
 
   name   = "${each.key}.${local.base_domain}"
   type   = "A"
-  record = each.value
+  record = each.value.ip
 }
 
 # Generate CNAME records if defined
 resource "unifi_dns_record" "cnames" {
   for_each = {
-    for server_name, server_data in local.homelab_servers :
-    server_name => [
-      for cname in(lookup(server_data, "cnames", [])) : {
-        host_name = server_name
-        cname     = cname
-      }
-    ]
-    if lookup(server_data, "cnames", []) != []
+    for cname_obj in flatten([
+      for server_name, server_data in local.homelab_servers :
+      [
+        for cname in lookup(server_data, "cnames", []) :
+        {
+          key       = "${server_name}-${cname}"
+          host_name = server_name
+          cname     = cname
+        }
+      ]
+    ]) : cname_obj.key => cname_obj
   }
 
   name   = "${each.value.cname}.${each.value.host_name}.${local.base_domain}"
@@ -86,7 +90,7 @@ resource "unifi_dns_record" "cnames" {
 
 ### Port-Forwards ###
 resource "unifi_port_forward" "cloudflare_http" {
-  for_each = local.cloudflare_ips
+  for_each = toset(local.cloudflare_ips)
 
   name                   = "cloudflare"
   protocol               = "tcp_udp"
