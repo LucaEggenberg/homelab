@@ -28,7 +28,6 @@ prometheus:
           resources:
             requests:
               storage: 100Gi
-          selector: {}
 
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
