@@ -4,11 +4,13 @@ metadata:
   name: csi-driver
 spec:
   project: default
-  source:
-    repoURL: >-
-      https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
+  sources:
+  - repoURL: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-smb/master/charts
     targetRevision: v1.17.0
     chart: csi-driver-smb
+  - path: applications/kubernetes/csi
+    repoURL: https://github.com/LucaEggenberg/HomeLab
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: kube-system
