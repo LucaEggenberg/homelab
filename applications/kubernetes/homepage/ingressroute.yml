@@ -7,7 +7,7 @@ spec:
   entryPoints:
   - websecure
   routes:
-  - match: Host(`home.eggenberg.io`)
+  - match: Host(`homepage.kube.eggenberg.io`)
     kind: Rule
     services:
     - name: homepage
