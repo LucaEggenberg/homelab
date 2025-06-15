@@ -32,7 +32,8 @@ locals {
         "radarr",
         "flaresolverr",
         "qbittorrent",
-        "kestra"
+        "kestra",
+        "grafana"
       ]
     }
   }
