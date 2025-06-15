@@ -22,12 +22,13 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          selector:
-            matchLabels:
-              app.kubernetes.io/name: prometheus-smb-pv
+          volumeName: prometheus-smb-pv
+          accessModes: ["ReadWriteMany"]
+          storageClassName: smb
           resources:
             requests:
               storage: 100Gi
+          selector: {}
 
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false
