@@ -20,8 +20,11 @@ prometheus:
     retention: 90d
 
     storageSpec:
-      enabled: true
-      existingClaim: "prometheus-smb-pvc"
+      volumeClaimTemplate:
+        spec:
+          selector:
+            matchLabels:
+              app.kubernetes.io/name: prometheus-smb-pv
 
     serviceMonitorSelectorNilUsesHelmValues: false
     podMonitorSelectorNilUsesHelmValues: false

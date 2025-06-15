@@ -4,6 +4,8 @@ metadata:
   annotations:
     pv.kubernetes.io/provisioned-by: smb.csi.k8s.io
   name: prometheus-smb-pv
+  labels:
+    app.kubernetes.io/name: prometheus-smb-pv
 spec:
   capacity:
     storage: 100Gi
