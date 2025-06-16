@@ -22,7 +22,6 @@ prometheus:
     storageSpec:
       volumeClaimTemplate:
         spec:
-          volumeName: prometheus-smb-pv
           accessModes: ["ReadWriteMany"]
           storageClassName: smb
           resources:
