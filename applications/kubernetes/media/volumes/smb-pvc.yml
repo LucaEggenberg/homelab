@@ -11,4 +11,4 @@ spec:
     requests:
       storage: 10Ti
   volumeName: jellyfin-smb-pv
-  storageClassName: smb
+  storageClassName: media-smb

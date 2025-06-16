@@ -23,7 +23,7 @@ prometheus:
       volumeClaimTemplate:
         spec:
           accessModes: ["ReadWriteMany"]
-          storageClassName: smb
+          storageClassName: monitoring-smb
           resources:
             requests:
               storage: 100Gi

@@ -4,8 +4,8 @@ grafana: # deployed with prometheus
 loki:
   persistence:
     enabled: true
-    storageClassName: "smb"
-    subPath: "loki"
+    storageClassName: monitoring-smb
+    subPath: loki
     size: 200Gi
 
 promtail:
