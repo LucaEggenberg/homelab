@@ -10,7 +10,7 @@ spec:
   - match: Host(`grafana.kube.eggenberg.io`)
     kind: Rule
     services:
-    - name: prometheus-grafana
+    - name: prometheus-stack-grafana
       port: 80
   tls:
     secretName: grafana-certificate-secret
