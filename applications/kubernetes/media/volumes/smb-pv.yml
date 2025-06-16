@@ -1,4 +1,4 @@
-apiVersion: v1Add commentMore actions
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   annotations:
