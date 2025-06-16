@@ -1,0 +1,16 @@
+grafana: # deployed with prometheus
+  enabled: false
+
+loki:
+  persistence:
+    enabled: true
+    storageClassName: "smb"
+    subPath: "loki"
+    size: 200Gi
+
+promtail:
+  enabled: true
+  rbac:
+    create: true
+  podMonitor:
+    enabled: false
