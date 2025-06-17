@@ -1,11 +1,17 @@
-id: apt-update
+id: ubuntu-apt-update
 namespace: maintenance
 
 variables:
   ansible-playbook: automation/ansible/playbooks/upgrade-aptpackages.yml
+  hosts: ubuntu_servers
+
+triggers:
+  - id: schedule
+    type: io.kestra.plugin.core.trigger.Schedule
+    cron: "0 4 * * 1"
 
 tasks:
-  id: ansible-job
+- id: ansible-job
   type: io.kestra.plugin.core.flow.WorkingDirectory
   inputFiles:
     id_rsa: "{{ secret('ANSIBLE_SSH_KEY') }}"
@@ -25,5 +31,4 @@ tasks:
         "ANSIBLE_HOST_KEY_CHECKING": "False"
         "ANSIBLE_REMOTE_USER": "ansible"
       commands:
-        - ansible-playbook - i automation/ansible/inventory --key-file id_rsa "{{ vars.ansible-playbook }}"
-
+        - ansible-playbook - i automation/ansible/inventory --key-file id_rsa "{{ vars.ansible-playbook }}" --extra-vars "{\"hosts\":{{ vars.hosts }}"}"
