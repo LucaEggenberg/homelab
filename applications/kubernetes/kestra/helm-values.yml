@@ -9,7 +9,7 @@ extraEnv:
     valueFrom:
       secretKeyRef: 
         key: ANSIBLE_SSH_KEY
-        name: kestra-secrets
+        name: ansible-ssh-secret
 
 dind:
   image:
