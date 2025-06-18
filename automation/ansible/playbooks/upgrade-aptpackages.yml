@@ -1,4 +1,4 @@
-- hosts: "{{ hosts }}"  
+- hosts: "{{ target_hosts }}"  
   become: true
   tasks:
     - name: upgrade apt packages

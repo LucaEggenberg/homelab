@@ -1,11 +1,11 @@
-- hosts: "{{ hosts }}"
+- hosts: "{{ target_hosts }}"
   become: true
   tasks:
     - name: create user
       user:
         name: "{{ user_name }}"
         shell: /bin/bash
-        groups: sudo
+        groups: "{{ groups }}"
         append: true
         state: present
 
