@@ -1,0 +1,22 @@
+- hosts: "{{ target_hosts }}"
+  become: true
+  tasks:
+    - name: install essential packages
+      apt:
+        name:
+          - vi
+          - prometheus-node-exporter
+          - nfs-common
+        update_cache: yes
+    
+    - name: ensure admin-group exists
+      group:
+        name: admin
+        state: present
+
+    - name: set admins to passwordless
+      lineinfile:
+        path: /etc/sudoers
+        state: present
+        regexp: '^%admin'
+        line: '%admin ALL=(ALL) NOPASSWD:ALL'
