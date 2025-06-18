@@ -2,13 +2,13 @@ id: ubuntu-apt-update
 namespace: maintenance
 
 variables:
-  ansible-playbook: automation/ansible/playbooks/upgrade-aptpackages.yml
+  playbook: automation/ansible/playbooks/upgrade-aptpackages.yml
   hosts: ubuntu_servers
 
 triggers:
   - id: schedule
     type: io.kestra.plugin.core.trigger.Schedule
-    cron: "0 4 * * 1"
+    cron: "0 4 * 1 *"
 
 tasks:
 - id: ansible-job
@@ -19,7 +19,7 @@ tasks:
     - id: git-clone
       type: io.kestra.plugin.git.Clone
       url: "{{ globals['github-repo'] }}"
-      directory: automation/ansible
+      directory: git
       branch: main
     
     - id: ansible-playbook 
@@ -27,8 +27,13 @@ tasks:
       taskRunner:
         type: io.kestra.plugin.scripts.runner.docker.Docker
         image: docker.io/cytopia/ansible:latest-tools
-      env:
-        "ANSIBLE_HOST_KEY_CHECKING": "False"
-        "ANSIBLE_REMOTE_USER": "ansible"
       commands:
-        - ansible-playbook - i automation/ansible/inventory --key-file id_rsa "{{ vars.ansible-playbook }}" --extra-vars "{\"hosts\":{{ vars.hosts }}"}"
+        - >
+          ansible-playbook 
+          -i git/automation/ansible/inventory/hosts.ini
+          --key-file id_rsa 
+          --extra-vars "hosts={{ vars.hosts }}" 
+          "git/{{ vars.playbook }}"
+      env:
+        ANSIBLE_HOST_KEY_CHECKING: "False"
+        ANSIBLE_REMOTE_USER: "ansible"
