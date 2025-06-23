@@ -2,9 +2,6 @@ grafana: # deployed with prometheus
   enabled: false
 
 loki:
-  config:
-    server:
-      log_level: debug
   persistence:
     enabled: true
     storageClassName: monitoring-smb
