@@ -1,0 +1,15 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mealie-ingressroute
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: Host(`mealie.eggenberg.io`)
+    kind: Rule
+    services:
+    - name: mealie
+      port: 9000
+  tls:
+    secretName: mealie-certificate-secret

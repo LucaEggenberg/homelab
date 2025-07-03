@@ -1,0 +1,13 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mealie-data
+  labels:
+    longhorn.io/application: mealie-data
+spec:
+  storageClassName: longhorn-daily-backup
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 8Gi
