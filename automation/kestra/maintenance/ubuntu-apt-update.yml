@@ -2,7 +2,7 @@ id: ubuntu-apt-update
 namespace: maintenance
 
 variables:
-  playbook: automation/ansible/playbooks/upgrade-aptpackages.yml
+  playbook: automation/ansible/playbooks/ubuntu-upgrade-aptpackages.yml
   hosts: ubuntu_servers
 
 triggers:
