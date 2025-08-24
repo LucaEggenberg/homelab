@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: stirling-pdf-ingressroute-certificate
+  namespace: stirling-pdf
+spec:
+  secretName: stirling-pdf-certificate-secret
+  issuerRef:
+    name: cloudflare-clusterissuer
+    kind: ClusterIssuer
+  dnsNames:
+  - pdf.kube.eggenberg.io

@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: stirling-pdf
+spec:
+  project: default
+  sources:
+  - repoURL: https://stirling-tools.github.io/Stirling-PDF-chart
+    chart: stirling-pdf-chart
+    targetRevision: 2.1.0
+    helm:
+      valueFiles:
+        - $values/applications/kubernetes/stirling-pdf/helm-values.yml
+  - path: applications/kubernetes/prometheus
+    repoURL: https://github.com/LucaEggenberg/HomeLab
+    targetRevision: HEAD
+    ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: stirling-pdf
+  syncPolicy:
+    automated: {}
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
