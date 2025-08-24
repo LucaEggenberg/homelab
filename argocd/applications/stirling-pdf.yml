@@ -11,7 +11,7 @@ spec:
     helm:
       valueFiles:
         - $values/applications/kubernetes/stirling-pdf/helm-values.yml
-  - path: applications/kubernetes/prometheus
+  - path: applications/kubernetes/stirling-pdf
     repoURL: https://github.com/LucaEggenberg/HomeLab
     targetRevision: HEAD
     ref: values
