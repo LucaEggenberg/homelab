@@ -10,7 +10,7 @@ spec:
   - match: Host(`pdf.kube.eggenberg.io`)
     kind: Rule
     services:
-    - name: stirling-pdf
+    - name: stirling-pdf-stirling-pdf-chart
       port: 8080
   tls:
     secretName: stirling-pdf-certificate-secret
