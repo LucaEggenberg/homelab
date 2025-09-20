@@ -12,6 +12,7 @@
     outputs = inputs@{ self, nixpkgs, ... }: 
     let 
         baseModules = [
+            ./users/luca
             ./modules/system
             ./modules/common
             ./modules/server
