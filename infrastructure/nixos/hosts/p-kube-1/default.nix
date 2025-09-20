@@ -1,5 +1,5 @@
 { ... }: {
-    networking.hostname = "p-kube-1";
+    networking.hostName = "p-kube-1";
 
     sops = {
         age.sshKeyPaths = [ "/etc/ssh/id_ed25519" ];
