@@ -13,7 +13,7 @@
     services.k3s = {
         enable = true;
         role = "server";
-        token = "<randomized common secret>"; # TODO
+        token = config.sops.secrets."k3s.token".path;
         serverAddr = "https://10.10.20.20:6443";
     };
 }

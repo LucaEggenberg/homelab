@@ -3,6 +3,10 @@
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+        inputs.sops-nix = {
+            url = "github:Mic92/sops-nix";
+            inputs.nixpkgs.follows = "nixpkgs";
+        };
     };
 
     outputs = inputs@{ self, nixpkgs, ... }: 
@@ -20,6 +24,7 @@
                 modules = baseModules ++ [
                     ./hosts/kube1
                     ./modules/kubernetes
+                    inputs.sops-nix.nixosModules.sops
                 ];
             };
         };
