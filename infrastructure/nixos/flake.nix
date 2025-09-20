@@ -20,7 +20,7 @@
         nixosConfigurations = {
             kube1 = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
-                specialArgs = { inherit self nixpkgs };
+                specialArgs = { inherit self nixpkgs; };
                 modules = baseModules ++ [
                     ./hosts/kube1
                     ./modules/kubernetes
