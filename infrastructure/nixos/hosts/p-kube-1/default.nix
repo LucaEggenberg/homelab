@@ -1,5 +1,9 @@
 { ... }: {
     networking.hostName = "p-kube-1";
+    
+    imports = [
+        ./hardware-configuration.nix
+    ];
 
     sops = {
         age.sshKeyPaths = [ "/etc/ssh/id_ed25519" ];
