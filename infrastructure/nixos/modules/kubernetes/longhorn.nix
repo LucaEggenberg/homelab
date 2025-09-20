@@ -14,4 +14,9 @@
     };
 
     services.rpcbind.enable = true; # needed for NFS
+
+    # create symlink for iscsiadm so Longhorn can find it
+    systemd.tmpfiles.rules = [
+        "L+ /usr/bin/iscsiadm - - - - ${pkgs.openiscsi}/bin/iscsiadm"
+    ];
 }
