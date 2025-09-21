@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: huntarr
+spec:
+  selector: 
+    matchLabels:
+      app: huntarr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: huntarr
+    spec:
+      containers:
+      - image: ghcr.io/plexguide/huntarr:latest
+        name: huntarr
+        ports:
+          - containerPort: 9705
+            protocol: TCP
+        volumeMounts:
+          - mountPath: /config
+            name: arrstack
+      volumes:
+        - name: arrstack
+          persistentVolumeClaim:
+            claimName: huntarr-pvc
+      restartPolicy: Always

@@ -82,3 +82,16 @@ spec:
     requests:
       storage: 500Mi
 --- 
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: huntarr-pvc
+  labels:
+    longhorn.io/application: huntarr
+spec:
+  storageClassName: longhorn-daily-backup
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

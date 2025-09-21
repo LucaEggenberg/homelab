@@ -33,6 +33,7 @@ locals {
         "radarr",
         "flaresolverr",
         "qbittorrent",
+        "huntarr",
         "kestra",
         "grafana",
         "pdf"
