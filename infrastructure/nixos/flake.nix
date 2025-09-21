@@ -28,6 +28,15 @@
                     inputs.sops-nix.nixosModules.sops
                 ];
             };
+            p-kube-3 = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                specialArgs = { inherit self nixpkgs; };
+                modules = baseModules ++ [
+                    ./hosts/p-kube-3
+                    ./modules/kubernetes
+                    inputs.sops-nix.nixosModules.sops
+                ];
+            };
         };
     };
 }
