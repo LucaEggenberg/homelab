@@ -10,15 +10,15 @@ locals {
       ip     = "10.10.10.20"
       cnames = []
     }
-    "kube-prod-1" = {
+    "p-kube-1" = {
       ip     = "10.10.20.21"
       cnames = []
     }
-    "kube-prod-2" = {
+    "p-kube-2" = {
       ip     = "10.10.20.22"
       cnames = []
     }
-    "kube-prod-3" = {
+    "p-kube-3" = {
       ip     = "10.10.20.23"
       cnames = []
     }
