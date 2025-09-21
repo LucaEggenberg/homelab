@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cleanuparr
+spec:
+  selector: 
+    matchLabels:
+      app: cleanuparr
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cleanuparr
+    spec:
+      containers:
+      - image: ghcr.io/cleanuparr/cleanuparr:latest
+        name: cleanuparr
+        ports:
+          - containerPort: 11011
+            protocol: TCP
+        env:
+          - name: PORT
+            value: "11011"
+        volumeMounts:
+          - mountPath: /config
+            name: arrstack
+      volumes:
+        - name: arrstack
+          persistentVolumeClaim:
+            claimName: cleanuparr-pvc
+      restartPolicy: Always

@@ -34,6 +34,7 @@ locals {
         "flaresolverr",
         "qbittorrent",
         "huntarr",
+        "cleanuparr",
         "kestra",
         "grafana",
         "pdf"
