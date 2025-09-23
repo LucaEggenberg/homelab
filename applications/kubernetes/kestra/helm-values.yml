@@ -4,12 +4,10 @@ configuration:
       globals:
         github-repo: https://github.com/LucaEggenberg/homelab
 
-extraEnv:
-  - name: SECRET_ANSIBLE_SSH_KEY
-    valueFrom:
-      secretKeyRef: 
-        key: ANSIBLE_SSH_KEY
-        name: ansible-ssh-secret
+common:
+  extraEnvFrom:
+    - secretRef:
+        name: tofu-secrets
 
 dind:
   image:
