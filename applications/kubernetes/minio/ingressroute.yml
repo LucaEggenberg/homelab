@@ -15,7 +15,7 @@ spec:
   - match: Host(`ui.minio.kube.eggenberg.io`)
     kind: Rule
     services:
-    - name: minio
+    - name: minio-console
       port: 9001
   tls:
     secretName: minio-certificate-secret
