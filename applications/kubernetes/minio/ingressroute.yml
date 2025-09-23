@@ -7,10 +7,15 @@ spec:
   entryPoints:
   - websecure
   routes:
-  - match: Host(`minio.kube.eggenberg.io`)
+  - match: Host(`api.minio.kube.eggenberg.io`)
     kind: Rule
     services:
     - name: minio
       port: 9000
+  - match: Host(`ui.minio.kube.eggenberg.io`)
+    kind: Rule
+    services:
+    - name: minio
+      port: 9001
   tls:
     secretName: minio-certificate-secret

@@ -9,4 +9,5 @@ spec:
     name: cloudflare-clusterissuer
     kind: ClusterIssuer
   dnsNames:
-  - minio.kube.eggenberg.io
+  - api.minio.kube.eggenberg.io
+  - ui.minio.kube.eggenberg.io
