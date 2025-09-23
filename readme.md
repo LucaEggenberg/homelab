@@ -6,7 +6,6 @@
 [![Kubernetes](https://img.shields.io/badge/kubernetes-326CE5?&style=plastic&logo=kubernetes&logoColor=white)](https://kubernetes.io/docs/home/) 
 [![ArgoCD](https://img.shields.io/badge/ArgoCD-0F2733?style=plastic&logo=Argo&logocolor=EF7B4D)](https://argo-cd.readthedocs.io/en/stable/)
 [![Kestra](https://img.shields.io/badge/Kestra-1D77FF?style=plastic&logo=kestra&logoColor=white)](https://kestra.io/docs)
-[![Ansible](https://img.shields.io/badge/Ansible-EE0000?style=plastic&logo=ansible&logoColor=white)](https://docs.ansible.com/)
 
 Documenting my homelab journey and moving towards a single source of truth
 
@@ -38,4 +37,3 @@ Declarative configurations for ArgoCD
 workflows, scripts and other automation-logic
 
 - **`kestra/`**: Kestra workflow definitions
-- **`ansible/`**: Ansible playbooks and inventory
