@@ -1,48 +1,4 @@
 locals {
-  base_domain = "eggenberg.io"
-
-  homelab_servers = {
-    "srv-plg-1" = {
-      ip     = "10.10.20.11"
-      cnames = ["gameserver"]
-    }
-    "storage" = {
-      ip     = "10.10.10.20"
-      cnames = []
-    }
-    "p-kube-1" = {
-      ip     = "10.10.20.21"
-      cnames = []
-    }
-    "p-kube-2" = {
-      ip     = "10.10.20.22"
-      cnames = []
-    }
-    "p-kube-3" = {
-      ip     = "10.10.20.23"
-      cnames = []
-    }
-    "kube" = { # LB
-      ip = "10.10.20.40"
-      cnames = [
-        "homepage",
-        "argocd",
-        "longhorn",
-        "prowlarr",
-        "sonarr",
-        "radarr",
-        "flaresolverr",
-        "qbittorrent",
-        "huntarr",
-        "cleanuparr",
-        "kestra",
-        "grafana",
-        "pdf",
-        "minio"
-      ]
-    }
-  }
-
   cloudflare_ips = [
     "173.245.48.0/20",
     "103.21.244.0/22",
@@ -62,11 +18,21 @@ locals {
   ]
 }
 
+variable base_domain{
+  type = string
+  description = "domainname"
+}
+
+variable hosts {
+  type = map(any)
+  description = "map of all server to manage DNS records"
+}
+
 # DNS entry for every server
 resource "unifi_dns_record" "a_records" {
-  for_each = local.homelab_servers
+  for_each = var.hosts
 
-  name   = "${each.key}.${local.base_domain}"
+  name   = "${each.key}.${var.base_domain}"
   type   = "A"
   record = each.value.ip
 }
@@ -75,7 +41,7 @@ resource "unifi_dns_record" "a_records" {
 resource "unifi_dns_record" "cnames" {
   for_each = {
     for cname_obj in flatten([
-      for server_name, server_data in local.homelab_servers :
+      for server_name, server_data in var.hosts :
       [
         for cname in lookup(server_data, "cnames", []) :
         {
@@ -87,9 +53,9 @@ resource "unifi_dns_record" "cnames" {
     ]) : cname_obj.key => cname_obj
   }
 
-  name   = "${each.value.cname}.${each.value.host_name}.${local.base_domain}"
+  name   = "${each.value.cname}.${each.value.host_name}.${var.base_domain}"
   type   = "CNAME"
-  record = "${each.value.host_name}.${local.base_domain}"
+  record = "${each.value.host_name}.${var.base_domain}"
 }
 
 ### Port-Forwards ###

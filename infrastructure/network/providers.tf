@@ -8,8 +8,7 @@ terraform {
 }
 
 provider "unifi" {
-  # Configuration options
-  api_key = var.api_key
-  api_url = "https://10.10.10.1/"
+  # UNIFI_API
+  # UNIFI_API_KEY
   allow_insecure = true
 }
