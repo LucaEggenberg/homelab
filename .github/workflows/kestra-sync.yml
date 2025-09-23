@@ -12,7 +12,6 @@ env:
 jobs:
   validate:
     runs-on: self-hosted
-    ephemeral: true
     name: Kestra validate
     steps:
       - name: Checkout repo
@@ -27,7 +26,6 @@ jobs:
   
   deploy:
     runs-on: self-hosted
-    ephemeral: true
     name: Kestra deploy
     needs: [ validate ]
     steps:
