@@ -37,7 +37,8 @@ locals {
         "cleanuparr",
         "kestra",
         "grafana",
-        "pdf"
+        "pdf",
+        "minio"
       ]
     }
   }
