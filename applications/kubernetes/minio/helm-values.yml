@@ -7,4 +7,8 @@ persistence:
   storageClass: "longhorn-daily-backup"
   accessMode: ReadWriteOnce
 
+resources:
+  requests:
+    memory: 512Mi
+
 existingSecret: "minio-secrets"
