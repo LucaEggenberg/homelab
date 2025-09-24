@@ -1,2 +1,3 @@
 defaultSettings:
-  backupTarget: 'nfs://storage.eggenberg.io:/mnt/Storage/backups/kube'
+  backupTarget: 'nfs://p-storage-1.eggenberg.io:/mnt/Storage/backups/kube'
+  storageReservedPercentageForDefaultDisk: 7.5
