@@ -5,6 +5,7 @@ module "network" {
     
     hosts = {
         "p-storage-1" = { ip = "10.10.10.20", cnames = [] }
+        "p-prmx-1" = { ip = "10.10.10.5", cnames = [] }
         
         "p-kube-1" = { ip = "10.10.20.21", cnames = [] }
         "p-kube-2" = { ip = "10.10.20.22", cnames = [] }
