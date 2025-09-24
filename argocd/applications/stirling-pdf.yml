@@ -12,7 +12,7 @@ spec:
       valueFiles:
         - $values/applications/kubernetes/stirling-pdf/helm-values.yml
   - path: applications/kubernetes/stirling-pdf
-    repoURL: https://github.com/LucaEggenberg/HomeLab
+    repoURL: https://github.com/LucaEggenberg/homelab
     targetRevision: HEAD
     ref: values
   destination:

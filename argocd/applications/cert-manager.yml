@@ -11,7 +11,7 @@ spec:
         valueFiles:
           - $values/applications/kubernetes/cert-manager/helm-values.yml
       chart: cert-manager
-    - repoURL: https://github.com/LucaEggenberg/HomeLab
+    - repoURL: https://github.com/LucaEggenberg/homelab
       path: applications/kubernetes/cert-manager
       targetRevision: HEAD
       ref: values

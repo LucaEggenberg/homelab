@@ -5,7 +5,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/LucaEggenberg/HomeLab
+    repoURL: https://github.com/LucaEggenberg/homelab
     path: applications/kubernetes/pterodactyl
     targetRevision: HEAD
   destination:
