@@ -1,0 +1,40 @@
+networks:
+  private:
+    name: "Private"
+    vlan_id: null
+    subnet: "10.10.10.1/24"
+    gateway: "10.10.10.1"
+    dhcp_start: "10.10.10.6"
+    dhcp_stop: "10.10.10.254"
+    dhcp_dns: [ "10.10.10.1" ]
+    multicast_dns: true
+  
+  public:
+    name: "Public"
+    vlan_id: 2
+    subnet: "10.10.20.1/24"
+    gateway: "10.10.20.1"
+    dhcp_start: "10.10.20.100"
+    dhcp_stop: "10.10.20.254"
+    dhcp_dns: []
+    multicast_dns: false
+  
+  iot:
+    name: "IOT"
+    vlan_id: 3
+    subnet: "10.10.30.1/24"
+    gateway: "10.10.30.1"
+    dhcp_start: "10.10.30.6"
+    dhcp_stop: "10.10.30.254"
+    dhcp_dns: []
+    multicast_dns: false
+  
+  restricted:
+    name: "Restricted"
+    vlan_id: 4
+    subnet: "10.10.99.1/24"
+    gateway: "10.10.99.1"
+    dhcp_start: "10.10.99.6"
+    dhcp_stop: "10.10.99.254"
+    dhcp_dns: []
+    multicast_dns: false

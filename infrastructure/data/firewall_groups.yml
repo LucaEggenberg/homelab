@@ -1,0 +1,27 @@
+groups:
+  nas_ips:
+    type: address-group
+    members:
+      - "10.10.10.20"
+  
+  homeassistant_ips:
+    type: address-group
+    members:
+      - "10.10.30.10"
+
+  kube_ips:
+    type: address-group
+    members:
+      - "10.10.20.21-10.10.20.40"
+
+  smb_nfs_ports:
+    type: port-group
+    members:
+      - "445"
+      - "2049"
+      - "111"
+
+  homeassistant_ports:
+    type: port-group
+    members:
+      - "8123"

@@ -9,6 +9,8 @@ override.tf.json
 terraform-cloud.tfrc.json
 terraform.tfvars
 
+.env
+
 ### VisualStudioCode ###
 .vscode/*      # Maybe .vscode/**/* instead - see comments
 !.vscode/settings.json
