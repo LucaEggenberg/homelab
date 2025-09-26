@@ -41,5 +41,9 @@ resource "unifi_network" "this" {
 
   lifecycle {
     prevent_destroy = true
+
+    # Ignore because of bug that wipes all zone-based rules on network create/update
+    # https://github.com/filipowm/terraform-provider-unifi/issues/94
+    ignore_changes = all 
   }
 }

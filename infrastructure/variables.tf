@@ -9,14 +9,14 @@ variable "unifi_site" {
   default = "default"
 }
 
-variable "debian_template_id" {
-    type = number
-    default = 9001
+variable "debian_template_name" {
+    type = string
+    default = "debian-cloud-template"
     description = "vm template for debian"
 }
 
-variable "nixos_template_id" {
+variable "nixos_template_name" {
     type = number
-    default = 9002
+    default = "nixos-minimal-template"
     description = "vm template for debian"
 }

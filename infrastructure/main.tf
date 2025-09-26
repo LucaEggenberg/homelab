@@ -13,8 +13,8 @@ locals {
     hosts_map   = { for s in local.hosts : s.id => s }
 
     vm_templates = {
-        debian = var.debian_template_id
-        nix = var.nixos_template_id
+        debian = var.debian_template_name
+        nixos = var.nixos_template_name
     }
 }
 
@@ -37,9 +37,6 @@ module "zones" {
     for_each = local.zones
 
     name = each.value.name
-    network_ids = [
-        for n in each.value.network_names : local.network_ids[upper(n)]
-    ]
 }
 
 module "firewall_groups" {

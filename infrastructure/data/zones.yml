@@ -1,28 +1,21 @@
 zones:
   internal:
     name: "Internal"
-    network_names:
-      - "Private"
-      - "IOT"
 
   gateway:
     name: "Gateway"
-    network_names: []
+
+  external:
+    name: "External"
 
   vpn:
     name: "Vpn"
-    network_names: []
 
   hotspot:
     name: "Hotspot"
-    network_names: []
 
   dmz:
     name: "Dmz"
-    network_names:
-      - "Public"
 
   restricted:
     name: "Restricted"
-    network_names:
-      - "Restricted"

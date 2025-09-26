@@ -10,5 +10,8 @@ terraform {
 
 resource "unifi_firewall_zone" "this" {
     name     = var.name
-    networks = var.network_ids
+    
+    lifecycle {
+      ignore_changes = [ networks ]
+    }
 }
