@@ -7,7 +7,11 @@ configuration:
 common:
   extraEnvFrom:
     - secretRef:
-        name: tofu-secrets
+        name: proxmox-secrets
+    - secretRef:
+        name: s3-secrets
+    - secretRef:
+        name: unifi-secrets
 
 dind:
   image:
