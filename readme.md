@@ -14,19 +14,25 @@ Documenting my homelab journey and moving towards a single source of truth
 ## Repository Structure
 
 ### `infrastructure/`
-Core infrastructure components provisioned and managed using OpenTofu
+Core infrastructure components provisioned and managed with OpenTofu and NixOS
 
-each subdirectory represents an enclosed domain.
-
-- **`network/`**: Contains network and dns configuration
-- **`kubernetes/`**:Contains configuration and provisioning of K8s nodes
-- **`modules/`**: OpenTofu modules
+- **`nixos/`** system configurations for homelab hosts using Nix flakes
+    - **`hosts/`** per-host configurations
+    - **`modules/`** reusable nixOs modules devided by role
+    - **`secrets/`** secrets managed with sops-nix  
+    - **`users/`** per-user configuration
+- **`data/`** yaml based facts consumed by openTofu
+- **`modules/`** opentofu modules 
+- **`backend.tf`** config for self-hosted s3 backend
+- **`main.tf`** orchestrates modules based on data dir
+- **`providers.tf`** opentofu / terraform providers
+- **`variables.tf`** static values
 
 ### `applications/`
 Defines the applications deployed in my homelab
 
 - **`kubernetes/`**: Contains Kubernetes manifests and Helm charts managed by ArgoCD
-* **`docker/`**: Contains docker-compose definitions for apps deployed outside k8s
+- **`docker/`**: Contains docker-compose definitions for apps deployed outside k8s
 
 ### `argocd/`
 Declarative configurations for ArgoCD
