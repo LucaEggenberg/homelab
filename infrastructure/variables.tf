@@ -16,7 +16,7 @@ variable "debian_template_name" {
 }
 
 variable "nixos_template_name" {
-    type = number
-    default = "nixos-minimal-template"
+    type = string
+    default = "nixos-template"
     description = "vm template for debian"
 }

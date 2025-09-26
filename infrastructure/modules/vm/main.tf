@@ -8,30 +8,50 @@ terraform {
 }
 
 resource "proxmox_vm_qemu" "server" {
-    name            = var.name
-    target_node     = var.node
-    clone           = var.template
+  name            = var.name
+  target_node     = var.node
+  agent           = 1
+  clone           = var.template
+  full_clone      = true
 
-    memory          = var.memory
-    agent   = 1
-    os_type = "cloud-init"
-    onboot  = true
-    scsihw  = "virtio-scsi-pci"
+  onboot  = true
 
-    disk {
-        slot    = "scsi0"
-        size    = var.disk_size
-        storage = var.storage_pool
-        type    = "disk"
+  bios     = "seabios"
+  cores    = var.cpus
+  sockets  = var.sockets
+  cpu_type = "host"
+  memory   = var.memory
+  balloon  = 1024 #minimum memory
+
+  scsihw   = "virtio-scsi-single"
+
+  network {
+      id      = 0
+      bridge  = "vmbr0"
+      model   = "virtio"
+      tag     = var.network.vlan_id
+  }
+
+  disks {
+    ide {
+      ide2 {
+        cloudinit {
+          storage = var.storage_pool
+        }
+      }
     }
-
-    network {
-        id      = 0
-        bridge  = "vmbr0"
-        model   = "virtio"
-        tag     = var.network.vlan_id
+    scsi {
+      scsi0 {
+        disk {
+          storage = var.storage_pool
+          size = var.disk_size
+          iothread =  true
+          discard = true
+        }
+      }
     }
+  }
 
-    ipconfig0   = "ip=${var.network.ip}/24,gw=${var.network.gateway}"    
-    sshkeys     = join("\n", var.ssh_keys)
+  ipconfig0   = "ip=${var.network.ip}/24,gw=${var.network.gateway}"    
+  sshkeys     = join("\n", var.ssh_keys)
 }

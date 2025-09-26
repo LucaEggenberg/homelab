@@ -29,6 +29,18 @@ variable "memory" {
     description = "memory (MiB)"
 }
 
+variable "cpus" {
+    type = number
+    default = 1
+    description = "number of cpu cores"
+}
+
+variable "sockets" {
+    type = number
+    default = 1
+    description = "number of cpu sockets"
+}
+
 variable "disk_size" {
     type = string
     default = "10G"

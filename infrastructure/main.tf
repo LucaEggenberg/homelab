@@ -16,6 +16,10 @@ locals {
         debian = var.debian_template_name
         nixos = var.nixos_template_name
     }
+
+    ssh_keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPLTvjhfe4YWatJ3Y19rYj8YHGmiki5AMqDykfkFH5/f"
+    ]
 }
 
 module "networks" {
@@ -101,10 +105,11 @@ module "vms" {
     name            = each.value.host
     template        = local.vm_templates[each.value.proxmox.template]
     memory          = lookup(each.value.proxmox, "memory", 1024)
+    cpus            = lookup(each.value.proxmox, "cpus", 1)
     disk_size       = lookup(each.value.proxmox, "disk_size", "10G")
     storage_pool    = lookup(each.value.proxmox, "storage_pool", "zfs-vm-data")
     node            = lookup(each.value.proxmox, "node", "p-prmx-1")
-    ssh_keys        = []
+    ssh_keys        = local.ssh_keys
 
     network = {
         ip      = each.value.ip
