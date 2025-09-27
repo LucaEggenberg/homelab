@@ -63,10 +63,12 @@ module "policies" {
 
     src_zone_id  = local.zone_ids[upper(each.value.src_zone)]
     dst_zone_id  = local.zone_ids[upper(each.value.dst_zone)]
-    src_group_id = local.group_ids[upper(each.value.src_group)]
-    dst_group_id = local.group_ids[upper(each.value.dst_group)]
 
-    port_group_id = local.group_ids[upper(each.value.port_group)]
+    src_group_id        = local.group_ids[upper(each.value.src_group)]
+    dst_group_id        = local.group_ids[upper(each.value.dst_group)]
+
+    src_port_group_id   = local.group_ids[upper(each.value.src_ports)]
+    dst_port_group_id   = local.group_ids[upper(each.value.dst_ports)]
 
     logging             = each.value.logging
     auto_allow_return   = try(each.value.auto_allow_return, true)

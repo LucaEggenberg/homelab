@@ -29,14 +29,19 @@ variable "src_group_id" {
     description = "source firewall ip group"
 }
 
+variable "src_port_group_id" {
+    type = string
+    description = "source port group"
+}
+
 variable "dst_group_id" {
     type = string
     description = "destination firewall ip group"
 }
 
-variable "port_group_id" {
+variable "dst_port_group_id" {
     type = string
-    description = "firewall port group"
+    description = "destination port group"
 }
 
 variable "logging" {

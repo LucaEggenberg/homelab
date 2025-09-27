@@ -18,13 +18,13 @@ resource "unifi_firewall_zone_policy" "this" {
   source = {
       zone_id = var.src_zone_id
       ip_group_id = var.src_group_id
-      port_group_id = var.port_group_id
+      port_group_id = var.src_port_group_id
   }
 
   destination = {
       zone_id = var.dst_zone_id
       ip_group_id = var.dst_group_id
-      port_group_id = var.port_group_id
+      port_group_id = var.dst_port_group_id
   }
 
   lifecycle {
