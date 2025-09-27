@@ -25,3 +25,9 @@ groups:
     type: port-group
     members:
       - "8123"
+
+  http_ports:
+    type: port-group
+    members:
+      - "80"
+      - "443"

@@ -4,9 +4,10 @@ policies:
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "kube_ips"
+    src_ports: "smb_nfs_ports"
     dst_zone: "internal"
     dst_group: "nas_ips"
-    port_group: "smb_nfs_ports"
+    dst_ports: "smb_nfs_ports"
     logging: true
     auto_allow_return: true
 
@@ -15,9 +16,10 @@ policies:
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "kube_ips"
+    src_ports: "http_ports"
     dst_zone: "internal"
     dst_group: "homeassistant_ips"
-    port_group: "homeassistant_ports"
+    dst_ports: "homeassistant_ports"
     logging: true
     auto_allow_return: false
     
