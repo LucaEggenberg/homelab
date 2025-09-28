@@ -1,4 +1,9 @@
 groups:
+  gateway_ip:
+    type: address-group
+    members:
+      - "10.10.10.1"
+
   nas_ips:
     type: address-group
     members:
@@ -14,6 +19,11 @@ groups:
     members:
       - "10.10.20.21-10.10.20.40"
 
+  runner_ips:
+    type: address-group
+    members:
+      - "10.10.99.2"
+
   smb_nfs_ports:
     type: port-group
     members:
@@ -26,8 +36,12 @@ groups:
     members:
       - "8123"
 
-  http_ports:
+  https_ports:
     type: port-group
     members:
-      - "80"
       - "443"
+
+  dns_ports:
+    type: port-group
+    members:
+      - "53"

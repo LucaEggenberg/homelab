@@ -25,6 +25,7 @@ resource "unifi_firewall_zone_policy" "this" {
       zone_id = var.dst_zone_id
       ip_group_id = var.dst_group_id
       port_group_id = var.dst_port_group_id
+      web_domains = var.web_domains
   }
 
   lifecycle {

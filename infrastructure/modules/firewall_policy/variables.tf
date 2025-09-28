@@ -44,6 +44,12 @@ variable "dst_port_group_id" {
     description = "destination port group"
 }
 
+variable "web_domains" {
+    type = list(string)
+    description = "if dst_zone is external: domains for the rule"
+    default = null
+}
+
 variable "logging" {
     type = bool
     default = false

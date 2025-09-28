@@ -64,13 +64,15 @@ module "policies" {
     src_zone_id  = local.zone_ids[upper(each.value.src_zone)]
     dst_zone_id  = local.zone_ids[upper(each.value.dst_zone)]
 
-    src_group_id        = local.group_ids[upper(each.value.src_group)]
-    dst_group_id        = local.group_ids[upper(each.value.dst_group)]
+    src_group_id        = try(local.group_ids[upper(each.value.src_group)], null)
+    dst_group_id        = try(local.group_ids[upper(each.value.dst_group)], null)
 
-    src_port_group_id   = local.group_ids[upper(each.value.src_ports)]
-    dst_port_group_id   = local.group_ids[upper(each.value.dst_ports)]
+    src_port_group_id   = try(local.group_ids[upper(each.value.src_ports)], null)
+    dst_port_group_id   = try(local.group_ids[upper(each.value.dst_ports)], null)
 
-    logging             = each.value.logging
+    web_domains         = lookup(each.value, "web_domains", null)
+
+    logging             = lookup(each.value, "logging", false)
     auto_allow_return   = try(each.value.auto_allow_return, true)
 }
 
@@ -105,6 +107,7 @@ module "vms" {
     }
 
     name            = each.value.host
+    tags            = join(",", lookup(each.value.proxmox, "tags", [ "untagged" ]))
     template        = local.vm_templates[each.value.proxmox.template]
     memory          = lookup(each.value.proxmox, "memory", 1024)
     cpus            = lookup(each.value.proxmox, "cpus", 1)

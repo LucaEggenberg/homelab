@@ -16,10 +16,57 @@ policies:
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "kube_ips"
-    src_ports: "http_ports"
+    src_ports: null
     dst_zone: "internal"
     dst_group: "homeassistant_ips"
     dst_ports: "homeassistant_ports"
     logging: true
-    auto_allow_return: false
+    auto_allow_return: true
     
+  runner_external:
+    name: "Block all External"
+    action: "BLOCK"
+    src_zone: "restricted"
+    dst_zone: "external"
+    auto_allow_return: false
+
+  runner_gateway:
+    name: "Block all Gateway"
+    action: "BLOCK"
+    src_zone: "restricted"
+    dst_zone: "gateway"
+    auto_allow_return: false
+
+  # all other zones are blocked by default
+
+  runner_dns:
+    name: "Allow github-runner DNS"
+    action: "ALLOW"
+    src_zone: "restricted"
+    src_group: "runner_ips"
+    dst_zone: "gateway"
+    dst_group: "gateway_ip"
+    dst_ports: "dns_ports"
+    auto_allow_return: false
+
+  runner_github:
+    name: "Allow github-runner https to github"
+    action: "ALLOW"
+    src_zone: "restricted"
+    src_group: "runner_ips"
+    dst_zone: "external"
+    web_domains:
+      - "github.com"
+      - "api.github.com"
+    auto_allow_return: false
+
+  runner_kube_https:
+    name: "Allow github-runner to kubernetes https"
+    action: "ALLOW"
+    src_zone: "restricted"
+    src_group: "runner_ips"
+    dst_zone: "dmz"
+    dst_group: "kube_ips"
+    dst_ports: "https_ports"
+    logging: true
+    auto_allow_return: true

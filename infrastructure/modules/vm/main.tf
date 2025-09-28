@@ -13,15 +13,19 @@ resource "proxmox_vm_qemu" "server" {
   agent           = 1
   clone           = var.template
   full_clone      = true
+  tags            = var.tags
 
   onboot  = true
 
   bios     = "seabios"
-  cores    = var.cpus
-  sockets  = var.sockets
-  cpu_type = "host"
   memory   = var.memory
   balloon  = 1024 #minimum memory
+  
+  cpu {
+    cores   = var.cpus
+    sockets = var.sockets
+    type    = "host"
+  }
 
   scsihw   = "virtio-scsi-single"
 

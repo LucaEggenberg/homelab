@@ -3,6 +3,12 @@ variable "name" {
     description = "vm/host name"
 }
 
+variable "tags" {
+    type = string
+    description = "vm tags, comma separated"
+    default = "untagged"
+}
+
 variable "network" {
     type = object({
       vlan_id = number
