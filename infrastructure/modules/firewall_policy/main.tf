@@ -8,25 +8,32 @@ terraform {
 }
 
 resource "unifi_firewall_zone_policy" "this" {
-  site = var.site
-  name = var.name
-  action = var.action
+  site    = var.site
+  name    = var.name
+  index   = var.index
+  action  = var.action
   enabled = true
   logging = var.logging
-  auto_allow_return_traffic = var.auto_allow_return
 
   source = {
-      zone_id = var.src_zone_id
-      ip_group_id = var.src_group_id
+      zone_id       = var.src_zone_id
+      ip_group_id   = var.src_group_id
       port_group_id = var.src_port_group_id
+      port          = var.src_port
   }
 
   destination = {
-      zone_id = var.dst_zone_id
-      ip_group_id = var.dst_group_id
+      zone_id       = var.dst_zone_id
+      ip_group_id   = var.dst_group_id
       port_group_id = var.dst_port_group_id
-      web_domains = var.web_domains
+      port          = var.dst_port
+      web_domains   = var.web_domains
   }
+
+  protocol   = var.protocol
+  ip_version = var.ip_version
+
+  auto_allow_return_traffic = var.auto_allow_return
 
   lifecycle {
     ignore_changes = [

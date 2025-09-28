@@ -60,6 +60,7 @@ module "policies" {
     site    = var.unifi_site
     name    = each.value.name
     action  = each.value.action
+    index   = lookup(each.value, "index", 10000)
 
     src_zone_id  = local.zone_ids[upper(each.value.src_zone)]
     dst_zone_id  = local.zone_ids[upper(each.value.dst_zone)]
@@ -70,10 +71,16 @@ module "policies" {
     src_port_group_id   = try(local.group_ids[upper(each.value.src_ports)], null)
     dst_port_group_id   = try(local.group_ids[upper(each.value.dst_ports)], null)
 
+    src_port            = lookup(each.value, "src_port", null)
+    dst_port            = lookup(each.value, "dst_port", null)
+
     web_domains         = lookup(each.value, "web_domains", null)
+    protocol            = lookup(each.value, "protocol", null)
+
+    ip_version          = lookup(each.value, "ip_version", "BOTH")
 
     logging             = lookup(each.value, "logging", false)
-    auto_allow_return   = try(each.value.auto_allow_return, true)
+    auto_allow_return   = try(each.value.auto_allow_return, false)
 }
 
 module "static_leases" {
