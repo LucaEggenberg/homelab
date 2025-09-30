@@ -18,3 +18,9 @@ variable "cnames" {
     description = "list of cnames associated with this host"
     default = []
 }
+
+variable "subdomains" {
+    type = list(string)
+    description = "list of subdomains associated with this host"
+    default = []
+}

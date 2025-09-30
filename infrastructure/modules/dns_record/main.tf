@@ -16,6 +16,14 @@ resource "unifi_dns_record" "this" {
 resource "unifi_dns_record" "cnames" {
   for_each = toset(var.cnames)
 
+  name   = "${each.value}.${var.domain}"
+  type   = "CNAME"
+  record = unifi_dns_record.this.name
+} 
+
+resource "unifi_dns_record" "subdomains" {
+  for_each = toset(var.subdomains)
+
   name   = "${each.value}.${var.host_name}.${var.domain}"
   type   = "CNAME"
   record = unifi_dns_record.this.name

@@ -138,4 +138,5 @@ module "dns_records" {
     host_name   = each.value.host
     host_ip     = each.value.ip
     cnames      = lookup(each.value, "cnames", [])
+    subdomains  = lookup(each.value, "subdomains", [])
 }
