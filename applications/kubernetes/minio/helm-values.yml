@@ -3,7 +3,7 @@ mode: "standalone"
 replicaCount: 1
 
 persistence:
-  size: 5Gi
+  size: 20Gi
   storageClass: "longhorn-daily-backup"
   accessMode: ReadWriteOnce
 
