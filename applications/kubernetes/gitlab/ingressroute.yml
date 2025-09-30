@@ -10,7 +10,7 @@ spec:
   - match: Host(`git.eggenberg.io`)
     kind: Rule
     services:
-    - name: gitlab
+    - name: gitlab-webservice
       port: 8181
   tls:
     secretName: gitlab-certificate-secret
@@ -27,7 +27,7 @@ spec:
   - match: Host(`registry.git.eggenberg.io`)
     kind: Rule
     services:
-    - name: registry
-      port: 8181
+    - name: gitlab-registry
+      port: 5000
   tls:
     secretName: gitlab-registry-certificate-secret

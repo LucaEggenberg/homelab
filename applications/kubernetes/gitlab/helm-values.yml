@@ -6,6 +6,12 @@ global:
     registry:
       name: registry.git.eggenberg.io
 
+  gitlab:
+    serviceName: gitlab-webservice
+
+  registry:
+    serviceName: gitlab-registry
+
   nginx-ingress:
     enabled: false
 
