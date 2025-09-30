@@ -15,17 +15,7 @@ global:
       enabled: true
     secretName: gitlab-certificate-secret
     configureCertmanager: false
-  
-  gitlab:
-    webservice:
-      ingress:
-        enabled: false
 
-  registry:
-    enabled: true
-    ingress:
-      enabled: false
-  
   minio:
     enabled: false
 
@@ -37,3 +27,15 @@ global:
         key: connection
     terraformState:
       enabled: true 
+
+gitlab:
+  webservice:
+    ingress:
+      enabled: false
+
+registry:
+  enabled: true
+  ingress:
+    enabled: false
+
+installCertmanager: false
