@@ -7,10 +7,27 @@ spec:
   entryPoints:
   - websecure
   routes:
-  - match: Host(`git.kube.eggenberg.io`)
+  - match: Host(`git.eggenberg.io`)
     kind: Rule
     services:
     - name: gitlab
       port: 8181
   tls:
     secretName: gitlab-certificate-secret
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: gitlab-registry-ingressroute
+  namespace: gitlab
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - match: Host(`registry.git.eggenberg.io`)
+    kind: Rule
+    services:
+    - name: registry
+      port: 8181
+  tls:
+    secretName: gitlab-registry-certificate-secret

@@ -1,32 +1,39 @@
 global:
   hosts:
     domain: eggenberg.io
-
-  gitlab:
-    name: git.eggenberg.io
+    gitlab:
+      name: git.eggenberg.io
+    registry:
+      name: registry.git.eggenberg.io
 
   nginx-ingress:
     enabled: false
 
   ingress:
     enabled: false
+    tls:
+      enabled: true
+    secretName: gitlab-certificate-secret
+    configureCertmanager: false
+  
+  gitlab:
+    webservice:
+      ingress:
+        enabled: false
 
+  registry:
+    enabled: true
+    ingress:
+      enabled: false
+  
   minio:
     enabled: false
 
   appConfig:
     object_store:
       enabled: true
-      connection: 
+      connection:
         secret: minio-secrets
         key: connection
     terraformState:
-      enabled: true
-
-  
-
-
-
-
-
-
+      enabled: true 
