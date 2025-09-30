@@ -1,0 +1,32 @@
+global:
+  hosts:
+    domain: eggenberg.io
+
+  gitlab:
+    name: git.eggenberg.io
+
+  nginx-ingress:
+    enabled: false
+
+  ingress:
+    enabled: false
+
+  minio:
+    enabled: false
+
+  appConfig:
+    object_store:
+      enabled: true
+      connection: 
+        secret: minio-secrets
+        key: connection
+    terraformState:
+      enabled: true
+
+  
+
+
+
+
+
+
