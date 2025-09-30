@@ -39,3 +39,6 @@ registry:
     enabled: false
 
 installCertmanager: false
+
+upgradeCheck:
+  enabled: false
