@@ -4,7 +4,7 @@ policies:
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "kube_ips"
-    src_ports: "smb_nfs_ports"
+    src_ports: null
     dst_zone: "internal"
     dst_group: "nas_ips"
     dst_ports: "smb_nfs_ports"
