@@ -4,6 +4,7 @@
         6443 # K3s supervisor and Kubernetes API Server
         2379 # Required only for HA with embedded etcd
         2380 # Required only for HA with embedded etcd
+        10250 # kubelet metrics server
     ];
 
     networking.firewall.allowedUDPPorts = [
