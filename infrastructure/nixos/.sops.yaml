@@ -8,6 +8,9 @@ creation_rules:
     key_groups:
       - age:
         - *u-luca
+        - *p-kube-1
+        - *p-kube-2
+        - *p-kube-3
   - path_regex: secrets/kubernetes/[^/]+\.(yaml|json|env|ini)$
     key_groups:
       - age:
