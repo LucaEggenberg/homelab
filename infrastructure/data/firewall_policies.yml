@@ -23,6 +23,16 @@ policies:
     logging: true
     auto_allow_return: true
     
+  kube_allow_nut:
+    name: "Allow Kube to NAS nut"
+    action: "ALLOW"
+    src_zone: "dmz"
+    src_group: "kube_ips"
+    dst_zone: "internal"
+    dst_group: "nas_ips"
+    dst_ports: "nut_ports"
+    auto_allow_return: true
+  
   runner_allow_kube_https:
     name: "Allow github-runner to kubernetes https"
     action: "ALLOW"
@@ -33,7 +43,7 @@ policies:
     dst_ports: "https_ports"
     logging: true
     auto_allow_return: true
-
+  
   restricted_allow_dns:
     name: "Allow DNS"
     action: "ALLOW"

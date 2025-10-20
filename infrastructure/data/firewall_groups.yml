@@ -45,3 +45,8 @@ groups:
     type: port-group
     members:
       - "53"
+
+  nut_ports:
+    type: port-group
+    members: 
+      - "3493"
