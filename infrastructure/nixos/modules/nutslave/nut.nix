@@ -1,4 +1,4 @@
-{ config, packages, ... }: {
+{ config, pkgs, ... }: {
     sops = {
         age.sshKeyPaths = [ "/etc/ssh/id_ed25519" ];
 
