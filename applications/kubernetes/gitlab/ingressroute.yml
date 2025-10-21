@@ -27,7 +27,7 @@ spec:
   - match: Host(`git.eggenberg.io`)
     kind: Rule
     services:
-    - name: gitlab-webservice-default
+    - name: gitlab-gitlab-shell
       port: 2222
 ---
 apiVersion: traefik.io/v1alpha1
