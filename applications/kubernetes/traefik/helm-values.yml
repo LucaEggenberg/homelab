@@ -1,0 +1,6 @@
+ports:
+  ssh:
+    port: 22
+    expose: true
+    exposedPort: 22
+    protocol: TCP
