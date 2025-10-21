@@ -24,7 +24,7 @@ spec:
   entryPoints:
   - ssh
   routes:
-  - match: Host(`git.eggenberg.io`)
+  - match: Host(`*`)
     kind: Rule
     services:
     - name: gitlab-gitlab-shell
