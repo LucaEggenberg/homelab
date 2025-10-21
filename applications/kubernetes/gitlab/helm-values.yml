@@ -6,9 +6,6 @@ global:
     registry:
       name: registry.git.eggenberg.io
 
-  shell:
-    port: 22
-
   registry:
     serviceName: gitlab-registry
 
@@ -38,11 +35,6 @@ gitlab:
   webservice:
     ingress:
       enabled: false
-
-  gitlab-shell:
-    service:
-      type: ClusterIP
-      internalPort: 2222
 
 registry:
   enabled: true
