@@ -31,10 +31,18 @@ global:
     terraformState:
       enabled: true 
 
+  shell:
+    port: 22
+
 gitlab:
   webservice:
     ingress:
       enabled: false
+
+  gitlab-shell:
+    service:
+      type: ClusterIP
+      internalPort: 2222
 
 registry:
   enabled: true
