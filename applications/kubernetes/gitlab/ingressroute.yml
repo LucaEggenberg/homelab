@@ -21,11 +21,11 @@ metadata:
   name: gitlab-ssh-ingressroute
   namespace: gitlab
 spec:
-  entrypoints:
+  entryPoints:
   - ssh
   routes:
-  - match: host(`git.eggenberg.io`)
-    kind: rule
+  - match: Host(`git.eggenberg.io`)
+    kind: Rule
     services:
     - name: gitlab-webservice-defaul
       port: 22
@@ -36,13 +36,13 @@ metadata:
   name: gitlab-registry-ingressroute
   namespace: gitlab
 spec:
-  entrypoints:
+  entryPoints:
   - websecure
   routes:
-  - match: host(`registry.git.eggenberg.io`)
-    kind: rule
+  - match: Host(`registry.git.eggenberg.io`)
+    kind: Rule
     services:
     - name: gitlab-registry
       port: 5000
   tls:
-    secretname: gitlab-registry-certificate-secret
+    secretName: gitlab-registry-certificate-secret
