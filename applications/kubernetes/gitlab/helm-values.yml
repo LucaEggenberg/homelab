@@ -32,7 +32,7 @@ global:
       enabled: true 
 
   shell:
-    port: 22
+    port: 2222
 
 gitlab:
   webservice:
