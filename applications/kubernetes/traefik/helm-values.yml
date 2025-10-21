@@ -1,27 +1,27 @@
 ports:
   web:
-    port: 80
+    port: 8000
     expose:
       default: true
     exposedPort: 80
     protocol: TCP
   websecure:
-    port: 443
+    port: 8443
     expose:
       default: true
     exposedPort: 443
     protocol: TCP
   ssh:
-    port: 2222
+    port: 8022
     expose:
       default: true
     exposedPort: 2222
     protocol: TCP
 
 additionalArguments:
-  - "--entrypoints.web.address=:80"
-  - "--entrypoints.websecure.address=:443"
+  - "--entrypoints.web.address=:8000"
+  - "--entrypoints.websecure.address=:8443"
   - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
   - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
   - "--entrypoints.web.http.redirections.entryPoint.permanent=true"
-  - "--entrypoints.ssh.address=:22"
+  - "--entrypoints.ssh.address=:8022"
