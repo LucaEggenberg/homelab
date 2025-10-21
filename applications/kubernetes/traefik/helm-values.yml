@@ -4,3 +4,6 @@ ports:
     expose: true
     exposedPort: 22
     protocol: TCP
+
+additionalArguments:
+  - "--entrypoints.ssh.address=:22"
