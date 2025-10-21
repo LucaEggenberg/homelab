@@ -24,7 +24,7 @@ spec:
   entryPoints:
   - ssh
   routes:
-  - match: Host(`*`)
+  - match: HostSNI(`*`)
     kind: Rule
     services:
     - name: gitlab-gitlab-shell
