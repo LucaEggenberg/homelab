@@ -5,7 +5,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/LucaEggenberg/homelab
+    repoURL: https://git.eggenberg.io/luca/homelab
     path: applications/kubernetes/media
     targetRevision: HEAD
     directory:

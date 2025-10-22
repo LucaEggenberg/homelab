@@ -18,7 +18,7 @@ spec:
       syncPolicy:
         automated: {}
       source:
-        repoURL: https://github.com/LucaEggenberg/homelab
+        repoURL: https://git.eggenberg.io/luca/homelab
         targetRevision: HEAD
         path: argocd/applications
       destination:

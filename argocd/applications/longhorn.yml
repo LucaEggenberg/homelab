@@ -13,7 +13,7 @@ spec:
       valueFiles:
         - $values/applications/kubernetes/longhorn/helm-values.yml
   - path: applications/kubernetes/longhorn
-    repoURL: https://github.com/LucaEggenberg/homelab
+    repoURL: https://git.eggenberg.io/luca/homelab
     targetRevision: HEAD
     ref: values
   destination:

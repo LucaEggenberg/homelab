@@ -9,7 +9,7 @@ spec:
     targetRevision: v1.17.0
     chart: csi-driver-smb
   - path: applications/kubernetes/csi
-    repoURL: https://github.com/LucaEggenberg/homelab
+    repoURL: https://git.eggenberg.io/luca/homelab
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc

@@ -12,7 +12,7 @@ spec:
       valueFiles:
         - $values/applications/kubernetes/gitlab/helm-values.yml
   - path: applications/kubernetes/gitlab
-    repoURL: https://github.com/LucaEggenberg/homelab
+    repoURL: https://git.eggenberg.io/luca/homelab
     targetRevision: HEAD
     ref: values
   destination:
