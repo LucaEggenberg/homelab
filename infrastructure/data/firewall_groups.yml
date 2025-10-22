@@ -19,11 +19,6 @@ groups:
     members:
       - "10.10.20.21-10.10.20.40"
 
-  runner_ips:
-    type: address-group
-    members:
-      - "10.10.99.2"
-
   smb_nfs_ports:
     type: port-group
     members:

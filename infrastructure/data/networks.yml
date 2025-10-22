@@ -28,13 +28,3 @@ networks:
     dhcp_stop: "10.10.30.254"
     dhcp_dns: []
     multicast_dns: false
-  
-  restricted:
-    name: "Restricted"
-    vlan_id: 4
-    subnet: "10.10.99.1/24"
-    gateway: "10.10.99.1"
-    dhcp_start: "10.10.99.6"
-    dhcp_stop: "10.10.99.254"
-    dhcp_dns: []
-    multicast_dns: false
