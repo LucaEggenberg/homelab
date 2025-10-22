@@ -33,18 +33,20 @@ global:
 
   email:
     display_name: 'GitLab'
-    from: 'git.eggenberg.io'
+    from: 'git@eggenberg.io'
     reply_to: 'noreply@eggenberg.io'
 
   smtp:
     enabled: true
     address: smtp.protonmail.ch
-    tls: true
+    port: 587
     authentication: 'plain'
-    username: 'git@eggenberg.io'
+    user_name: 'git@eggenberg.io'
     password:
       secret: smtp-secrets
       key: 'token'
+    starttls_auto: true
+    tls: false
 
   shell:
     port: 2222
