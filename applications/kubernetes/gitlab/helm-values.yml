@@ -31,6 +31,21 @@ global:
     terraformState:
       enabled: true 
 
+  email:
+    display_name: 'GitLab'
+    from: 'git.eggenberg.io'
+    reply_to: 'noreply@eggenberg.io'
+
+  smtp:
+    enabled: true
+    address: smtp.protonmail.ch
+    tls: true
+    authentication: 'plain'
+    username: 'git@eggenberg.io'
+    password:
+      secret: smtp-secrets
+      key: 'token'
+
   shell:
     port: 2222
 
