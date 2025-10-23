@@ -24,4 +24,4 @@ additionalArguments:
   - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
   - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
   - "--entrypoints.web.http.redirections.entryPoint.permanent=true"
-  - "--entrypoints.ssh.address=10.10.20.40:8022"
+  - "--entrypoints.ssh.address=:8022"

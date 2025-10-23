@@ -5,7 +5,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://git.eggenberg.io/luca/homelab
+    repoURL: https://git.eggenberg.io/luca/homelab.git
     path: applications/kubernetes/external-routes
     targetRevision: HEAD
     directory:

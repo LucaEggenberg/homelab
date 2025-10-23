@@ -12,7 +12,7 @@ spec:
       valueFiles:
         - $values/applications/kubernetes/traefik/helm-values.yml
   - path: applications/kubernetes/traefik
-    repoURL: https://git.eggenberg.io/luca/homelab
+    repoURL: https://git.eggenberg.io/luca/homelab.git
     targetRevision: HEAD
     ref: values
   destination:
