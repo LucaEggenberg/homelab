@@ -16,7 +16,7 @@ networks:
     gateway: "10.10.20.1"
     dhcp_start: "10.10.20.100"
     dhcp_stop: "10.10.20.254"
-    dhcp_dns: []
+    dhcp_dns: [ "10.10.10.1" ]
     multicast_dns: false
   
   iot:
