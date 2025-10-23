@@ -1,2 +1,7 @@
 include:
-  - local: "pipelines/gitlab/*.yml"
+  - local: "pipelines/gitlab/opentofu-cd.yml"
+    rules:
+      - changes:
+        - "$TOFU_DIR/*.tf"
+        - "$TOFU_DIR/modules/**"
+        - "$TOFU_DIR/data/**"

@@ -14,11 +14,6 @@ default:
   before_script:
     - cd $TOFU_DIR
     - tofu --version
-  rules:
-    - changes:
-      - "$TOFU_DIR/*.tf"
-      - "$TOFU_DIR/modules/**"
-      - "$TOFU_DIR/data/**"
 
 validate:
   stage: validate
@@ -26,6 +21,8 @@ validate:
     - tofu fmt -check
     - tofu init -input=false
     - tofu validate
+  rules:
+    - when: always
 
 plan:
   stage: plan
@@ -46,4 +43,4 @@ apply:
   needs: ["plan"]
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-      when: always
+      when: on_success
