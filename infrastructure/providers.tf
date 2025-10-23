@@ -12,8 +12,8 @@ terraform {
 }
 
 provider "proxmox" {
-    # PM_API_TOKEN_ID
     # PM_API_TOKEN_SECRET
+    pm_api_token_id = "tofu@pam!tofu-token"
     pm_api_url = "https://p-prmx-1.eggenberg.io:8006/api2/json"
     pm_tls_insecure     = false   
 }
