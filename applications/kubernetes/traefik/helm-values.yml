@@ -1,3 +1,5 @@
+hostNetwork: false
+
 ports:
   web:
     port: 8000
