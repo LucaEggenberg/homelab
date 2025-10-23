@@ -4,7 +4,6 @@ stages:
   - apply
 
 variables:
-  TOFU_DIR: "infrastructure"
   TOFU_VERSION: "1.10.6"
 
 default:
@@ -12,7 +11,7 @@ default:
     name: ghcr.io/opentofu/opentofu:${TOFU_VERSION}-minimal
     entrypoint: [""]
   before_script:
-    - cd $TOFU_DIR
+    - cd infrastructure
     - tofu --version
 
 validate:
@@ -31,7 +30,7 @@ plan:
     - tofu plan -out=tfplan
   artifacts:
     paths:
-      - $TOFU_DIR/tfplan
+      - infrastructure/tfplan
   rules:
     - when: on_success
 

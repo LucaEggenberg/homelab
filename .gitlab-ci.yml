@@ -2,6 +2,6 @@ include:
   - local: "pipelines/gitlab/opentofu-cd.yml"
     rules:
       - changes:
-        - "$TOFU_DIR/*.tf"
-        - "$TOFU_DIR/modules/**"
-        - "$TOFU_DIR/data/**"
+        - "infrastructure/*.tf"
+        - "infrastructure/modules/**"
+        - "infrastructure/data/**"
