@@ -1,0 +1,49 @@
+stages:
+  - validate
+  - plan
+  - apply
+
+variables:
+  TOFU_DIR: "infrastructure"
+  TOFU_VERSION: "1.10.6"
+
+default:
+  image:
+    name: ghcr.io/opentofu/opentofu:${TOFU_VERSION}-minimal
+    entrypoint: [""]
+  before_script:
+    - cd $TOFU_DIR
+    - tofu --version
+  rules:
+    - changes:
+      - "$TOFU_DIR/*.tf"
+      - "$TOFU_DIR/modules/**"
+      - "$TOFU_DIR/data/**"
+
+validate:
+  stage: validate
+  script:
+    - tofu fmt -check
+    - tofu init -input=false
+    - tofu validate
+
+plan:
+  stage: plan
+  script:
+    - tofu init -input=false
+    - tofu plan -out=tfplan
+  artifacts:
+    paths:
+      - $TOFU_DIR/tfplan
+  rules:
+    - when: on_success
+
+apply:
+  stage: apply
+  script:
+    - tofu init -input=false
+    - tofu apply -auto-approve tfplan
+  needs: ["plan"]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
