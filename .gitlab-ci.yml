@@ -1,5 +1,5 @@
 top-level-job:
-  stage: .pre
+  stage: build
   script:
     - 'echo Pipeline triggered by: $GITLAB_USER_NAME'
     - 'echo Commit: $CI_COMMIT_TITLE'
@@ -12,7 +12,7 @@ include:
   - local: "pipelines/gitlab/opentofu-cd.yml"
     rules:
       - changes:
-        - "pipelines/gitlab/opentofu.yml"
+        - "pipelines/gitlab/opentofu-cd.yml"
         - "infrastructure/*.tf"
         - "infrastructure/modules/**"
         - "infrastructure/data/**"
