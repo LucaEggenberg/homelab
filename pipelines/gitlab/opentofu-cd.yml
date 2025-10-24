@@ -8,7 +8,7 @@ variables:
 
 default:
   image:
-    name: ghcr.io/opentofu/opentofu:${TOFU_VERSION}-minimal
+    name: ghcr.io/opentofu/opentofu:${TOFU_VERSION}
     entrypoint: [""]
   before_script:
     - cd infrastructure
