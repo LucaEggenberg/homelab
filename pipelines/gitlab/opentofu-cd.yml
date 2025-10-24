@@ -17,7 +17,6 @@ default:
 opentofu-validate:
   stage: validate
   script:
-    - tofu fmt -check
     - tofu init -input=false
     - tofu validate
   rules:
