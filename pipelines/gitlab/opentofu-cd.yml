@@ -14,7 +14,7 @@ default:
     - cd infrastructure
     - tofu --version
 
-validate:
+opentofu-validate:
   stage: validate
   script:
     - tofu fmt -check
@@ -23,7 +23,7 @@ validate:
   rules:
     - when: always
 
-plan:
+opentofu-plan:
   stage: plan
   script:
     - tofu init -input=false
@@ -34,7 +34,7 @@ plan:
   rules:
     - when: on_success
 
-apply:
+opentofu-apply:
   stage: apply
   script:
     - tofu init -input=false

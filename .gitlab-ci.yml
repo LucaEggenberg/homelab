@@ -12,6 +12,7 @@ include:
   - local: "pipelines/gitlab/opentofu-cd.yml"
     rules:
       - changes:
+        - "pipelines/gitlab/opentofu.yml"
         - "infrastructure/*.tf"
         - "infrastructure/modules/**"
         - "infrastructure/data/**"
