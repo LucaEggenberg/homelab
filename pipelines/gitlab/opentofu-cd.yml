@@ -39,7 +39,7 @@ opentofu-apply:
   script:
     - tofu init -input=false
     - tofu apply -auto-approve tfplan
-  needs: ["plan"]
+  needs: ["opentofu-plan"]
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: on_success

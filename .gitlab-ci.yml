@@ -1,5 +1,5 @@
 top-level-job:
-  stage: build
+  stage: .pre
   script:
     - 'echo Pipeline triggered by: $GITLAB_USER_NAME'
     - 'echo Commit: $CI_COMMIT_TITLE'
