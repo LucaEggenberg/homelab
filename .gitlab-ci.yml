@@ -1,9 +1,9 @@
 top-level-job:
   stage: .pre
   script:
-    - echo 'Pipeline triggered by: $GITLAB_USER_NAME'
-    - echo 'Commit: $CI_COMMIT_TITLE'
-    - echo 'Branch: $CI_COMMIT_REF_NAME'
+    - 'echo Pipeline triggered by: $GITLAB_USER_NAME'
+    - 'echo Commit: $CI_COMMIT_TITLE'
+    - 'echo Branch: $CI_COMMIT_REF_NAME'
   rules:
     - when: always
   allow_failure: true
