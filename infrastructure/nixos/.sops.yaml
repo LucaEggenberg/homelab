@@ -1,20 +1,26 @@
 keys:
+  # users
   - &u-luca age1hlkhznl99sc8kh33weq7z90xdrsqz85wu5c86x7kf5pkxqvum3pq2n4d7p
-  - &p-kube-1 age1zf6eg0y2d99r8j7yy573almastw7he3qfke5df7t0rkmmysz956qg0p607
-  - &p-kube-2 age1qql9ema67rruk8mgl9mcnm6dd274w4r5jzxv05av8ut9zdmx0p2q706rrh
-  - &p-kube-3 age16rllrwvq0kg4yz9ur4vgjc5tn3rs0a7p0rcm8dmqk26etc7uvggs7uay5t
+
+  # groups
+  - &g-nut-clients age126w8nwakc83s35znk5av82nljfa63m7v7kvwljxanjdn5d9eeqnqm7vyhs
+  - &g-kubernetes-nodes age1ch0wn0mrwnnckp54a0742hl39053ajgwrhn0459tejt0l0uryduq9kxsqs
+
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
-      - age:
+      - age: 
         - *u-luca
-        - *p-kube-1
-        - *p-kube-2
-        - *p-kube-3
+
   - path_regex: secrets/kubernetes/[^/]+\.(yaml|json|env|ini)$
     key_groups:
       - age:
         - *u-luca
-        - *p-kube-1
-        - *p-kube-2
-        - *p-kube-3
+        - *g-kubernetes-nodes
+
+  - path_regex: secrets/nut/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *u-luca
+        - *g-nut-clients
+
