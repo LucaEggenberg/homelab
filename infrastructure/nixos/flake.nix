@@ -25,7 +25,7 @@
                 modules = baseModules ++ [
                     ./hosts/p-kube-1
                     ./modules/kubernetes
-                    ./modules/nutslave
+                    ./modules/nutclient
                     inputs.sops-nix.nixosModules.sops
                 ];
             };
@@ -35,7 +35,7 @@
                 modules = baseModules ++ [
                     ./hosts/p-kube-2
                     ./modules/kubernetes
-                    ./modules/nutslave
+                    ./modules/nutclient
                     inputs.sops-nix.nixosModules.sops
                 ];
             };
@@ -45,7 +45,7 @@
                 modules = baseModules ++ [
                     ./hosts/p-kube-3
                     ./modules/kubernetes
-                    ./modules/nutslave
+                    ./modules/nutclient
                     inputs.sops-nix.nixosModules.sops
                 ];
             };

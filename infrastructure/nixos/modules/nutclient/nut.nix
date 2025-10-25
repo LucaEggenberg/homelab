@@ -1,12 +1,4 @@
 { config, pkgs, ... }: {
-    sops = {
-        age.sshKeyPaths = [ "/etc/ssh/id_ed25519" ];
-
-        secrets."nut/password" = {
-            sopsFile = ../../secrets/nut.yaml;
-        };
-    };
-
     environment.systemPackages = with pkgs; [
         nut
     ];
