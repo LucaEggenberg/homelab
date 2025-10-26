@@ -2,6 +2,9 @@ keys:
   # users
   - &u-luca age1hlkhznl99sc8kh33weq7z90xdrsqz85wu5c86x7kf5pkxqvum3pq2n4d7p
 
+  # services
+  - &s-gitlab-runner age10ag5cjledg8y65zw0f8nkh4aeuy689xetyuryt58tcrrsw3v0aqs9xcutg
+
   # groups
   - &g-nut-clients age126w8nwakc83s35znk5av82nljfa63m7v7kvwljxanjdn5d9eeqnqm7vyhs
   - &g-kubernetes-nodes age1ch0wn0mrwnnckp54a0742hl39053ajgwrhn0459tejt0l0uryduq9kxsqs
@@ -24,3 +27,8 @@ creation_rules:
         - *u-luca
         - *g-nut-clients
 
+  - path_regex: secrets/gitlab/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *u-luca
+        - *s-gitlab-runner
