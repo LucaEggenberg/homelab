@@ -64,3 +64,9 @@ variable "ssh_keys" {
     description = "list of ssh public keys"
     default = []
 }
+
+variable "bios" {
+    description = "Firmware type: seabios or ovmf"
+    type = string
+    default = "seabios"
+}

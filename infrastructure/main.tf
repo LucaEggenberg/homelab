@@ -116,6 +116,7 @@ module "vms" {
     name            = each.value.host
     tags            = join(",", lookup(each.value.proxmox, "tags", [ "untagged" ]))
     template        = local.vm_templates[each.value.proxmox.template]
+    bios            = lookup(each.value.proxmox, "bios", "seabios")
     memory          = lookup(each.value.proxmox, "memory", 1024)
     cpus            = lookup(each.value.proxmox, "cpus", 1)
     disk_size       = lookup(each.value.proxmox, "disk_size", "10G")

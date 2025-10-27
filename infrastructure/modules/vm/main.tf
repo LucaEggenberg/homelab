@@ -17,7 +17,7 @@ resource "proxmox_vm_qemu" "server" {
 
   onboot  = true
 
-  bios     = "seabios"
+  bios     = var.bios
   memory   = var.memory
   balloon  = 1024 #minimum memory
   
@@ -30,10 +30,10 @@ resource "proxmox_vm_qemu" "server" {
   scsihw   = "virtio-scsi-single"
 
   network {
-      id      = 0
-      bridge  = "vmbr0"
-      model   = "virtio"
-      tag     = var.network.vlan_id
+    id      = 0
+    bridge  = "vmbr0"
+    model   = "virtio"
+    tag     = var.network.vlan_id
   }
 
   disks {
@@ -44,8 +44,8 @@ resource "proxmox_vm_qemu" "server" {
         }
       }
     }
-    scsi {
-      scsi0 {
+    virtio {
+      virtio0 {
         disk {
           storage = var.storage_pool
           size = var.disk_size
