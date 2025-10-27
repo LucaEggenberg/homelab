@@ -37,8 +37,8 @@ resource "proxmox_vm_qemu" "server" {
   }
 
   disks {
-    ide {
-      ide2 {
+    scsi {
+      scsi2 {
         cloudinit {
           storage = var.storage_pool
         }
