@@ -1,10 +1,6 @@
 { ... }: {
     networking.hostName = "v-gitlab-runner-1";
 
-    imports = [
-        ./hardware-configuration.nix
-    ];
-
     sops = {
         age.keyFiles = [ "/var/lib/sops/gitlab-runner.agekey" ];
 
