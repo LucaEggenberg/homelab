@@ -1,12 +1,8 @@
-{ ... }: {
+{ config, pkgs, ... }: {
     networking.hostName = "v-gitlab-runner-1";
 
-    sops = {
-        age.keyFiles = [ "/var/lib/sops/gitlab-runner.agekey" ];
-
-        secrets."gitlab/registration" = {
-            sopsFile = ../../secrets/gitlab/registration.yaml; 
-        };
+    sops.secrets."gitlab/registration" = {
+        sopsFile = ../../secrets/gitlab/registration.yaml; 
     };
 
     boot.kernel.sysctl."net.ipv4.ip_forward" = true; # 1
