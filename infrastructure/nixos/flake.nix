@@ -53,6 +53,7 @@
                 modules = baseModules ++ [
                     ./hosts/v-gitlab-runner-1
                     ./modules/gitlab-runner
+                    ./modules/proxmox-vm
                 ];
             };
         };
