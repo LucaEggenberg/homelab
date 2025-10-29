@@ -10,6 +10,7 @@ default:
   image:
     name: ghcr.io/opentofu/opentofu:${TOFU_VERSION}
     entrypoint: [""]
+  tags: [ "internal" ]
   before_script:
     - cd infrastructure
     - tofu --version
