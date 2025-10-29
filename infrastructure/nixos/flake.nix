@@ -13,6 +13,7 @@
     let 
         baseModules = [
             ./users/luca
+            ./users/gitlab
             ./modules/system
             ./modules/common
             ./modules/server

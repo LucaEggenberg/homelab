@@ -1,8 +1,19 @@
 { config, pkgs, ... }: {
     networking.hostName = "v-gitlab-runner-1";
 
-    sops.secrets."gitlab/registration" = {
-        sopsFile = ../../secrets/gitlab/registration.yaml; 
+    users.groups.gitlab-runner = {};
+    users.users.gitlab-runner = {
+        isSystemUser = true;
+        group = "gitlab-runner";
+        description = "gitlab-runner user";
+    };
+
+    sops.secrets."registration" = {
+        sopsFile = ../../secrets/gitlab/registration.env;
+        format = "dotenv";
+        mode = "0400";
+        owner = "gitlab-runner";
+        group = "gitlab-runner";
     };
 
     boot.kernel.sysctl."net.ipv4.ip_forward" = true; # 1
@@ -11,17 +22,17 @@
 
     services.gitlab-runner = {
         enable = true;
-        concurrent = 2;
+        settings.concurrent = 2;
 
         services = {
             nix = {
-                registrationConfigFile = config.sops.secrets."gitlab/registration".path;
+                authenticationTokenConfigFile = config.sops.secrets."registration".path;
                 dockerImage = "nixos/nix:latest";
                 dockerVolumes = [
-                "/nix/store:/nix/store:ro"
-                "/nix/var/nix/db:/nix/var/nix/db:ro"
-                "/nix/var/nix/daemon-socket:/nix/var/nix/daemon-socket:ro"
-                "/tmp:/tmp"
+                    "/nix/store:/nix/store:ro"
+                    "/nix/var/nix/db:/nix/var/nix/db:ro"
+                    "/nix/var/nix/daemon-socket:/nix/var/nix/daemon-socket:ro"
+                    "/tmp:/tmp"
                 ];
 
                 dockerDisableCache = true;

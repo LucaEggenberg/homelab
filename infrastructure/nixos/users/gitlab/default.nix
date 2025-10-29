@@ -3,6 +3,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     description = "gitLab service user";
+    shell = pkgs.bash;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDSOh0g1coNI859Rqi0739XzXaU9fCH7zxV2UCt5HAIa"
     ];
