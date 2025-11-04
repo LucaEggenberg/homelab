@@ -8,7 +8,7 @@
             inputs.nixpkgs.follows = "nixpkgs";
         };
 
-        inputs.miner-src = {
+        miner-src = {
             url = "git+https://git.eggenberg.io/miner";
         };
     };
@@ -82,7 +82,7 @@
         packages.x86_64-linux.miner = nixpkgs.rustPlatform.buildRustPackage {
             pname = "scavenger-miner";
             version = "0.1.0";
-            src = miner-src;
+            src = inputs.miner-src;
             cargoLock.lockFile = "${miner-src}/Cargo.lock";
             doCheck = false;
         };
