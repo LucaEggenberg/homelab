@@ -79,7 +79,7 @@
             };
         };
 
-        packages.x86_64-linux.miner = nixpkgs.rustPlatform.buildRustPackage {
+        packages.x86_64-linux.miner = nixpkgs.legacyPackages.x86_64-linux.rustPlatform.buildRustPackage {
             pname = "scavenger-miner";
             version = "0.1.0";
             src = inputs.miner-src;
