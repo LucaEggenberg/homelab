@@ -83,7 +83,12 @@
             pname = "scavenger-miner";
             version = "0.1.0";
             src = inputs.miner-src;
-            cargoLock.lockFile = "${inputs.miner-src}/Cargo.lock";
+            cargoLock = {
+                lockFile = "${inputs.miner-src}/Cargo.lock";
+                outputHashes = {
+                    "ashmaize-0.1.0" = "sha256-4l8vfkA7Ri59uhfyyV0IQ+/T5PsMKTcQpuOIvVbeEjA=";
+                };
+            };
             doCheck = false;
         };
     };
