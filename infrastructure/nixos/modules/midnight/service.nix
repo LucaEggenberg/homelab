@@ -4,7 +4,17 @@
         after = [ "network-online.target" ];
 
         serviceConfig = {
-            ExecStart = "${self.packages.${pkgs.system}.miner}/bin/scavenger-miner mine";
+            Environment = [
+                "NETWORK=mainnet"
+                "RUST_LOG=info"
+                "SCAVENGER_API=https://scavenger.prod.gd.midnighttge.io"
+            ];
+
+            ExecStart = [
+                "${self.packages.${pkgs.system}.miner}/bin/scavenger-miner"
+                "mine"
+            ];
+
             Restart = "always";
             RestartSec = "5s";
             Nice = 10;
