@@ -7,6 +7,10 @@
             url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
+
+        inputs.miner-src = {
+            url = "git+https://git.eggenberg.io/miner";
+        };
     };
 
     outputs = inputs@{ self, nixpkgs, ... }: 
@@ -56,6 +60,31 @@
                     ./modules/proxmox-vm
                 ];
             };
+            v-midnight-1 = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                specialArgs = { inherit self nixpkgs; };
+                modules = baseModules ++ [
+                    ./hosts/v-midnight-1
+                    ./modules/proxmox-vm
+                    ./modules/midnight
+                ];
+            };
+            p-midnight-1 = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                specialArgs = { inherit self nixpkgs; };
+                modules = baseModules ++ [
+                    ./hosts/p-midnight-1
+                    ./modules/midnight
+                ];
+            };
+        };
+
+        packages.x86_64-linux.miner = pkgs.rustPlatform.buildRustPackage {
+            pname = "scavenger-miner";
+            version = "0.1.0";
+            src = miner-src;
+            cargoLock.lockFile = "${miner-src}/Cargo.lock";
+            doCheck = false;
         };
     };
 }
