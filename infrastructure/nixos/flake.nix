@@ -83,7 +83,7 @@
             pname = "scavenger-miner";
             version = "0.1.0";
             src = inputs.miner-src;
-            cargoLock.lockFile = "${miner-src}/Cargo.lock";
+            cargoLock.lockFile = "${inputs.miner-src}/Cargo.lock";
             doCheck = false;
         };
     };
