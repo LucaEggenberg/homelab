@@ -62,7 +62,7 @@
             };
             v-midnight-1 = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
-                specialArgs = { inherit self nixpkgs; };
+                specialArgs = { inherit self nixpkgs inputs; };
                 modules = baseModules ++ [
                     ./hosts/v-midnight-1
                     ./modules/proxmox-vm
@@ -71,7 +71,7 @@
             };
             p-midnight-1 = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
-                specialArgs = { inherit self nixpkgs; };
+                specialArgs = { inherit self nixpkgs inputs; };
                 modules = baseModules ++ [
                     ./hosts/p-midnight-1
                     ./modules/midnight
