@@ -89,6 +89,12 @@
                     "ashmaize-0.1.0" = "sha256-4l8vfkA7Ri59uhfyyV0IQ+/T5PsMKTcQpuOIvVbeEjA=";
                 };
             };
+            buildInputs = [
+                nixpkgs.legacyPackages.x86_64-linux.openssl
+            ];
+            nativeBuildInputs = [
+                nixpkgs.legacyPackages.x86_64-linux.pkg-config
+            ];
             doCheck = false;
         };
     };
