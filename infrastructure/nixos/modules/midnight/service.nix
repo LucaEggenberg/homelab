@@ -10,7 +10,7 @@
                 "SCAVENGER_API=https://scavenger.prod.gd.midnighttge.io"
             ];
 
-            ExecStart = "${self.packages.${pkgs.system}.miner}/bin/scavenger-miner mine --network mainnet";
+            ExecStart = "${self.packages.${pkgs.system}.miner}/bin/scavenger-miner --network mainnet --keystore keystore_mainnet mine";
 
             Restart = "always";
             RestartSec = "5s";
