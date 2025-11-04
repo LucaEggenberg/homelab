@@ -9,7 +9,7 @@
         };
 
         miner-src = {
-            url = "git+https://git.eggenberg.io/miner";
+            url = "git+https://git.eggenberg.io/luca/miner";
         };
     };
 
