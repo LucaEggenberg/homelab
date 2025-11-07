@@ -56,6 +56,30 @@ resource "proxmox_vm_qemu" "server" {
     }
   }
 
+  machine = "q35"
+
+  pcis {
+    dynamic "pci0" {
+      for_each = var.pci.pci_gpu != "" ? [var.pci.pci_gpu] : []
+      content {
+        mapping {
+          mapping_id = pci0.value
+          pcie       = true
+        }
+      }
+    }
+
+    dynamic "pci1" {
+      for_each = var.pci.pci_audio != "" ? [var.pci.pci_audio] : []
+      content {
+        mapping {
+          mapping_id = pci1.value
+          pcie       = true
+        }
+      }
+    }
+  }
+
   ipconfig0   = "ip=${var.network.ip}/24,gw=${var.network.gateway}"    
   sshkeys     = join("\n", var.ssh_keys)
 }

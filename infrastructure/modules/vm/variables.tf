@@ -70,3 +70,14 @@ variable "bios" {
     type = string
     default = "seabios"
 }
+
+variable "pci" {
+  type = object({
+    pci_gpu   = string
+    pci_audio = string
+  })
+  default = {
+    pci_gpu   = ""
+    pci_audio = ""
+  }
+}

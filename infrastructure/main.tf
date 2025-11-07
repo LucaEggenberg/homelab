@@ -122,6 +122,7 @@ module "vms" {
     disk_size       = lookup(each.value.proxmox, "disk_size", "10G")
     storage_pool    = lookup(each.value.proxmox, "storage_pool", "zfs-vm-data")
     node            = lookup(each.value.proxmox, "node", "p-prmx-1")
+    pci             = lookup(each.value.proxmox, "pci", { pci_gpu   = "", pci_audio = "" })
     ssh_keys        = local.ssh_keys
 
     network = {
