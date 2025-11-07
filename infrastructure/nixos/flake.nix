@@ -32,6 +32,7 @@
                     ./hosts/p-kube-1
                     ./modules/kubernetes
                     ./modules/nutclient
+                    ./modules/physical
                 ];
             };
             p-kube-2 = nixpkgs.lib.nixosSystem {
@@ -41,6 +42,7 @@
                     ./hosts/p-kube-2
                     ./modules/kubernetes
                     ./modules/nutclient
+                    ./modules/physical
                 ];
             };
             p-kube-3 = nixpkgs.lib.nixosSystem {
@@ -50,6 +52,7 @@
                     ./hosts/p-kube-3
                     ./modules/kubernetes
                     ./modules/nutclient
+                    ./modules/physical
                 ];
             };
             v-gitlab-runner-1 = nixpkgs.lib.nixosSystem {
@@ -83,6 +86,7 @@
                 modules = baseModules ++ [
                     ./hosts/p-midnight-1
                     ./modules/midnight
+                    ./modules/physical
                 ];
             };
         };
