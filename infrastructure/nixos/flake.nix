@@ -60,6 +60,14 @@
                     ./modules/proxmox-vm
                 ];
             };
+            v-jellyfin-1 = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                specialArgs = { inherit self nixpkgs; };
+                modules = baseModules ++ [
+                    ./hosts/v-jellyfin-1
+                    ./modules/proxmox-vm
+                ];
+            };
             v-midnight-1 = nixpkgs.lib.nixosSystem {
                 system = "x86_64-linux";
                 specialArgs = { inherit self nixpkgs inputs; };
