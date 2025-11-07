@@ -4,6 +4,7 @@ keys:
 
   # services
   - &s-gitlab-runner age10ag5cjledg8y65zw0f8nkh4aeuy689xetyuryt58tcrrsw3v0aqs9xcutg
+  - &s-jellyfin age14cujwh2ugql9a7vjcluamxwuugq98g73stm6pfytswuqu98h8pcsmepuw4
 
   # groups
   - &g-nut-clients age126w8nwakc83s35znk5av82nljfa63m7v7kvwljxanjdn5d9eeqnqm7vyhs
@@ -32,3 +33,9 @@ creation_rules:
       - age:
         - *u-luca
         - *s-gitlab-runner
+
+  - path_regex: secrets/jellyfin/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+        - *u-luca
+        - *s-jellyfin
