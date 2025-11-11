@@ -1,6 +1,10 @@
 { config, pkgs, unstable, lib, ... }: {
     networking.hostName = "v-jellyfin-1";
 
+    imports = [
+        ./backups.nix
+    ];
+
     nixpkgs.config.allowUnfree = true;
 
     environment.systemPackages = [
