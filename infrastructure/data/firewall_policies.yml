@@ -32,3 +32,15 @@ policies:
     dst_group: "nas_ips"
     dst_ports: "nut_ports"
     auto_allow_return: true
+
+  allow_jellyfin_smb_nfs:
+    name: "Allow Jellyfin to Nas"
+    action: "ALLOW"
+    src_zone: "dmz"
+    src_group: "jellyfin_ip"
+    src_ports: null
+    dst_zone: "internal"
+    dst_group: "nas_ips"
+    dst_ports: "smb_nfs_ports"
+    logging: true
+    auto_allow_return: true
