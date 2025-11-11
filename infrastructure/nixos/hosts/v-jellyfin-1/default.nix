@@ -23,18 +23,10 @@
     };
 
     hardware.nvidia-container-toolkit.enable = true;
-    hardware.opengl = {
-        enable = true;
-        extraPackages = with pkgs; [
-            nvidia-vaapi-driver
-            vaapiVdpau
-            libvdpau-va-gl
-        ];
-    };
-
     hardware.graphics = {
         enable = true;
         extraPackages = with pkgs; [
+            nvidia-vaapi-driver
             vaapiVdpau
             libvdpau-va-gl
         ];
