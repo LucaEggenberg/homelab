@@ -7,6 +7,3 @@ spec:
   - protocol: TCP
     port: 8096
     targetPort: 8096
-  - protocol: UDP
-    port: 7359
-    targetPort: 7359
