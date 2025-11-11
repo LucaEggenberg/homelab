@@ -55,3 +55,4 @@ groups:
     type: port-group
     members:
       - "8096"
+      - "7359"

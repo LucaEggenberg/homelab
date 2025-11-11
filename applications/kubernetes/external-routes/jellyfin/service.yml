@@ -4,11 +4,9 @@ metadata:
   name: jellyfin
 spec:
   ports:
-  - name: web-tcp
+  - protocol: TCP
     port: 8096
-    protocol: TCP
     targetPort: 8096
-  - name: web-udp
-    port: 8096
-    protocol: UDP
-    targetPort: 8096
+  - protocol: UDP
+    port: 7359
+    targetPort: 7359
