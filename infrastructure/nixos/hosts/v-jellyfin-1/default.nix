@@ -3,10 +3,35 @@
 
     nixpkgs.config.allowUnfree = true;
 
-    services.xserver.enable = false;
-    services.xserver.videoDrivers = [ "nvidia" ];
+    environment.systemPackages = [
+        (lib.getBin config.boot.kernelPackages.nvidiaPackages.production)
+        pkgs.cifs-utils
+        unstable.jellyfin
+        unstable.jellyfin-web
+        unstable.jellyfin-ffmpeg
+    ];
 
-    hardware.opengl.enable = true;
+    environment.variables = {
+        LIBVA_DRIVER_NAME = "nvidia";
+        VDPAU_DRIVER = "nvidia";
+        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    };
+
+    services.xserver = {
+        enable = false;
+        videoDrivers = [ "nvidia" ];
+    };
+
+    hardware.nvidia-container-toolkit.enable = true;
+    hardware.opengl = {
+        enable = true;
+        extraPackages = with pkgs; [
+            nvidia-vaapi-driver
+            vaapiVdpau
+            libvdpau-va-gl
+        ];
+    };
+
     hardware.graphics = {
         enable = true;
         extraPackages = with pkgs; [
@@ -22,19 +47,17 @@
         nvidiaSettings = false;
         package = config.boot.kernelPackages.nvidiaPackages.production;
     };
-    
-    environment.systemPackages = [
-        (lib.getBin config.boot.kernelPackages.nvidiaPackages.production)
-        pkgs.cifs-utils
-        unstable.jellyfin
-        unstable.jellyfin-web
-        unstable.jellyfin-ffmpeg
-    ];
 
     services.jellyfin = {
         enable = true;
         openFirewall = true;
         package = unstable.jellyfin;
+    };
+
+    # mount transcode cache in memory
+    fileSystems."/var/cache/jellyfin/transcodes" = {
+        fsType = "tmpfs";
+        options = [ "size=4G" "mode=1777" ];
     };
 
     sops.secrets."smb" = {
