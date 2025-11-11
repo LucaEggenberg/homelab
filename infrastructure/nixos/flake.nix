@@ -3,6 +3,7 @@
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+        nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
         sops-nix = {
             url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
@@ -63,9 +64,19 @@
                     ./modules/proxmox-vm
                 ];
             };
-            v-jellyfin-1 = nixpkgs.lib.nixosSystem {
+            v-jellyfin-1 = 
+            let 
                 system = "x86_64-linux";
-                specialArgs = { inherit self nixpkgs; };
+            in 
+            nixpkgs.lib.nixosSystem {
+                inherit system;
+                specialArgs = { 
+                    inherit self nixpkgs; 
+                    unstable = import inputs.nixpkgs-unstable {
+                        inherit system;
+                        config.allowUnfree = true;
+                    }; 
+                };
                 modules = baseModules ++ [
                     ./hosts/v-jellyfin-1
                     ./modules/proxmox-vm

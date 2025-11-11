@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, unstable, lib, ... }: {
     networking.hostName = "v-jellyfin-1";
 
     nixpkgs.config.allowUnfree = true;
@@ -23,18 +23,18 @@
         package = config.boot.kernelPackages.nvidiaPackages.production;
     };
     
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = [
         (lib.getBin config.boot.kernelPackages.nvidiaPackages.production)
         pkgs.cifs-utils
-        jellyfin
-        jellyfin-web
-        jellyfin-ffmpeg
+        unstable.jellyfin
+        unstable.jellyfin-web
+        unstable.jellyfin-ffmpeg
     ];
 
     services.jellyfin = {
         enable = true;
         openFirewall = true;
-        package = pkgs.jellyfin;
+        package = unstable.jellyfin;
     };
 
     sops.secrets."smb" = {
@@ -45,48 +45,48 @@
         group = "root";
     };
 
-    fileSystems."/movies" = {
-        device = "//p-storage-1.eggenberg.io/media/movies";
+    # ensure directories exist for systemd not to fail at boot
+    systemd.tmpfiles.rules = [
+        "d /media 0755 root root -"
+        "d /movies 0755 root root -"
+        "d /shows 0755 root root -"
+    ];
+
+    fileSystems."/media" = {
+        device = "//10.10.10.20/media";
         fsType = "cifs";
         options = [
-            "credentials={{config.sops.secrets.\"smb\".path;}}"
+            "credentials=${config.sops.secrets."smb".path}"
+            "_netdev"
+            "nofail"
+            "x-systemd.automount"
+            "vers=3.1.1"
             "uid=jellyfin"
             "gid=jellyfin"
-            "file_mode=0644"
-            "dir_mode=0755"
-            "vers=3.1.1"
-            "x-systemd.automount"
-            "noatime"
+            "file_mode=0775"
+            "dir_mode=0775"
+            "cache=strict"
+            "noserverino"
+            "iocharset=utf8"
         ];
+    };
+
+    # symlinks to keep current folder structure
+    fileSystems."/config" = {
+        device = "/var/lib/jellyfin";
+        fsType = "none";
+        options = [ "bind" ];
+    };
+
+    fileSystems."/movies" = {
+        device = "/media/movies";
+        fsType = "none";
+        options = [ "bind" ];
     };
 
     fileSystems."/shows" = {
-        device = "//p-storage-1.eggenberg.io/media/shows";
-        fsType = "cifs";
-        options = [
-            "credentials={{config.sops.secrets.\"smb\".path;}}"
-            "uid=jellyfin"
-            "gid=jellyfin"
-            "file_mode=0644"
-            "dir_mode=0755"
-            "vers=3.1.1"
-            "x-systemd.automount"
-            "noatime"
-        ];
-    };
-
-    fileSystems."/TGCCV2" = {
-        device = "//p-storage-1.eggenberg.io/media/TGCCV2";
-        fsType = "cifs";
-        options = [
-            "credentials={{config.sops.secrets.\"smb\".path;}}"
-            "uid=jellyfin"
-            "gid=jellyfin"
-            "file_mode=0644"
-            "dir_mode=0755"
-            "vers=3.1.1"
-            "x-systemd.automount"
-            "noatime"
-        ];
+        device = "/media/shows";
+        fsType = "none";
+        options = [ "bind" ];
     };
 }
