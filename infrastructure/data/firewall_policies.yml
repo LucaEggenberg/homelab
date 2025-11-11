@@ -33,7 +33,17 @@ policies:
     dst_ports: "nut_ports"
     auto_allow_return: true
 
-  allow_jellyfin_smb_nfs:
+  kube_allow_jellyfin_forward:
+    name: "Allow Kube to v-jellyfin"
+    action: "ALLOW"
+    src_zone: "dmz"
+    src_group: "kube_ips"
+    dst_zone: "dmz"
+    dst_group: "jellyfin_ip"
+    dst_ports: "jellyfin_port"
+    auto_allow_return: true
+
+  jellyfin_allow_smb_nfs:
     name: "Allow Jellyfin to Nas"
     action: "ALLOW"
     src_zone: "dmz"

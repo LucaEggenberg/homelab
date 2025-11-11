@@ -50,3 +50,8 @@ groups:
     type: port-group
     members: 
       - "3493"
+
+  jellyfin_port:
+    type: port-group
+    members:
+      - "8096"
