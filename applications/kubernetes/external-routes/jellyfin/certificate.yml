@@ -2,7 +2,6 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: jellyfin-ingressroute-certificate
-  namespace: media
 spec:
   secretName: jellyfin-certificate-secret
   issuerRef:
