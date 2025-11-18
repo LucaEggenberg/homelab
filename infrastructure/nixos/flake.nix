@@ -100,6 +100,15 @@
                     ./modules/physical
                 ];
             };
+            p-midnight-2 = nixpkgs.lib.nixosSystem {
+                system = "x86_64-linux";
+                specialArgs = { inherit self nixpkgs inputs; };
+                modules = baseModules ++ [
+                    ./hosts/p-midnight-2
+                    ./modules/midnight
+                    ./modules/physical
+                ];
+            };
         };
 
         packages.x86_64-linux.miner = nixpkgs.legacyPackages.x86_64-linux.rustPlatform.buildRustPackage {
