@@ -19,7 +19,8 @@ homeassistant-deploy:
   before_script:
     - test -n "$SSH_PRIVATE_KEY_B64" || (echo "Missing SSH_PRIVATE_KEY" && exit 1)
     - test -n "$HAOS_KNOWN_HOST" || (echo "Missing HAOS_KNOWN_HOST" && exit 1)
-    - apk add --no-cache openssh-client rsync
+    - apt-get update
+    - apt-get install -y openssh-client rsync
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY_B64" | base64 -d > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
