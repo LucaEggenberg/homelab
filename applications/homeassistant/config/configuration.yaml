@@ -45,10 +45,3 @@ lovelace:
       icon: mdi:robot-vacuum
       show_in_sidebar: true
       filename: dashboards/cleaning.yaml
-
-    rooms-dashboard:
-      mode: yaml
-      title: Rooms
-      icon: mdi:floor-plan
-      show_in_sidebar: true
-      filename: dashboards/rooms/living.yaml
