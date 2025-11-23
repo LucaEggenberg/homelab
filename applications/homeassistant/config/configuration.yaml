@@ -1,3 +1,19 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+http: 
+  use_x_forwarded_for: true 
+  trusted_proxies: 
+  - 10.10.20.0/24
+
 lovelace:
   mode: yaml
   resources: !include lovelace_resources.yaml
@@ -8,24 +24,28 @@ lovelace:
       icon: mdi:home
       show_in_sidebar: true
       filename: dashboards/home.yaml
+
     lights:
       mode: yaml
       title: Lights
       icon: mdi:lightbulb-group
       show_in_sidebar: true
       filename: dashboards/lights.yaml
+
     media:
       mode: yaml
       title: Media
       icon: mdi:speaker-multiple
       show_in_sidebar: true
       filename: dashboards/media.yaml
+
     cleaning:
       mode: yaml
       title: Cleaning
       icon: mdi:robot-vacuum
       show_in_sidebar: true
       filename: dashboards/cleaning.yaml
+
     rooms:
       mode: yaml
       title: Rooms

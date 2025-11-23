@@ -6,13 +6,13 @@ variables:
   DEPLOY_USER: "root"
   DEPLOY_HOST: "10.10.30.10"
 
-test:
+homeassistant-test:
   stage: test
   image: homeassistant/amd64-homeassistant:stable
   script:
     - hass --script check_config -c applications/homeassistant/config
 
-deploy:
+homeassistant-deploy:
   stage: deploy
   only:
     - main
