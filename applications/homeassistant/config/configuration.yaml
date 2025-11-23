@@ -18,35 +18,35 @@ lovelace:
   mode: yaml
   resources: !include lovelace_resources.yaml
   dashboards:
-    home:
+    home-dashboard:
       mode: yaml
       title: Home
       icon: mdi:home
       show_in_sidebar: true
       filename: dashboards/home.yaml
 
-    lights:
+    lights-dashboard:
       mode: yaml
       title: Lights
       icon: mdi:lightbulb-group
       show_in_sidebar: true
       filename: dashboards/lights.yaml
 
-    media:
+    media-dashboard:
       mode: yaml
       title: Media
       icon: mdi:speaker-multiple
       show_in_sidebar: true
       filename: dashboards/media.yaml
 
-    cleaning:
+    cleaning-dashboard:
       mode: yaml
       title: Cleaning
       icon: mdi:robot-vacuum
       show_in_sidebar: true
       filename: dashboards/cleaning.yaml
 
-    rooms:
+    rooms-dashboard:
       mode: yaml
       title: Rooms
       icon: mdi:floor-plan
