@@ -12,7 +12,11 @@ include:
   - local: "pipelines/gitlab/opentofu-cd.yml"
     rules:
       - changes:
+        - "infrastructure/**"
         - "pipelines/gitlab/opentofu-cd.yml"
-        - "infrastructure/*.tf"
-        - "infrastructure/modules/**"
-        - "infrastructure/data/**"
+  
+  - local: "pipelines/gitlab/homeassistant-cd.yml"
+    rules:
+      - changes:
+        - "applications/homeassistant/**"
+        - "pipelines/gitlab/homeassistant-cd.yml"

@@ -1,0 +1,33 @@
+stages:
+  - test
+  - deploy
+
+variables:
+  DEPLOY_USER: "root"
+  DEPLOY_HOST: "10.10.30.10"
+
+test:
+  stage: test
+  image: homeassistant/amd64-homeassistant:stable
+  script:
+    - hass --script check_config -c applications/homeassistant/config
+
+deploy:
+  stage: deploy
+  only:
+    - main
+  before_script:
+    - test -n "$SSH_PRIVATE_KEY_B64" || (echo "Missing SSH_PRIVATE_KEY" && exit 1)
+    - test -n "$HAOS_KNOWN_HOST" || (echo "Missing HAOS_KNOWN_HOST" && exit 1)
+    - apk add --no-cache openssh-client rsync
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY_B64" | base64 -d > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo "$HAOS_KNOWN_HOST" > ~/.ssh/known_hosts
+  script:
+    - echo "Deploying home-assistant configuration..."
+    - rsync -avz --delete \
+        applications/homeassistant/config/ \
+        $DEPLOY_USER@$DEPLOY_HOST:/config/
+    - echo "Restarting home-assistant..."
+    - ssh $DEPLOY_USER@$DEPLOY_HOST "ha core restart"

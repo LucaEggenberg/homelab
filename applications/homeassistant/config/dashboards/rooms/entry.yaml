@@ -1,0 +1,7 @@
+title: Entry
+cards:
+  - type: light
+    entity: light.entry_ceiling
+  - type: entities
+    entities:
+      - binary_sensor.entry_motion

@@ -1,0 +1,12 @@
+title: Office
+cards:
+  - type: light
+    entity: light.office_panel
+  - type: light
+    entity: light.office_wall_lamp
+  - type: light
+    entity: light.office_table_lamp
+  - type: entities
+    entities:
+      - sensor.office_hygrometer_temperature
+      - sensor.office_hygrometer_humidity

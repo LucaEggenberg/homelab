@@ -1,0 +1,29 @@
+title: Home
+type: sections
+sections:
+  - type: grid
+    cards:
+      - type: tile
+        entity: sensor.home_status
+        name: Home Status
+      - type: tile
+        entity: binary_sensor.living_motion
+        name: Motion
+      - type: tile
+        entity: light.living_tv_backlight
+        name: Lights
+        tap_action:
+          action: navigate
+          navigation_path: /lovelace/lights
+      - type: tile
+        entity: media_player.living_sonos
+        name: Media
+        tap_action:
+          action: navigate
+          navigation_path: /lovelace/media
+      - type: tile
+        entity: vacuum.main
+        name: Cleaning
+        tap_action:
+          action: navigate
+          navigation_path: /lovelace/cleaning

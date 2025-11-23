@@ -1,0 +1,25 @@
+title: Cleaning
+views:
+  - title: Vacuum
+    cards:
+      - type: entities
+        entities:
+          - vacuum.main
+          - sensor.vacuum_battery
+          - sensor.vacuum_status
+      - type: button
+        entity: vacuum.main
+        name: Start Cleaning
+        tap_action:
+          action: call-service
+          service: vacuum.start
+          data:
+            entity_id: vacuum.main
+      - type: button
+        entity: vacuum.main
+        name: Return to Dock
+        tap_action:
+          action: call-service
+          service: vacuum.return_to_base
+          data:
+            entity_id: vacuum.main

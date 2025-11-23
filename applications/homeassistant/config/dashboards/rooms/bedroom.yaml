@@ -1,0 +1,15 @@
+title: Bedroom
+cards:
+  - type: light
+    entity: light.bedroom_ceiling
+  - type: light
+    entity: light.bedroom_table_left
+  - type: light
+    entity: light.bedroom_table_right
+  - type: media-control
+    entity: media_player.bedroom_sonos
+  - type: entities
+    entities:
+      - sensor.bedroom_hygrometer_temperature
+      - sensor.bedroom_hygrometer_humidity
+      - binary_sensor.bedroom_motion

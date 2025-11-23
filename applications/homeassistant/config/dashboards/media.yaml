@@ -1,0 +1,20 @@
+title: Media
+views:
+  - title: Sonos
+    cards:
+      - type: media-control
+        entity: media_player.living_sonos
+
+      - type: media-control
+        entity: media_player.bath_sonos
+
+      - type: media-control
+        entity: media_player.bedroom_sonos
+
+      - type: media-control
+        entity: media_player.kitchen_sonos
+
+  - title: TVs
+    cards:
+      - type: media-control
+        entity: media_player.living_tv

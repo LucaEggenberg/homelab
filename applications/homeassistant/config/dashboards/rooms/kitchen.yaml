@@ -1,0 +1,4 @@
+title: Kitchen
+cards:
+  - type: media-control
+    entity: media_player.kitchen_sonos

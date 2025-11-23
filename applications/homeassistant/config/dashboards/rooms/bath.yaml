@@ -1,0 +1,9 @@
+title: Bath
+cards:
+  - type: light
+    entity: light.bath_ceiling
+  - type: media-control
+    entity: media_player.bath_sonos
+  - type: entities
+    entities:
+      - binary_sensor.bath_motion

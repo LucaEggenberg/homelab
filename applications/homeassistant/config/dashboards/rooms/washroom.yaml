@@ -1,0 +1,9 @@
+title: Washroom
+cards:
+  - type: entities
+    entities:
+      - sensor.washroom_hygrometer_temperature
+      - sensor.washroom_hygrometer_humidity
+      - sensor.washroom_rack_hygrometer_temperature
+      - sensor.washroom_rack_hygrometer_humidity
+      - switch.washroom_socket

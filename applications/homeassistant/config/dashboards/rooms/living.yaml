@@ -1,0 +1,24 @@
+title: Living Room
+cards:
+  - type: light
+    entity: light.living_ceiling
+  - type: light
+    entity: light.living_tv_floor_lamp
+  - type: light
+    entity: light.living_tv_lightstrip
+  - type: light
+    entity: light.living_tv_tube
+  - type: light
+    entity: light.living_iris_left
+  - type: light
+    entity: light.living_iris_right
+  - type: light
+    entity: light.living_play_lamp
+  - type: media-control
+    entity: media_player.living_sonos
+  - type: media-control
+    entity: media_player.living_tv
+  - type: entities
+    entities:
+      - sensor.living_hygrometer_temperature
+      - sensor.living_hygrometer_humidity
