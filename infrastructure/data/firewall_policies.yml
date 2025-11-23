@@ -8,7 +8,6 @@ policies:
     dst_zone: "internal"
     dst_group: "nas_ips"
     dst_ports: "smb_nfs_ports"
-    logging: true
     auto_allow_return: true
 
   kube_allow_haos_https:
@@ -41,6 +40,17 @@ policies:
     dst_zone: "dmz"
     dst_group: "jellyfin_ip"
     dst_ports: "jellyfin_port"
+    auto_allow_return: true
+
+  runner_allow_haos_ssh:
+    name: "Allow Runner to Homeassistant"
+    action: "ALLOW"
+    src_zone: "internal"
+    src_group: "runner_ip"
+    src_ports: null
+    dst_zone: "internal"
+    dst_group: "homeassistant_ips"
+    dst_ports: "ssh_port"
     auto_allow_return: true
 
   jellyfin_allow_smb_nfs:

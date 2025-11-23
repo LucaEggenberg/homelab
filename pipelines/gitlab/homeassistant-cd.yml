@@ -6,6 +6,9 @@ variables:
   DEPLOY_USER: "root"
   DEPLOY_HOST: "10.10.30.10"
 
+default:
+  tags: [ "internal" ]
+
 homeassistant-test:
   stage: test
   image: homeassistant/amd64-homeassistant:stable
