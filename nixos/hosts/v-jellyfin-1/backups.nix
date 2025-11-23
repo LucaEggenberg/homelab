@@ -22,6 +22,7 @@
     systemd.timers.jellyfin-backup = {
         description = "jellyfin db backup";
         wants = [ "jellyfin-backup.service" ];
+        wantedBy = [ "timers.target" ];
         timerConfig = {
             OnCalendar = "03:00";
             Persistent = true;
@@ -30,9 +31,10 @@
 
     systemd.services.jellyfin-backup = {
         description = "Backup Jellyfin configuration and metadata";
-        after = [ "network-online.target" "jellyfin.service" ];
+        after = [ "network-online.target" "srv-jellyfin-backups.mount" "jellyfin.service" ];
+        requires = [ "srv-jellyfin-backups.mount" ];
         wants = [ "network-online.target" ];
-        
+
         serviceConfig = {
             Type = "oneshot";
             User = "root";
