@@ -1,3 +1,10 @@
+stages:
+  - validate
+  - test
+  - plan
+  - apply
+  - deploy
+
 top-level-job:
   stage: .pre
   script:
