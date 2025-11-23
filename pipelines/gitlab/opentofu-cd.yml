@@ -1,3 +1,8 @@
+stages:
+  - validate
+  - plan
+  - apply
+
 variables:
   TOFU_VERSION: "1.10.6"
 

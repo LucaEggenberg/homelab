@@ -1,29 +1,19 @@
-stages:
-  - validate
-  - test
-  - plan
-  - apply
-  - deploy
-
-top-level-job:
-  stage: .pre
-  script:
-    - 'echo Pipeline triggered by: $GITLAB_USER_NAME'
-    - 'echo Commit: $CI_COMMIT_TITLE'
-    - 'echo Branch: $CI_COMMIT_REF_NAME'
+opentofu:
+  stage: orchestrate
   rules:
-    - when: always
-  allow_failure: true
+    - changes:
+        - infrastructure/**/*
+        - pipelines/gitlab/opentofu-cd.yml
+  trigger:
+    include: pipelines/gitlab/opentofu-cd.yml
+    strategy: depend
 
-include:
-  - local: "pipelines/gitlab/opentofu-cd.yml"
-    rules:
-      - changes:
-        - "infrastructure/**/*"
-        - "pipelines/gitlab/opentofu-cd.yml"
-  
-  - local: "pipelines/gitlab/homeassistant-cd.yml"
-    rules:
-      - changes:
-        - "applications/homeassistant/**/*"
-        - "pipelines/gitlab/homeassistant-cd.yml"
+homeassistant:
+  stage: orchestrate
+  rules:
+    - changes:
+        - applications/homeassistant/**/*
+        - pipelines/gitlab/homeassistant-cd.yml
+  trigger:
+    include: pipelines/gitlab/homeassistant-cd.yml
+    strategy: depend
