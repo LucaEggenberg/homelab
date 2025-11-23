@@ -7,13 +7,17 @@ variables:
   DEPLOY_HOST: "10.10.30.10"
 
 default:
+  image:
+    name: homeassistant/amd64-homeassistant:stable
+    entrypoint: [""]
   tags: [ "internal" ]
 
 homeassistant-test:
   stage: test
-  image: homeassistant/amd64-homeassistant:stable
   script:
     - hass --script check_config -c applications/homeassistant/config
+  rules:
+    - when: always
 
 homeassistant-deploy:
   stage: deploy
@@ -35,4 +39,3 @@ homeassistant-deploy:
         $DEPLOY_USER@$DEPLOY_HOST:/config/
     - echo "Restarting home-assistant..."
     - ssh $DEPLOY_USER@$DEPLOY_HOST "ha core restart"
-

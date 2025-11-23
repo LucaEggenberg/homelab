@@ -34,7 +34,6 @@ opentofu-plan:
   rules:
     - when: on_success
 
-
 opentofu-apply:
   stage: apply
   script:
