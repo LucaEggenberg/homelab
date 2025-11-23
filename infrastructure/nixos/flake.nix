@@ -8,10 +8,6 @@
             url = "github:Mic92/sops-nix";
             inputs.nixpkgs.follows = "nixpkgs";
         };
-
-        miner-src = {
-            url = "git+https://git.eggenberg.io/luca/miner";
-        };
     };
 
     outputs = inputs@{ self, nixpkgs, ... }: 
@@ -82,52 +78,6 @@
                     ./modules/proxmox-vm
                 ];
             };
-            v-midnight-1 = nixpkgs.lib.nixosSystem {
-                system = "x86_64-linux";
-                specialArgs = { inherit self nixpkgs inputs; };
-                modules = baseModules ++ [
-                    ./hosts/v-midnight-1
-                    ./modules/proxmox-vm
-                    ./modules/midnight
-                ];
-            };
-            p-midnight-1 = nixpkgs.lib.nixosSystem {
-                system = "x86_64-linux";
-                specialArgs = { inherit self nixpkgs inputs; };
-                modules = baseModules ++ [
-                    ./hosts/p-midnight-1
-                    ./modules/midnight
-                    ./modules/physical
-                ];
-            };
-            p-midnight-2 = nixpkgs.lib.nixosSystem {
-                system = "x86_64-linux";
-                specialArgs = { inherit self nixpkgs inputs; };
-                modules = baseModules ++ [
-                    ./hosts/p-midnight-2
-                    ./modules/midnight
-                    ./modules/physical
-                ];
-            };
-        };
-
-        packages.x86_64-linux.miner = nixpkgs.legacyPackages.x86_64-linux.rustPlatform.buildRustPackage {
-            pname = "scavenger-miner";
-            version = "0.1.0";
-            src = inputs.miner-src;
-            cargoLock = {
-                lockFile = "${inputs.miner-src}/Cargo.lock";
-                outputHashes = {
-                    "ashmaize-0.1.0" = "sha256-4l8vfkA7Ri59uhfyyV0IQ+/T5PsMKTcQpuOIvVbeEjA=";
-                };
-            };
-            buildInputs = [
-                nixpkgs.legacyPackages.x86_64-linux.openssl
-            ];
-            nativeBuildInputs = [
-                nixpkgs.legacyPackages.x86_64-linux.pkg-config
-            ];
-            doCheck = false;
         };
     };
 }
