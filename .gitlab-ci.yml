@@ -1,3 +1,6 @@
+stages:
+  - orchestrate
+
 opentofu:
   stage: orchestrate
   rules:
