@@ -35,3 +35,4 @@ homeassistant-deploy:
         $DEPLOY_USER@$DEPLOY_HOST:/config/
     - echo "Restarting home-assistant..."
     - ssh $DEPLOY_USER@$DEPLOY_HOST "ha core restart"
+
