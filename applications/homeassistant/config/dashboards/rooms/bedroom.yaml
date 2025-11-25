@@ -1,26 +1,24 @@
 title: Bedroom
-path: bedroom
-cards:
-  - type: custom:mushroom-title-card
-    title: Bedroom
-
-  - type: custom:mushroom-light-card
-    entity: light.bedroom_ceiling
-    name: Ceiling
-
-  - type: horizontal-stack
+views:
+  - title: Bedroom
+    path: bedroom
     cards:
-      - type: custom:mushroom-light-card
-        entity: light.bedroom_table_left
-        name: Left Lamp
-      - type: custom:mushroom-light-card
-        entity: light.bedroom_table_right
-        name: Right Lamp
+      - type: custom:mushroom-title-card
+        title: Bedroom
 
-  - type: custom:mushroom-media-player-card
-    entity: media_player.bedroom_sonos
-    name: Audio
+      - type: custom:mushroom-light-card
+        entity: light.bedroom_ceiling
+        name: Ceiling
 
-  - type: entities
-    entities:
-      - sensor.bedroom_h
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-light-card
+            entity: light.bedroom_table_left
+            name: Left Lamp
+          - type: custom:mushroom-light-card
+            entity: light.bedroom_table_right
+            name: Right Lamp
+
+      - type: custom:mushroom-media-player-card
+        entity: media_player.bedroom_sonos
+        name: Audio

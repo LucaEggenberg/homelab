@@ -1,7 +1,6 @@
 title: Shower
-cards:
-  - type: light
-    entity: light.shower_ceiling
-  - type: entities
-    entities:
-      - binary_sensor.shower_motion
+views:
+  - title: Shower
+    path: shower
+    cards:
+      - type: custom:mushroom-title-card

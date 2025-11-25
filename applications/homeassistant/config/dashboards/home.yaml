@@ -1,78 +1,67 @@
 title: Home
-path: home
-type: masonry
-cards:
-
-  # --- HEADER: GREETING & PRESENCE ---
-  - type: custom:mushroom-title-card
-    title: Home
-    subtitle: "Welcome home"
-
-  # --- QUICK ACTIONS ---
-  - type: horizontal-stack
+views:
+  - title: Overview
+    path: home
+    type: masonry
     cards:
-      - type: custom:mushroom-entity-card
-        entity: light.living_ceiling
-        name: All Lights
-        icon: mdi:lightbulb-group
-        tap_action:
-          action: call-service
-          service: light.turn_off
-          data:
-            entity_id: all
-      - type: custom:mushroom-entity-card
-        entity: scene.living_relax
-        name: Relax
-        icon_color: teal
-      - type: custom:mushroom-entity-card
-        entity: scene.living_read
-        name: Reading
-        icon_color: amber
 
-  # --- ROOMS OVERVIEW ---
-  - type: grid
-    columns: 2
-    square: false
-    cards:
-      - type: custom:mushroom-template-card
-        primary: Living Room
-        secondary: >-
-          {{ states('sensor.living_hygrometer_temperature') }}°C
-        icon: mdi:sofa
-        tap_action:
-          action: navigate
-          navigation_path: /lovelace/living
-      - type: custom:mushroom-template-card
-        primary: Bedroom
-        secondary: >-
-          {{ states('sensor.bedroom_hygrometer_temperature') }}°C
-        icon: mdi:bed
-        tap_action:
-          action: navigate
-          navigation_path: /lovelace/bedroom
-      - type: custom:mushroom-template-card
-        primary: Office
-        icon: mdi:laptop
-        tap_action:
-          action: navigate
-          navigation_path: /lovelace/office
-      - type: custom:mushroom-template-card
-        primary: Bathroom
-        icon: mdi:shower
-        tap_action:
-          action: navigate
-          navigation_path: /lovelace/bath
+      - type: custom:mushroom-title-card
+        title: Home
+        subtitle: "Welcome home"
 
-  # --- NOW PLAYING ---
-  - type: custom:mushroom-media-player-card
-    entity: media_player.living_sonos
-    name: Now Playing
-    use_media_info: true
-    use_media_artwork: true
-    collapsible_controls: true
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: light.living_ceiling
+            name: All Lights
+            icon: mdi:lightbulb-group
+            tap_action:
+              action: call-service
+              service: light.turn_off
+              data:
+                entity_id: all
+          - type: custom:mushroom-entity-card
+            entity: scene.living_relax
+            name: Relax
+          - type: custom:mushroom-entity-card
+            entity: scene.living_read
+            name: Reading
 
-  # --- ACTIVE LIGHTS SUMMARY ---
-  - type: custom:mushroom-entity-card
-    entity: sensor.lights_on
-    name: Active Lights
-    icon: mdi:lightbulb-on
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-template-card
+            primary: Living Room
+            icon: mdi:sofa
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/living
+          - type: custom:mushroom-template-card
+            primary: Bedroom
+            icon: mdi:bed
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/bedroom
+          - type: custom:mushroom-template-card
+            primary: Office
+            icon: mdi:laptop
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/office
+          - type: custom:mushroom-template-card
+            primary: Bathroom
+            icon: mdi:shower
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/bath
+
+      - type: custom:mushroom-media-player-card
+        entity: media_player.living_sonos
+        name: Now Playing
+        use_media_info: true
+        use_media_artwork: true
+
+      - type: custom:mushroom-entity-card
+        entity: sensor.lights_on
+        name: Active Lights

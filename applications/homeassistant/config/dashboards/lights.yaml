@@ -1,35 +1,37 @@
 title: Lights
-path: lights
-cards:
-  - type: custom:mushroom-title-card
-    title: Lights
-    subtitle: "Control by room"
-
-  - type: grid
-    columns: 2
-    square: false
+views:
+  - title: All Lights
+    path: lights
     cards:
-      - type: custom:mushroom-template-card
-        primary: Living Room
-        icon: mdi:sofa
-        tap_action:
-          action: navigate
-          navigation_path: /lovelace/living
-      - type: custom:mushroom-template-card
-        primary: Bedroom
-        icon: mdi:bed
-        tap_action:
-          action: navigate
-          navigation_path: /lovelace/bedroom
-      - type: custom:mushroom-template-card
-        primary: Office
-        icon: mdi:laptop
-        tap_action:
-          action: navigate
-          navigation_path: /lovelace/office
-      - type: custom:mushroom-template-card
-        primary: Dining
-        icon: mdi:silverware-fork-knife
-        tap_action:
-          action: navigate
-          navigation_path: /lovelace/dining
+      - type: custom:mushroom-title-card
+        title: Lights
+        subtitle: "Control by room"
+
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-template-card
+            primary: Living Room
+            icon: mdi:sofa
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/living
+          - type: custom:mushroom-template-card
+            primary: Bedroom
+            icon: mdi:bed
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/bedroom
+          - type: custom:mushroom-template-card
+            primary: Office
+            icon: mdi:laptop
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/office
+          - type: custom:mushroom-template-card
+            primary: Dining
+            icon: mdi:silverware-fork-knife
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/dining
