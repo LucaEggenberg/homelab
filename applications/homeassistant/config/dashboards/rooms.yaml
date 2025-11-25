@@ -1,9 +1,7 @@
-title: Lights
-path: lights
+title: Rooms
 cards:
   - type: custom:mushroom-title-card
-    title: Lights
-    subtitle: "Control by room"
+    title: Rooms
 
   - type: grid
     columns: 2
@@ -28,8 +26,8 @@ cards:
           action: navigate
           navigation_path: /lovelace/office
       - type: custom:mushroom-template-card
-        primary: Dining
-        icon: mdi:silverware-fork-knife
+        primary: Bath
+        icon: mdi:shower
         tap_action:
           action: navigate
-          navigation_path: /lovelace/dining
+          navigation_path: /lovelace/bath

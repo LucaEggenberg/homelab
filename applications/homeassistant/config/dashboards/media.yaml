@@ -1,20 +1,24 @@
 title: Media
-views:
-  - title: Sonos
+path: media
+cards:
+  - type: custom:mushroom-title-card
+    title: Media
+    subtitle: "Whole-home audio"
+
+  - type: vertical-stack
     cards:
-      - type: media-control
+      - type: custom:mushroom-media-player-card
         entity: media_player.living_sonos
+        name: Living Sonos
+        use_media_artwork: true
+        collapsible_controls: true
 
-      - type: media-control
-        entity: media_player.bath_sonos
-
-      - type: media-control
+      - type: custom:mushroom-media-player-card
         entity: media_player.bedroom_sonos
-
-      - type: media-control
+        name: Bedroom Sonos
+      - type: custom:mushroom-media-player-card
+        entity: media_player.bath_sonos
+        name: Bathroom Sonos
+      - type: custom:mushroom-media-player-card
         entity: media_player.kitchen_sonos
-
-  - title: TVs
-    cards:
-      - type: media-control
-        entity: media_player.living_tv
+        name: Kitchen Sonos

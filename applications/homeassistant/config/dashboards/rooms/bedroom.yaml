@@ -1,15 +1,26 @@
 title: Bedroom
+path: bedroom
 cards:
-  - type: light
+  - type: custom:mushroom-title-card
+    title: Bedroom
+
+  - type: custom:mushroom-light-card
     entity: light.bedroom_ceiling
-  - type: light
-    entity: light.bedroom_table_left
-  - type: light
-    entity: light.bedroom_table_right
-  - type: media-control
+    name: Ceiling
+
+  - type: horizontal-stack
+    cards:
+      - type: custom:mushroom-light-card
+        entity: light.bedroom_table_left
+        name: Left Lamp
+      - type: custom:mushroom-light-card
+        entity: light.bedroom_table_right
+        name: Right Lamp
+
+  - type: custom:mushroom-media-player-card
     entity: media_player.bedroom_sonos
+    name: Audio
+
   - type: entities
     entities:
-      - sensor.bedroom_hygrometer_temperature
-      - sensor.bedroom_hygrometer_humidity
-      - binary_sensor.bedroom_motion
+      - sensor.bedroom_h
