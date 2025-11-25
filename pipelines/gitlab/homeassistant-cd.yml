@@ -2,18 +2,14 @@ stages:
   - test
   - deploy
 
-variables:
-  DEPLOY_USER: "root"
-  DEPLOY_HOST: "10.10.30.10"
-
 default:
-  image:
-    name: homeassistant/amd64-homeassistant:stable
-    entrypoint: [""]
   tags: [ "internal" ]
 
 homeassistant-test:
   stage: test
+  image:
+    name: homeassistant/amd64-homeassistant:stable
+    entrypoint: [""]
   script:
     - hass --script check_config -c applications/homeassistant/config
   rules:
@@ -23,19 +19,27 @@ homeassistant-deploy:
   stage: deploy
   only:
     - main
+  image: ubuntu:24.04
+  variables:
+    REMOTE_USER: "root"
+    REMOTE_HOST: "10.10.30.10"
+    SSH_PORT: "2222"
   before_script:
-    - test -n "$SSH_PRIVATE_KEY_B64" || (echo "Missing SSH_PRIVATE_KEY" && exit 1)
+    - test -n "$SSH_PRIVATE_KEY" || (echo "Missing SSH_PRIVATE_KEY" && exit 1)
     - test -n "$HAOS_KNOWN_HOST" || (echo "Missing HAOS_KNOWN_HOST" && exit 1)
-    - apt-get update
-    - apt-get install -y openssh-client rsync
+    - test -n "$SSH_PASSPHRASE" || (echo "Missing SSH_PRIVATE_KEY" && exit 1)
+
+    - apt update -y && apt install openssh-client -y
+    - eval $(ssh-agent -s)
     - mkdir -p ~/.ssh
-    - echo "$SSH_PRIVATE_KEY_B64" | base64 -d > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - echo 'echo "$SSH_PASSPHRASE"' > ~/.ssh/tmp && chmod 700 ~/.ssh/tmp
+    - printf "%s" "$SSH_PRIVATE_KEY" | DISPLAY=none SSH_ASKPASS=~/.ssh/tmp ssh-add -
     - echo "$HAOS_KNOWN_HOST" > ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
   script:
     - echo "Deploying home-assistant configuration..."
-    - rsync -avz --delete \
-        applications/homeassistant/config/ \
-        $DEPLOY_USER@$DEPLOY_HOST:/config/
+    - tar -cf - applications/homeassistant/config/ | ssh -p "$SSH_PORT" $REMOTE_USER@$REMOTE_HOST "tar -xf - -C /config/"
     - echo "Restarting home-assistant..."
-    - ssh $DEPLOY_USER@$DEPLOY_HOST "ha core restart"
+    - ssh -p $SSH_PORT $REMOTE_USER@$REMOTE_HOST "ha core restart"
+
