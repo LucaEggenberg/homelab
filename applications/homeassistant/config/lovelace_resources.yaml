@@ -1,4 +1,4 @@
-- url: /hacsfiles/mushroom-card/mushroom.js
+- url: /hacsfiles/lovelace-mushroom/mushroom.js
   type: module
 - url: /hacsfiles/button-card/button-card.js
   type: module
