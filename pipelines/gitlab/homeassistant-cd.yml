@@ -39,7 +39,7 @@ homeassistant-deploy:
     - chmod 644 ~/.ssh/known_hosts
   script:
     - echo "Deploying home-assistant configuration..."
-    - tar -cf - applications/homeassistant/config/ | ssh -p "$SSH_PORT" $REMOTE_USER@$REMOTE_HOST "tar -xf - -C /config/"
+    - tar -cf - applications/homeassistant/config . | ssh -p "$SSH_PORT" $REMOTE_USER@$REMOTE_HOST "tar -xf - -C /config/"
     - echo "Restarting home-assistant..."
     - ssh -p $SSH_PORT $REMOTE_USER@$REMOTE_HOST "ha core restart"
 
