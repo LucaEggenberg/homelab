@@ -1,67 +1,306 @@
 title: Home
 views:
-  - title: Overview
-    path: home
-    type: masonry
-    cards:
-
-      - type: custom:mushroom-title-card
-        title: Home
-        subtitle: "Welcome home"
-
-      - type: horizontal-stack
-        cards:
-          - type: custom:mushroom-entity-card
-            entity: light.living_ceiling
-            name: All Lights
-            icon: mdi:lightbulb-group
-            tap_action:
-              action: call-service
-              service: light.turn_off
-              data:
-                entity_id: all
-          - type: custom:mushroom-entity-card
-            entity: scene.living_relax
-            name: Relax
-          - type: custom:mushroom-entity-card
-            entity: scene.living_read
-            name: Reading
-
+  - type: sections
+    max_columns: 1
+    cards: []
+    icon: mdi:home
+    sections:
       - type: grid
-        columns: 2
-        square: false
         cards:
+          # Weather
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: weather
+                entity: weather.forecast_home
+                show_conditions: true
+                show_temperature: true
+            alignment: start
+          # Greeting
           - type: custom:mushroom-template-card
-            primary: Living Room
-            icon: mdi:sofa
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/living
-          - type: custom:mushroom-template-card
-            primary: Bedroom
-            icon: mdi:bed
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/bedroom
-          - type: custom:mushroom-template-card
-            primary: Office
-            icon: mdi:laptop
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/office
-          - type: custom:mushroom-template-card
-            primary: Bathroom
-            icon: mdi:shower
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/bath
+            primary: |-
+              {% set time = now().hour %}
+              {% if (time >= 18) %}
+                Good Evening, {{user}}!
+              {% elif (time >= 12) %}
+                Good Afternoon, {{user}}!
+              {% elif (time >= 5) %}
+                Good Morning, {{user}}!
+              {% else %}
+                Hello, {{user}}!
+              {% endif %}
+            secondary: ""
+            icon: ""
+            grid_options:
+              columns: full
+              rows: 1
+            vertical: true
+            features_position: bottom
+          # Sub-Dashboards
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                primary: House
+                secondary: ""
+                icon: mdi:home
+                tap_action:
+                  action: navigate
+                  navigation_path: house
+                color: blue
+                vertical: true
+                features_position: bottom
+              - type: custom:mushroom-template-card
+                primary: Media
+                secondary: ""
+                icon: mdi:speaker
+                tap_action:
+                  action: navigate
+                  navigation_path: media
+                color: green
+                vertical: true
+                features_position: bottom
+              - type: custom:mushroom-template-card
+                primary: Climate
+                secondary: ""
+                icon: mdi:thermometer
+                tap_action:
+                  action: navigate
+                  navigation_path: climate
+                color: red
+                vertical: true
+                features_position: bottom
+              - type: custom:mushroom-template-card
+                primary: Automations
+                secondary: ""
+                icon: mdi:home-automation
+                tap_action:
+                  action: navigate
+                  navigation_path: automation
+                color: amber
+                vertical: true
+                features_position: bottom
 
-      - type: custom:mushroom-media-player-card
-        entity: media_player.living_sonos
-        name: Now Playing
-        use_media_info: true
-        use_media_artwork: true
+          # Quick-Actions
+          - type: custom:mushroom-title-card
+            title: ''
+            subtitle: Quick-Actions
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                icon: mdi:lightbulb-group
+                tap_action:
+                  action: call-service
+                  service: light.turn_off
+                  target:
+                    entity_id: all
+                color: >
+                  {% set any_on = states.light | selectattr('state','equalto','on') | list | length > 0 %} 
+                  {% if any_on %}
+                    amber
+                  {% endif %}
+                features_position: bottom
+                vertical: true
+                secondary: Lights off
+              - type: custom:mushroom-template-card
+                secondary: Hue Sync
+                icon: mdi:sync
+                features_position: bottom
+                entity: switch.living_tv_sync_light_sync
+                color: |-
+                  {% if is_state('switch.living_tv_sync_light_sync', 'on') %}
+                    blue
+                  {% endif %}
+                vertical: true
+                tap_action:
+                  action: toggle
+              - type: custom:mushroom-template-card
+                icon: mdi:motion-sensor
+                entity: switch.hallway_motion_motion_sensor_enabled
+                tap_action:
+                  action: toggle
+                color: >-
+                  {% if is_state('switch.hallway_motion_motion_sensor_enabled', 'on') %}
+                    blue
+                  {% endif %}
+                features_position: bottom
+                vertical: true
+                secondary: Hallway motion
+              - type: custom:mushroom-template-card
+                icon: mdi:motion-sensor
+                entity: switch.entry_motion_motion_sensor_enabled
+                tap_action:
+                  action: toggle
+                color: >-
+                  {% if is_state('switch.entry_motion_motion_sensor_enabled', 'on') %}
+                    blue
+                  {% endif %}
+                features_position: bottom
+                vertical: true
+                secondary: Entry motion
 
-      - type: custom:mushroom-entity-card
-        entity: sensor.lights_on
-        name: Active Lights
+          # Rooms
+          - type: custom:mushroom-title-card
+            title: Rooms
+          - type: grid
+            columns: 2
+            square: false
+            cards:
+              - type: custom:mushroom-template-card
+                primary: Bedroom
+                secondary: |-
+                  Temp: {{
+                    states('sensor.bedroom_hygrometer_temperature')
+                  }} °C
+                  Humidity: {{
+                    states('sensor.bedroom_hygrometer_humidity')
+                  }}%
+                icon: mdi:bed-double
+                entity: light.bedroom
+                tap_action:
+                  action: navigate
+                  navigation_path: bedroom
+                hold_action:
+                  action: toggle
+                multiline_secondary: true
+                color: |-
+                  {% if is_state('light.bedroom', 'on') %}
+                  amber
+                  {% endif %}
+                features_position: bottom
+              
+              - type: custom:mushroom-template-card
+                primary: Office
+                secondary: |-
+                  Temp: {{
+                    states('sensor.office_hygrometer_temperature')
+                  }} °C
+                  Humidity: {{
+                    states('sensor.office_hygrometer_humidity')
+                  }}%
+                icon: mdi:bed-double
+                entity: light.office
+                tap_action:
+                  action: navigate
+                  navigation_path: office
+                hold_action:
+                  action: toggle
+                multiline_secondary: true
+                color: |-
+                  {% if is_state('light.office', 'on') %}
+                  amber
+                  {% endif %}
+                features_position: bottom
+              
+              - type: custom:mushroom-template-card
+                primary: Living Room
+                secondary: |-
+                  Temp: {{
+                    states('sensor.living_hygrometer_temperature')
+                  }} °C
+                  Humidity: {{
+                    states('sensor.living_hygrometer_humidity')
+                  }}%
+                icon: mdi:sofa
+                entity: light.living_room
+                tap_action:
+                  action: navigate
+                  navigation_path: living
+                hold_action:
+                  action: toggle
+                multiline_secondary: true
+                color: |-
+                  {% if is_state('light.living_room', 'on') %}
+                    amber
+                  {% endif %}
+                features_position: bottom
+              
+              - type: custom:mushroom-template-card
+                primary: Dining Room
+                icon: mdi:table-chair
+                entity: light.dining 
+                tap_action:
+                  action: navigate
+                  navigation_path: dining
+                hold_action:
+                  action: toggle
+                multiline_secondary: true
+                color: |-
+                  {% if is_state('light.dining', 'on') %}
+                    amber
+                  {% endif %}
+                features_position: bottom
+              
+              - type: custom:mushroom-template-card
+                primary: Shower
+                secondary: |-
+                  Temp: {{
+                    states('sensor.shower_motion_temperature')
+                  }} °C
+                icon: mdi:shower-head
+                entity: light.shower
+                tap_action:
+                  action: navigate
+                  navigation_path: shower
+                hold_action:
+                  action: toggle
+                multiline_secondary: true
+                color: |-
+                  {% if is_state('light.shower', 'on') %}
+                    amber
+                  {% endif %}
+                features_position: bottom
+              
+              - type: custom:mushroom-template-card
+                primary: Bath
+                icon: mdi:bathtub
+                entity: light.bath
+                tap_action:
+                  action: navigate
+                  navigation_path: bath
+                hold_action:
+                  action: toggle
+                multiline_secondary: true
+                color: |-
+                  {% if is_state('light.bath', 'on') %}
+                    amber
+                  {% endif %}
+                features_position: bottom
+              
+              - type: custom:mushroom-template-card
+                primary: Entry
+                secondary: |-
+                  Temp: {{
+                    states('sensor.entry_motion_temperature')
+                  }} °C
+                icon: mdi:coat-rack
+                entity: light.entry
+                tap_action:
+                  action: navigate
+                  navigation_path: entry
+                hold_action:
+                  action: toggle
+                multiline_secondary: true
+                color: |-
+                  {% if is_state('light.entry', 'on') %}
+                    amber
+                  {% endif %}
+                features_position: bottom
+              
+              - type: custom:mushroom-template-card
+                primary: Hallway
+                secondary: |-
+                  Temp: {{
+                    states('sensor.hallway_motion_temperature')
+                  }} °C
+                icon: mdi:coat-rack
+                entity: light.hallway
+                tap_action:
+                  action: navigate
+                  navigation_path: hallway
+                hold_action:
+                  action: toggle
+                multiline_secondary: true
+                color: |-
+                  {% if is_state('light.hallway', 'on') %}
+                    amber
+                  {% endif %}
+                features_position: bottom
