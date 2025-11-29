@@ -63,6 +63,9 @@ gitlab:
 
 registry:
   enabled: true
+  storage:
+    secret: registry-storage-secret
+    key: config
   ingress:
     enabled: false
 
