@@ -5,6 +5,13 @@
         ./backups.nix
     ];
 
+    users.groups.jellyfin.gid = 865;
+    users.users.jellyfin = {
+        isSystemUser = true;
+        uid = 865;
+        group = "jellyfin";
+    };
+
     nixpkgs.config.allowUnfree = true;
 
     environment.systemPackages = [
@@ -53,15 +60,7 @@
     # mount transcode cache in memory
     fileSystems."/var/cache/jellyfin/transcodes" = {
         fsType = "tmpfs";
-        options = [ "size=4G" "mode=1777" ];
-    };
-
-    sops.secrets."smb" = {
-        sopsFile = ../../secrets/jellyfin/smb.env;
-        format = "dotenv";
-        mode = "0400";
-        owner = "root";
-        group = "root";
+        options = [ "size=12G" "mode=1777" ];
     };
 
     # ensure directories exist for systemd not to fail at boot
@@ -72,21 +71,18 @@
     ];
 
     fileSystems."/media" = {
-        device = "//10.10.10.20/media";
-        fsType = "cifs";
+        device = "10.10.10.20:/mnt/Storage/media";
+        fsType = "nfs";
         options = [
-            "credentials=${config.sops.secrets."smb".path}"
-            "_netdev"
-            "nofail"
+            "noauto"
             "x-systemd.automount"
-            "vers=3.1.1"
-            "uid=jellyfin"
-            "gid=jellyfin"
-            "file_mode=0775"
-            "dir_mode=0775"
-            "cache=strict"
-            "noserverino"
-            "iocharset=utf8"
+            "nofail"
+            "_netdev"
+            "nfsvers=4.1"
+            "rsize=1048576"
+            "wsize=1048576"
+            "hard"
+            "timeo=600"
         ];
     };
 
