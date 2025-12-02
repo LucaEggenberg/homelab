@@ -1,21 +1,17 @@
 { config, pkgs, ... }: {
-    systemd.tmpfiles.rules = [
-        "d /srv/jellyfin-backups 0755 nobody nogroup -"
-    ];
-
     fileSystems."/srv/jellyfin-backups" = {
         device = "10.10.10.20:/mnt/Storage/backups/jellyfin";
         fsType = "nfs";
         options = [
+            "noauto"
+            "x-systemd.automount"
+            "nofail"
+            "_netdev"
             "nfsvers=4.1"
-            "rw"
-            "hard"
-            "noatime"
-            "nodiratime"
             "rsize=1048576"
             "wsize=1048576"
+            "hard"
             "timeo=600"
-            "_netdev"
         ];
     };
 
@@ -31,12 +27,7 @@
 
     systemd.services.jellyfin-backup = {
         description = "Backup Jellyfin configuration and metadata";
-        after = [ 
-            "network-online.target" 
-            "srv-jellyfin\\x2dbackups.mount" 
-            "jellyfin.service" 
-        ];
-        requires = [ "srv-jellyfin\\x2dbackups.mount" ];
+        after = [ "network-online.target" "jellyfin.service" ];
         wants = [ "network-online.target" ];
 
         serviceConfig = {
