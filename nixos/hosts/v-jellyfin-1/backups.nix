@@ -31,8 +31,12 @@
 
     systemd.services.jellyfin-backup = {
         description = "Backup Jellyfin configuration and metadata";
-        after = [ "network-online.target" "srv-jellyfin-backups.mount" "jellyfin.service" ];
-        requires = [ "srv-jellyfin-backups.mount" ];
+        after = [ 
+            "network-online.target" 
+            "srv-jellyfin\\x2dbackups.mount" 
+            "jellyfin.service" 
+        ];
+        requires = [ "srv-jellyfin\\x2dbackups.mount" ];
         wants = [ "network-online.target" ];
 
         serviceConfig = {
