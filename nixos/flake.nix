@@ -78,6 +78,24 @@
                     ./modules/proxmox-vm
                 ];
             };
+            v-immich-1 = 
+            let 
+                system = "x86_64-linux";
+            in 
+            nixpkgs.lib.nixosSystem {
+                inherit system;
+                specialArgs = { 
+                    inherit self nixpkgs; 
+                    unstable = import inputs.nixpkgs-unstable {
+                        inherit system;
+                        config.allowUnfree = true;
+                    }; 
+                };
+                modules = baseModules ++ [
+                    ./hosts/v-immich-1
+                    ./modules/proxmox-vm
+                ];
+            };
         };
     };
 }

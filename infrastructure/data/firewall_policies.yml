@@ -42,6 +42,16 @@ policies:
     dst_ports: "jellyfin_port"
     auto_allow_return: true
 
+  kube_allow_immich_forward:
+    name: "Allow Kube to v-immich"
+    action: "ALLOW"
+    src_zone: "dmz"
+    src_group: "kube_ips"
+    dst_zone: "dmz"
+    dst_group: "immich_ip"
+    dst_ports: "immich_port"
+    auto_allow_return: true
+
   runner_allow_haos_ssh:
     name: "Allow Runner to Homeassistant"
     action: "ALLOW"
@@ -58,6 +68,18 @@ policies:
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "jellyfin_ip"
+    src_ports: null
+    dst_zone: "internal"
+    dst_group: "nas_ips"
+    dst_ports: "smb_nfs_ports"
+    logging: true
+    auto_allow_return: true
+
+  immich_allow_smb_nfs:
+    name: "Allow Immich to Nas"
+    action: "ALLOW"
+    src_zone: "dmz"
+    src_group: "immich_ip"
     src_ports: null
     dst_zone: "internal"
     dst_group: "nas_ips"

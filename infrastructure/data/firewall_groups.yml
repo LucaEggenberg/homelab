@@ -29,6 +29,11 @@ groups:
     members:
       - "10.10.20.10"
 
+  immich_ip:
+    type: address-group
+    members:
+      - "10.10.20.11"
+
   smb_nfs_ports:
     type: port-group
     members:
@@ -62,6 +67,11 @@ groups:
       - "8096"
       - "7359"
   
+  immich_port:
+    type: port-group
+    members:
+        - "2283"
+
   ssh_port:
     type: port-group
     members:
