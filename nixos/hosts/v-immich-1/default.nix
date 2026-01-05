@@ -14,8 +14,16 @@
     
   # Ensure mountpoints exist so systemd doesn’t fail at boot
   systemd.tmpfiles.rules = [
-      "d /photos 0755 root root -"
-      "d /photos/immich 0755 immich immich -"
+    "d /media 0755 root root -"
+    "d /media/photos 0755 immich immich -"
+
+    "d /var/lib/immich 0750 immich immich -"
+    "d /var/lib/immich/upload 0750 immich immich -"
+    "d /var/lib/immich/thumbs 0750 immich immich -"
+    "d /var/lib/immich/encoded-video 0750 immich immich -"
+    "d /var/lib/immich/profile 0750 immich immich -"
+    "d /var/lib/immich/backups 0750 immich immich -"
+    "d /var/lib/immich/library 0755 immich immich -"
   ];
   
   services.immich = {
@@ -26,7 +34,7 @@
     port = 2283;
     openFirewall = true;
 
-    mediaLocation = "/photos/immich";
+    mediaLocation = "/var/lib/immich";
 
     machine-learning.enable = true;
     settings = null;
@@ -35,8 +43,8 @@
     redis.enable = true;
   };
 
-  fileSystems."/photos" = {
-    device = "10.10.10.20:/mnt/Storage/photos";
+  fileSystems."/media" = {
+    device = "10.10.10.20:/mnt/Storage/media";
     fsType = "nfs";
     options = [
     "noauto"
@@ -49,5 +57,15 @@
     "hard"
     "timeo=600"
     ];
+  };
+
+  fileSystems."/var/lib/immich/library" = {
+    device = "/media/photos";
+    fsType = "none";
+    options = [ "bind" "nofail" "x-systemd.requires-mounts-for=/media" "x-systemd.automount" ];
+  };
+
+  systemd.services.immich-server.serviceConfig = {
+    RequiresMountsFor = [ "/media" "/var/lib/immich/library" ];
   };
 }
