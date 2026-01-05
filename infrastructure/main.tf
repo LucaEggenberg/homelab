@@ -2,8 +2,6 @@ locals {
     networks            = yamldecode(file("${path.module}/data/networks.yml"))["networks"]
     zones               = yamldecode(file("${path.module}/data/zones.yml"))["zones"]
     firewall_groups     = yamldecode(file("${path.module}/data/firewall_groups.yml"))["groups"]
-    firewall_policies   = yamldecode(file("${path.module}/data/firewall_policies.yml"))["policies"]
-    cloudflare_cidrs    = yamldecode(file("${path.module}/data/cloudflare_cidrs.yml"))["cloudflare_cidrs"]
 
     network_ids = { for key, group_ref in module.networks : upper(key) => group_ref.id }
     zone_ids    = { for key, group_ref in module.zones : upper(key) => group_ref.id }
@@ -11,6 +9,29 @@ locals {
 
     hosts       = yamldecode(file("${path.module}/data/hosts.yml"))["hosts"]
     hosts_map   = { for s in local.hosts : s.id => s }
+
+    firewall_policy_defaults = {
+        index             = 10000
+        src_group         = null
+        dst_group         = null
+        src_ip            = null
+        dst_ip            = null
+        src_ports         = null
+        dst_ports         = null
+        src_port          = null
+        dst_port          = null
+        web_domains       = null
+        protocol          = null
+        ip_version        = "BOTH"
+        logging           = false
+        auto_allow_return = false
+    }
+
+    firewall_policies_raw = yamldecode(file("${path.module}/data/firewall_policies.yml"))["policies"]
+    firewall_policies = {
+        for k, p in local.firewall_policies_raw :
+        k => merge(local.firewall_policy_defaults, p)
+    }
 
     vm_templates = {
         debian = var.debian_template_name
@@ -54,33 +75,49 @@ module "firewall_groups" {
 }
 
 module "policies" {
-    source = "./modules/firewall_policy"
-    for_each = local.firewall_policies
+  source   = "./modules/firewall_policy"
+  for_each = local.firewall_policies
 
-    site    = var.unifi_site
-    name    = each.value.name
-    action  = each.value.action
-    index   = lookup(each.value, "index", 10000)
+  site    = var.unifi_site
+  name    = each.value.name
+  action  = each.value.action
+  index   = each.value.index
 
-    src_zone_id  = local.zone_ids[upper(each.value.src_zone)]
-    dst_zone_id  = local.zone_ids[upper(each.value.dst_zone)]
+  src_zone_id = local.zone_ids[upper(each.value.src_zone)]
+  dst_zone_id = local.zone_ids[upper(each.value.dst_zone)]
 
-    src_group_id        = try(local.group_ids[upper(each.value.src_group)], null)
-    dst_group_id        = try(local.group_ids[upper(each.value.dst_group)], null)
+  src_group_id = (each.value.src_group == null
+    ? null
+    : local.group_ids[upper(each.value.src_group)])
 
-    src_port_group_id   = try(local.group_ids[upper(each.value.src_ports)], null)
-    dst_port_group_id   = try(local.group_ids[upper(each.value.dst_ports)], null)
+  dst_group_id = (each.value.dst_group == null
+    ? null
+    : local.group_ids[upper(each.value.dst_group)])
 
-    src_port            = lookup(each.value, "src_port", null)
-    dst_port            = lookup(each.value, "dst_port", null)
+  src_ips = (each.value.src_ip == null 
+    ? null 
+    : [each.value.src_ip])
 
-    web_domains         = lookup(each.value, "web_domains", null)
-    protocol            = lookup(each.value, "protocol", null)
+  dst_ips = (each.value.dst_ip == null 
+    ? null 
+    : [each.value.dst_ip])
 
-    ip_version          = lookup(each.value, "ip_version", "BOTH")
+  src_port_group_id = (each.value.src_ports == null
+    ? null
+    : local.group_ids[upper(each.value.src_ports)])
 
-    logging             = lookup(each.value, "logging", false)
-    auto_allow_return   = try(each.value.auto_allow_return, false)
+  dst_port_group_id = (each.value.dst_ports == null
+    ? null
+    : local.group_ids[upper(each.value.dst_ports)])
+
+  src_port  = each.value.src_port
+  dst_port  = each.value.dst_port
+
+  web_domains       = each.value.web_domains
+  protocol          = each.value.protocol
+  ip_version        = each.value.ip_version
+  logging            = each.value.logging
+  auto_allow_return  = each.value.auto_allow_return
 }
 
 module "static_leases" {
@@ -96,14 +133,13 @@ module "static_leases" {
     ip   = each.value.ip
 }
 
-module "cf_port_forwards" {
+module "wan_port_forward" {
     source = "./modules/port_forward"
-    for_each    = toset(local.cloudflare_cidrs)
 
-    name        = "cf-${replace(each.key, "/", "-")}-https"
+    name        = "wan-https"
     protocol    = "tcp"
     port        = "443,80"
-    destination_ip = local.hosts_map["kube"].ip
+    destination_ip = local.hosts_map["kube-public"].ip
     source_ip   = each.key
 }
 

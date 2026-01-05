@@ -1,88 +1,102 @@
 policies:
+  wan_allow_traefik_public_https:
+    name: "WAN -> Traefik Public (HTTP/HTTPS)"
+    action: "ALLOW"
+    src_zone: "external"
+    dst_zone: "dmz"
+    dst_group: "traefik_public_vip"
+    dst_ports: "web_ports"
+    logging: true
+    auto_allow_return: true
+
+  wan_block_traefik_internal_https:
+    name: "WAN -> Traefik Internal (BLOCK)"
+    action: "BLOCK"
+    src_zone: "external"
+    dst_zone: "dmz"
+    dst_group: "traefik_internal_vip"
+    dst_ports: "web_ports"
+    logging: true
+    auto_allow_return: true
+
   kube_allow_smb_nfs:
-    name: "Allow Kube to NAS"
+    name: "Kube -> NAS (SMB/NFS)"
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "kube_ips"
-    src_ports: null
     dst_zone: "internal"
-    dst_group: "nas_ips"
+    dst_group: "nas_ip"
     dst_ports: "smb_nfs_ports"
     auto_allow_return: true
 
   kube_allow_haos_https:
-    name: "Allow Kube to Homeassistant"
+    name: "Kube -> Home Assistant (HTTPS)"
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "kube_ips"
-    src_ports: null
     dst_zone: "internal"
-    dst_group: "homeassistant_ips"
-    dst_ports: "homeassistant_ports"
-    logging: true
+    dst_group: "homeassistant_ip"
+    dst_port: 443
     auto_allow_return: true
-    
-  kube_allow_nut:
-    name: "Allow Kube to NAS nut"
+
+  kube_to_nas_nut:
+    name: "Kube -> NAS (NUT)"
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "kube_ips"
     dst_zone: "internal"
     dst_group: "nas_ips"
-    dst_ports: "nut_ports"
+    dst_ports: "nut_port"
     auto_allow_return: true
 
   kube_allow_jellyfin_forward:
-    name: "Allow Kube to v-jellyfin"
+    name: "Kube -> Jellyfin (HTTPS)"
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "kube_ips"
     dst_zone: "dmz"
     dst_group: "jellyfin_ip"
-    dst_ports: "jellyfin_port"
+    dst_ports: "jellyfin_ports"
     auto_allow_return: true
 
   kube_allow_immich_forward:
-    name: "Allow Kube to v-immich"
+    name: "Kube -> Immich (HTTPS)"
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "kube_ips"
     dst_zone: "dmz"
     dst_group: "immich_ip"
-    dst_ports: "immich_port"
+    dst_port: 2283
     auto_allow_return: true
 
   runner_allow_haos_ssh:
-    name: "Allow Runner to Homeassistant"
+    name: "Runner -> Home Assistant (SSH)"
     action: "ALLOW"
     src_zone: "internal"
-    src_group: "runner_ip"
-    src_ports: null
+    src_group: "10.10.10.6"
     dst_zone: "internal"
-    dst_group: "homeassistant_ips"
-    dst_ports: "ssh_port"
+    dst_group: "homeassistant_ip"
+    dst_port: 22
     auto_allow_return: true
 
   jellyfin_allow_smb_nfs:
-    name: "Allow Jellyfin to Nas"
+    name: "Jellyfin -> NAS (SMB/NFS)"
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "jellyfin_ip"
-    src_ports: null
     dst_zone: "internal"
-    dst_group: "nas_ips"
+    dst_group: "nas_ip"
     dst_ports: "smb_nfs_ports"
     logging: true
     auto_allow_return: true
 
   immich_allow_smb_nfs:
-    name: "Allow Immich to Nas"
+    name: "Immich -> NAS (SMB/NFS)"
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "immich_ip"
-    src_ports: null
     dst_zone: "internal"
-    dst_group: "nas_ips"
+    dst_group: "nas_ip"
     dst_ports: "smb_nfs_ports"
     logging: true
     auto_allow_return: true

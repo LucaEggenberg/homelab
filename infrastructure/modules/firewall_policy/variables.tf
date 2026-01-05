@@ -80,6 +80,7 @@ variable "protocol" {
 variable "ip_version" {
     type = string
     description = "ip version (IPV4, IPV6 or BOTH)"
+    default = "BOTH"
 }
 
 variable "logging" {
@@ -90,4 +91,16 @@ variable "logging" {
 variable "auto_allow_return" {
     type = bool
     default = true
+}
+
+variable "src_ips" {
+  type        = list(string)
+  description = "inline source IPs (mutually exclusive with src_group_id)"
+  default     = null
+}
+
+variable "dst_ips" {
+  type        = list(string)
+  description = "inline destination IPs (mutually exclusive with dst_group_id)"
+  default     = null
 }

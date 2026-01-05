@@ -1,15 +1,10 @@
 groups:
-  gateway_ip:
-    type: address-group
-    members:
-      - "10.10.10.1"
-
-  nas_ips:
+  nas_ip:
     type: address-group
     members:
       - "10.10.10.20"
   
-  homeassistant_ips:
+  homeassistant_ip:
     type: address-group
     members:
       - "10.10.30.10"
@@ -18,6 +13,16 @@ groups:
     type: address-group
     members:
       - "10.10.20.21-10.10.20.40"
+
+  traefik_public_vip:
+    type: address-group
+    members:
+      - "10.10.20.40"
+
+  traefik_internal_vip:
+    type: address-group
+    members:
+      - "10.10.20.50"
 
   runner_ip:
     type: address-group
@@ -34,6 +39,12 @@ groups:
     members:
       - "10.10.20.11"
 
+  web_ports:
+    type: port-group
+    members:
+      - "80"
+      - "443"
+
   smb_nfs_ports:
     type: port-group
     members:
@@ -41,38 +52,13 @@ groups:
       - "2049"
       - "111"
 
-  homeassistant_ports:
-    type: port-group
-    members:
-      - "8123"
-
-  https_ports:
-    type: port-group
-    members:
-      - "443"
-
-  dns_ports:
-    type: port-group
-    members:
-      - "53"
-
-  nut_ports:
+  nut_port:
     type: port-group
     members: 
       - "3493"
 
-  jellyfin_port:
+  jellyfin_ports:
     type: port-group
     members:
       - "8096"
       - "7359"
-  
-  immich_port:
-    type: port-group
-    members:
-        - "2283"
-
-  ssh_port:
-    type: port-group
-    members:
-      - "22"

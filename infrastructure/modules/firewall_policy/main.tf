@@ -18,6 +18,7 @@ resource "unifi_firewall_zone_policy" "this" {
   source = {
       zone_id       = var.src_zone_id
       ip_group_id   = var.src_group_id
+      ips           = var.src_ips
       port_group_id = var.src_port_group_id
       port          = var.src_port
   }
@@ -25,6 +26,7 @@ resource "unifi_firewall_zone_policy" "this" {
   destination = {
       zone_id       = var.dst_zone_id
       ip_group_id   = var.dst_group_id
+      ips           = var.dst_ips
       port_group_id = var.dst_port_group_id
       port          = var.dst_port
       web_domains   = var.web_domains
@@ -36,6 +38,23 @@ resource "unifi_firewall_zone_policy" "this" {
   auto_allow_return_traffic = var.auto_allow_return
 
   lifecycle {
+    precondition {
+      condition     = !(var.src_group_id != null && var.src_ips != null)
+      error_message = "src_group_id and src_ips are mutually exclusive"
+    }
+    precondition {
+      condition     = !(var.dst_group_id != null && var.dst_ips != null)
+      error_message = "dst_group_id and dst_ips are mutually exclusive"
+    }
+    precondition {
+      condition     = !(var.src_port_group_id != null && var.src_port != null)
+      error_message = "src_port_group_id and src_port are mutually exclusive"
+    }
+    precondition {
+      condition     = !(var.dst_port_group_id != null && var.dst_port != null)
+      error_message = "dst_port_group_id and dst_port are mutually exclusive"
+    }
+
     ignore_changes = [
       index
     ]
