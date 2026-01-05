@@ -36,16 +36,16 @@ policies:
     src_group: "kube_ips"
     dst_zone: "internal"
     dst_group: "homeassistant_ip"
-    dst_port: 443
+    dst_port: 8123
     auto_allow_return: true
 
-  kube_to_nas_nut:
+  kube_allow_nut:
     name: "Kube -> NAS (NUT)"
     action: "ALLOW"
     src_zone: "dmz"
     src_group: "kube_ips"
     dst_zone: "internal"
-    dst_group: "nas_ips"
+    dst_group: "nas_ip"
     dst_ports: "nut_port"
     auto_allow_return: true
 
@@ -73,7 +73,7 @@ policies:
     name: "Runner -> Home Assistant (SSH)"
     action: "ALLOW"
     src_zone: "internal"
-    src_group: "10.10.10.6"
+    src_ip: "10.10.10.6"
     dst_zone: "internal"
     dst_group: "homeassistant_ip"
     dst_port: 22

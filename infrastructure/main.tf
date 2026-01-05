@@ -140,7 +140,6 @@ module "wan_port_forward" {
     protocol    = "tcp"
     port        = "443,80"
     destination_ip = local.hosts_map["kube-public"].ip
-    source_ip   = each.key
 }
 
 module "vms" {
