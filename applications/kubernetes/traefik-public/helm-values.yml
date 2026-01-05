@@ -1,5 +1,10 @@
 hostNetwork: false
 
+service:
+  type: LoadBalancer
+  spec:
+    loadBalancerIP: 10.10.20.40
+
 ports:
   web:
     port: 8000
@@ -13,12 +18,6 @@ ports:
       default: true
     exposedPort: 443
     protocol: TCP
-  ssh:
-    port: 8022
-    expose:
-      default: true
-    exposedPort: 2222
-    protocol: TCP
 
 additionalArguments:
   - "--entrypoints.web.address=:8000"
@@ -26,4 +25,5 @@ additionalArguments:
   - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
   - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
   - "--entrypoints.web.http.redirections.entryPoint.permanent=true"
-  - "--entrypoints.ssh.address=:8022"
+  - "--providers.kubernetescrd.ingressclass=traefik-public"
+  - "--providers.kubernetesingress.ingressclass=traefik-public"

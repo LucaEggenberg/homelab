@@ -4,6 +4,7 @@ metadata:
   name: minio-ingressroute
   namespace: minio-system
 spec:
+  ingressClassName: traefik-internal
   entryPoints:
   - websecure
   routes:

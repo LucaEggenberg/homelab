@@ -4,6 +4,7 @@ metadata:
   name: cleanuparr-ingressroute
   namespace: media
 spec:
+  ingressClassName: traefik-internal
   entryPoints:
   - websecure
   routes:

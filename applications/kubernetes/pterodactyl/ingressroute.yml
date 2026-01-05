@@ -3,6 +3,7 @@ kind: IngressRoute
 metadata:
   name: pterodactyl-ingressroute
 spec:
+  ingressClassName: traefik-public
   entryPoints:
   - websecure
   routes:

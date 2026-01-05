@@ -4,6 +4,7 @@ metadata:
   name: jellyseerr-ingressroute
   namespace: media
 spec:
+  ingressClassName: traefik-public
   entryPoints:
   - websecure
   routes:

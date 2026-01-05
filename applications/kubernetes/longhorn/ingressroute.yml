@@ -4,6 +4,7 @@ metadata:
   name: longhorn-ingressroute
   namespace: longhorn-system
 spec:
+  ingressClassName: traefik-internal
   entryPoints:
   - websecure
   routes:

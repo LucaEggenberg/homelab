@@ -4,6 +4,7 @@ metadata:
   name: homepage-ingressroute
   namespace: homepage
 spec:
+  ingressClassName: traefik-internal
   entryPoints:
   - websecure
   routes:

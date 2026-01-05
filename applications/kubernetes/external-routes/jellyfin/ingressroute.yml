@@ -3,6 +3,7 @@ kind: IngressRoute
 metadata:
   name: jellyfin-ingressroute
 spec:
+  ingressClassName: traefik-public
   entryPoints:
   - websecure
   routes:

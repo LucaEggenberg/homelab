@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik
+  name: traefik-public
 spec:
   project: default
   sources:
@@ -10,8 +10,8 @@ spec:
     targetRevision: 35.2.0
     helm:
       valueFiles:
-        - $values/applications/kubernetes/traefik/helm-values.yml
-  - path: applications/kubernetes/traefik
+        - $values/applications/kubernetes/traefik-public/helm-values.yml
+  - path: applications/kubernetes/traefik-public
     repoURL: https://git.eggenberg.io/luca/homelab.git
     targetRevision: HEAD
     ref: values

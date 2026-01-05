@@ -4,6 +4,7 @@ metadata:
   name: gitlab-ingressroute
   namespace: gitlab
 spec:
+  ingressClassName: traefik-internal
   entryPoints:
   - websecure
   routes:
@@ -21,6 +22,7 @@ metadata:
   name: gitlab-ssh-ingressroute
   namespace: gitlab
 spec:
+  ingressClassName: traefik-internal
   entryPoints:
   - ssh
   routes:
@@ -36,6 +38,7 @@ metadata:
   name: gitlab-registry-ingressroute
   namespace: gitlab
 spec:
+  ingressClassName: traefik-internal
   entryPoints:
   - websecure
   routes:

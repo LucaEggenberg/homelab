@@ -4,6 +4,7 @@ metadata:
   name: stirling-pdf-ingressroute
   namespace: stirling-pdf
 spec:
+  ingressClassName: traefik-internal
   entryPoints:
   - websecure
   routes:

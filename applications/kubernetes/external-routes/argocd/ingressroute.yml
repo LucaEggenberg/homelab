@@ -4,6 +4,7 @@ metadata:
   name: argocd-ingressroute
   namespace: argocd
 spec:
+  ingressClassName: traefik-internal
   entryPoints:
   - websecure
   routes:
