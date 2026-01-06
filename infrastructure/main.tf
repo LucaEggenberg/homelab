@@ -118,6 +118,10 @@ module "policies" {
   ip_version        = each.value.ip_version
   logging            = each.value.logging
   auto_allow_return  = each.value.auto_allow_return
+
+  depends_on = [
+    module.firewall_groups
+  ]
 }
 
 module "static_leases" {

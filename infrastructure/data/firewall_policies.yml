@@ -17,7 +17,6 @@ policies:
     dst_group: "traefik_internal_vip"
     dst_ports: "web_ports"
     logging: true
-    auto_allow_return: true
 
   kube_allow_smb_nfs:
     name: "Kube -> NAS (SMB/NFS)"
