@@ -16,5 +16,10 @@
         role = "server";
         tokenFile = config.sops.secrets."k3s/token".path;
         serverAddr = "https://10.10.20.20:6443";
+
+        extraFlags = [
+            "--disable=servicelb"
+            "--disable=traefik"
+        ];
     };
 }
