@@ -3,8 +3,9 @@ kind: IngressRoute
 metadata:
   name: gitlab-ingressroute
   namespace: gitlab
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
 spec:
-  ingressClassName: traefik-internal
   entryPoints:
   - websecure
   routes:
@@ -13,6 +14,11 @@ spec:
     services:
     - name: gitlab-webservice-default
       port: 8181
+  - match: Host(`registry.git.eggenberg.io`)
+    kind: Rule
+    services:
+    - name: gitlab-registry
+      port: 5000
   tls:
     secretName: gitlab-certificate-secret
 ---
@@ -21,8 +27,9 @@ kind: IngressRouteTCP
 metadata:
   name: gitlab-ssh-ingressroute
   namespace: gitlab
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
 spec:
-  ingressClassName: traefik-internal
   entryPoints:
   - ssh
   routes:
@@ -31,21 +38,3 @@ spec:
     services:
     - name: gitlab-gitlab-shell
       port: 2222
----
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: gitlab-registry-ingressroute
-  namespace: gitlab
-spec:
-  ingressClassName: traefik-internal
-  entryPoints:
-  - websecure
-  routes:
-  - match: Host(`registry.git.eggenberg.io`)
-    kind: Rule
-    services:
-    - name: gitlab-registry
-      port: 5000
-  tls:
-    secretName: gitlab-registry-certificate-secret

@@ -3,8 +3,9 @@ kind: IngressRoute
 metadata:
   name: jellyseerr-ingressroute
   namespace: media
+  annotations:
+    kubernetes.io/ingress.class: traefik-public
 spec:
-  ingressClassName: traefik-public
   entryPoints:
   - websecure
   routes:

@@ -3,8 +3,9 @@ kind: IngressRoute
 metadata:
   name: minio-ingressroute
   namespace: minio-system
+  annotations:
+    kubernetes.io/ingress.class: traefik-internal
 spec:
-  ingressClassName: traefik-internal
   entryPoints:
   - websecure
   routes:
