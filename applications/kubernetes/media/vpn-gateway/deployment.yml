@@ -45,10 +45,10 @@ spec:
                   key: WIREGUARD_PRIVATE_KEY
             - name: WIREGUARD_ENDPOINT_IP
               value: "66.234.146.34"
+            - name: WIREGUARD_ENDPOINT_PORT
+              value: "51820"
             - name: WIREGUARD_ADDRESSES
               value: "10.2.0.2/32"
-            - name: DNS_ADDRESS
-              value: "10.2.0.1"
           ports:
             - name: socks5
               containerPort: 1080
