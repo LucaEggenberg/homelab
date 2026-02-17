@@ -18,6 +18,15 @@ spec:
         ports:
           - containerPort: 9696
             protocol: TCP
+        env:
+          - name: ALL_PROXY
+            value: socks5h://vpn-gateway.media.svc.cluster.local:1080
+          - name: HTTP_PROXY
+            value: socks5h://vpn-gateway.media.svc.cluster.local:1080
+          - name: HTTPS_PROXY
+            value: socks5h://vpn-gateway.media.svc.cluster.local:1080
+          - name: NO_PROXY
+            value: ".svc,.cluster.local,localhost,127.0.0.1,storage.eggenberg.io"
         volumeMounts:
           - mountPath: /config
             name: arrstack
