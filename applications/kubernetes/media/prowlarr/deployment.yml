@@ -44,7 +44,7 @@ spec:
       volumes:
         - name: nfs
           persistentVolumeClaim:
-            claimName: jellyfin-nfs-pvc
+            claimName: media-nfs-pvc
         - name: arrstack
           persistentVolumeClaim:
             claimName: prowlarr-pvc
