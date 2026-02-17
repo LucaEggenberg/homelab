@@ -12,6 +12,11 @@ spec:
       labels:
         app: prowlarr
     spec:
+      securityContext:
+        runAsUser: 865
+        runAsGroup: 865
+        fsGroup: 865
+        fsGroupChangePolicy: "OnRootMismatch"
       containers:
       - image: lscr.io/linuxserver/prowlarr:latest
         name: prowlarr
@@ -19,6 +24,10 @@ spec:
           - containerPort: 9696
             protocol: TCP
         env:
+          - name: PUID
+            value: "865"
+          - name: PGID
+            value: "865"
           - name: ALL_PROXY
             value: socks5h://vpn-gateway.media.svc.cluster.local:1080
           - name: HTTP_PROXY
@@ -31,11 +40,11 @@ spec:
           - mountPath: /config
             name: arrstack
           - mountPath: /media
-            name: smb
+            name: nfs
       volumes:
-        - name: smb
+        - name: nfs
           persistentVolumeClaim:
-            claimName: jellyfin-smb-pvc
+            claimName: jellyfin-nfs-pvc
         - name: arrstack
           persistentVolumeClaim:
             claimName: prowlarr-pvc
