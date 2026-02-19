@@ -24,10 +24,6 @@ spec:
             runAsUser: 0
             capabilities:
               add: [ "NET_ADMIN" ]
-          readinessProbe:
-            httpGet:
-              path: /v1/health
-              port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10
           lifecycle:
