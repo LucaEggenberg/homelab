@@ -5,7 +5,7 @@ metadata:
   namespace: media
 spec:
   selector:
-    app: servarr-gateway
+    app: servarr
   ports:
     - name: prowlarr
       port: 9696

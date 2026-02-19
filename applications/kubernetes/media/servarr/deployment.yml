@@ -40,11 +40,6 @@ spec:
             - name: VPN_PORT_FORWARDING
               value: "off"
 
-            # SOCKS5 proxy
-            - name: SOCKS5
-              value: "on"
-            - name: SOCKS5_LISTENING_ADDRESS
-              value: ":1080"
 
             # Wireguard-config
             - name: SERVER_COUNTRIES
@@ -56,6 +51,8 @@ spec:
                   key: WIREGUARD_PRIVATE_KEY
             - name: WIREGUARD_ADDRESSES
               value: "10.2.0.2/32"
+            - name: DNS_ADDRESS
+            value: "10.2.0.1"
           ports:
             - name: socks5
               containerPort: 1080
