@@ -83,10 +83,11 @@ spec:
   
       - image: lscr.io/linuxserver/qbittorrent:latest
         name: qbittorrent
-        securityContext:
-          runAsUser: 865
-          runAsGroup: 865
         env:
+          - name: PUID
+            value: "865"
+          - name: PGID
+            value: "865"
           - name: TZ
             value: UTC/UTC
           - name: WEBUI_PORT
