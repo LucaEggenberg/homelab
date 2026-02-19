@@ -25,14 +25,19 @@ spec:
             capabilities:
               add: [ "NET_ADMIN" ]
           readinessProbe:
-            httpGet:
-              path: /v1/health
-              port: 8000
-            initialDelaySeconds: 5
+            exec:
+              command:
+                - /gluetun-entrypoint
+                - healthcheck
+            initialDelaySeconds: 10
             periodSeconds: 10
-            timeoutSeconds: 3
-            successThreshold: 1
-            failureThreshold: 3
+          livenessProbe:
+            exec:
+              command:
+                - /gluetun-entrypoint
+                - healthcheck
+            initialDelaySeconds: 30
+            periodSeconds: 30
           lifecycle:
             postStart:
               exec:
@@ -70,8 +75,6 @@ spec:
               value: "off"
             - name: TZ
               value: UTC/UTC
-            - name: HTTP_CONTROL_SERVER_ADDRESS
-              value: ":8000"
           ports:
             - name: socks5
               containerPort: 1080
