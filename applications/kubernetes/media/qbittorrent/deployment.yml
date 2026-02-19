@@ -86,7 +86,6 @@ spec:
         securityContext:
           runAsUser: 865
           runAsGroup: 865
-          fsGroup: 865
         env:
           - name: TZ
             value: UTC/UTC
