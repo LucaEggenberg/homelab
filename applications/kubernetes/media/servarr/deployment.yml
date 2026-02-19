@@ -1,0 +1,163 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: servarr
+  namespace: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: servarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: servarr
+    spec:
+      securityContext:
+        fsGroup: 865
+      containers:
+        - name: gluetun
+          image: qmcgaw/gluetun:latest
+          securityContext:
+            runAsUser: 0
+            capabilities:
+              add: [ "NET_ADMIN" ]
+          readinessProbe:
+            httpGet:
+              path: /v1/health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "(ip rule del table 51820; ip -6 rule del table 51820) || true"]
+          env:
+            - name: VPN_SERVICE_PROVIDER
+              value: protonvpn
+            - name: VPN_TYPE
+              value: wireguard
+            - name: TZ
+              value: UTC/UTC
+            - name: VPN_PORT_FORWARDING
+              value: "off"
+
+            # SOCKS5 proxy
+            - name: SOCKS5
+              value: "on"
+            - name: SOCKS5_LISTENING_ADDRESS
+              value: ":1080"
+
+            # Wireguard-config
+            - name: SERVER_COUNTRIES
+              value: Switzerland
+            - name: WIREGUARD_PRIVATE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: gateway-proton-secret
+                  key: WIREGUARD_PRIVATE_KEY
+            - name: WIREGUARD_ADDRESSES
+              value: "10.2.0.2/32"
+          ports:
+            - name: socks5
+              containerPort: 1080
+
+        - image: lscr.io/linuxserver/prowlarr:latest
+          name: prowlarr
+          securityContext:
+            runAsUser: 865
+            runAsGroup: 865
+          ports:
+            - containerPort: 9696
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /config
+              name: prowlarr-pv
+            - mountPath: /media
+              name: nfs
+
+        - image: ghcr.io/flaresolverr/flaresolverr:latest
+          name: flaresolverr
+          ports:
+            - containerPort: 8191
+              protocol: TCP
+          env:
+            - name: "LOG_HTML"
+              value: "false"
+            - name: "CAPTCHA_SOLVER"
+              value: "none"
+
+        - image: lscr.io/linuxserver/radarr:latest
+          name: radarr
+          securityContext:
+            runAsUser: 865
+            runAsGroup: 865
+          ports:
+            - containerPort: 7878
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /config
+              name: radarr-pv
+            - mountPath: /media
+              name: nfs
+
+        - image: lscr.io/linuxserver/sonarr:latest
+          name: sonarr
+          securityContext:
+            runAsUser: 865
+            runAsGroup: 865
+          ports:
+            - containerPort: 8989
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /config
+              name: sonarr-pv
+            - mountPath: /media
+              name: nfs
+
+        - image: ghcr.io/cleanuparr/cleanuparr:latest
+          name: cleanuparr
+          ports:
+            - containerPort: 11011
+              protocol: TCP
+          env:
+            - name: PORT
+              value: "11011"
+          volumeMounts:
+            - mountPath: /config
+              name: cleanuparr-pv
+
+        - image: ghcr.io/plexguide/huntarr:latest
+          name: huntarr
+          ports:
+            - containerPort: 9705
+              protocol: TCP
+          env:
+            - name: HUNTARR_PORT
+              value: "9705"
+          volumeMounts:
+            - mountPath: /config
+              name: huntarr-pv
+
+      restartPolicy: Always
+      volumes:
+        - name: nfs
+          persistentVolumeClaim:
+            claimName: media-nfs-pvc
+        - name: prowlarr-pv
+          persistentVolumeClaim:
+            claimName: prowlarr-pvc
+        - name: radarr-pv
+          persistentVolumeClaim:
+            claimName: radarr-pvc
+        - name: sonarr-pv
+          persistentVolumeClaim:
+            claimName: sonarr-pvc
+        - name: cleanuparr-pv
+          persistentVolumeClaim:
+            claimName: cleanuparr-pvc
+        - name: huntarr-pv
+          persistentVolumeClaim:
+            claimName: huntarr-pvc

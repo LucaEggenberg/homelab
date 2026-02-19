@@ -15,6 +15,10 @@ spec:
       containers:
       - image: qmcgaw/gluetun:latest
         name: gluetun
+        securityContext:
+          runAsUser: 865
+          runAsGroup: 865
+          fsGroup: 865
         lifecycle:
           postStart:
             exec:
@@ -94,16 +98,16 @@ spec:
           - mountPath: /config
             name: arrstack
           - mountPath: /media
-            name: smb
+            name: nfs
 
       volumes:
-        - name: smb
+        - name: nfs
           persistentVolumeClaim:
-            claimName: jellyfin-smb-pvc
+            claimName: media-nfs-pvc
         - name: arrstack
           persistentVolumeClaim:
             claimName: qbittorrent-pvc
         - name: gluetun
           persistentVolumeClaim:
-            claimName: gluetun-pvc 
+            claimName: gluetun-pvc
       restartPolicy: Always
