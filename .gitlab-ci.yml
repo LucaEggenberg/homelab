@@ -4,7 +4,8 @@ stages:
 opentofu:
   stage: orchestrate
   rules:
-    - changes:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      changes:
         - infrastructure/**/*
         - pipelines/gitlab/opentofu-cd.yml
   trigger:
@@ -14,7 +15,8 @@ opentofu:
 homeassistant:
   stage: orchestrate
   rules:
-    - changes:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      changes:
         - applications/homeassistant/**/*
         - pipelines/gitlab/homeassistant-cd.yml
   trigger:
