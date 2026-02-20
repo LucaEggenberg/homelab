@@ -6,7 +6,7 @@ spec:
   project: default
   sources:
   - repoURL: https://charts.gitlab.io/
-    targetRevision: 9.4.1
+    targetRevision: 9.9.0
     chart: gitlab
     helm:
       valueFiles:
