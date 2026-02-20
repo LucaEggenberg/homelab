@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: renovate-bot
+  namespace: renovate
+spec:
+  schedule: '@hourly'
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: renovate
+              image: renovate/renovate:37.0.0
+              envFrom:
+                - secretRef:
+                    name: renovate-env
+              env:
+                - name: RENOVATE_AUTODISCOVER
+                  value: 'true'
+              volumeMounts:
+                - name: ssh-key-volume
+                  mountPath: /home/ubuntu/.ssh
+                  readOnly: true
+                - name: work-volume
+                  mountPath: /tmp/renovate/
+          restartPolicy: Never
+          volumes:
+            - name: ssh-key-volume
+              secret:
+                secretName: renovate-ssh-key
+                defaultMode: 0400
+            - name: work-volume
+              emptyDir: {}
