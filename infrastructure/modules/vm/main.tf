@@ -15,7 +15,7 @@ resource "proxmox_vm_qemu" "server" {
   full_clone      = true
   tags            = var.tags
 
-  onboot  = true
+  start_at_node_boot  = true
 
   bios     = var.bios
   memory   = var.memory
