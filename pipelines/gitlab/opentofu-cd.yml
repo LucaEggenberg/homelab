@@ -24,6 +24,10 @@ opentofu-plan:
     - set -e
     # tf reports exit-code 2 on changes; gitlab marks non 0 as fails
     - if [ $TF_EXIT_CODE -eq 1 ]; then echo 'plan failed!'; exit 1; fi
+  artifacts:
+    paths:
+      - infrastructure/tfplan.prod
+    expire_in: 1 hour
 
 opentofu-apply:
   stage: apply

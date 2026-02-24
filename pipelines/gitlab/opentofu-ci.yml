@@ -31,6 +31,7 @@ opentofu-plan:
     - tofu show -json tfplan > tfplan.json
   artifacts:
     when: on_success
+    expire_in: 1 day
     paths:
       - infrastructure/tfplan
       - infrastructure/tfplan.json
