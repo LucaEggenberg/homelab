@@ -22,8 +22,17 @@ opentofu-validate:
 opentofu-plan:
   stage: plan
   script:
+    - set +e
     - tofu plan -detailed-exitcode -out=tfplan
+    - TF_EXIT_CODE=$?
+    - set -e
+    # tf reports exit-code 2 on changes; gitlab marks non 0 as fails
+    - if [ $TF_EXIT_CODE -eq 1 ]; then echo 'plan failed!'; exit 1; fi
     - tofu show -json tfplan > tfplan.json
   artifacts:
+    when: on_success
+    paths:
+      - infrastructure/tfplan
+      - infrastructure/tfplan.json
     reports:
       terraform: infrastructure/tfplan.json

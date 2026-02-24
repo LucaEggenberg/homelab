@@ -13,18 +13,32 @@ default:
   before_script:
     - cd infrastructure
     - tofu --version
+
 opentofu-plan:
   stage: plan
   script:
     - tofu init -input=false
+    - set +e
     - tofu plan -detailed-exitcode -out=tfplan.prod
+    - TF_EXIT_CODE=$?
+    - set -e
+    # tf reports exit-code 2 on changes; gitlab marks non 0 as fails
+    - if [ $TF_EXIT_CODE -eq 1 ]; then echo 'plan failed!'; exit 1; fi
+    - tofu show -json tfplan > tfplan.json
+  artifacts:
+    paths:
+      - infrastructure/tfplan.prod
+      - infrastructure/tfplan.json
+    reports:
+      terraform: infrastructure/tfplan.json
 
 opentofu-apply:
   stage: apply
   environment:
     name: prod
+  dependencies:
+    - opentofu-plan
   script:
-    - tofu init -input=false
     - tofu apply -auto-approve tfplan.prod
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
