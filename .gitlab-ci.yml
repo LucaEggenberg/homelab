@@ -47,3 +47,20 @@ homeassistant-cd:
   trigger:
     include: pipelines/gitlab/homeassistant-cd.yml
     strategy: depend
+
+k8s-ci:
+  stage: CI
+  rules:
+    - changes:
+      - argocd/**/*
+      - applications/kubernetes/**/*
+  script:
+    - echo "K8s CI TBD..."
+
+nixos-ci:
+  stage: CI
+  rules:
+    - changes:
+      - nixos/**/*
+  script:
+    - echo "NixOs CI TBD..."
