@@ -1,8 +1,21 @@
 stages:
-  - orchestrate
+  - CI
+  - CD
 
-opentofu:
-  stage: orchestrate
+opentofu-ci:
+  stage: CI
+  rules:
+    - changes:
+        - infrastructure/**/*
+        - pipelines/gitlab/opentofu-ci.yml
+        - pipelines/gitlab/opentofu-cd.yml
+  trigger:
+    include: pipelines/gitlab/opentofu-ci.yml
+    strategy: depend
+
+opentofu-cd:
+  stage: CD
+  needs: ["opentofu-ci"]
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
@@ -12,8 +25,20 @@ opentofu:
     include: pipelines/gitlab/opentofu-cd.yml
     strategy: depend
 
-homeassistant:
-  stage: orchestrate
+homeassistant-ci:
+  stage: CI
+  rules:
+    - changes:
+        - applications/homeassistant/**/*
+        - pipelines/gitlab/homeassistant-ci.yml
+        - pipelines/gitlab/homeassistant-cd.yml
+  trigger:
+    include: pipelines/gitlab/homeassistant-ci.yml
+    strategy: depend
+
+homeassistant-cd:
+  stage: CD
+  needs: ["homeassistant-ci"]
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:

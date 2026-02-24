@@ -1,5 +1,4 @@
 stages:
-  - validate
   - plan
   - apply
 
@@ -14,32 +13,19 @@ default:
   before_script:
     - cd infrastructure
     - tofu --version
-
-opentofu-validate:
-  stage: validate
-  script:
-    - tofu init -input=false
-    - tofu validate
-  rules:
-    - when: always
-
 opentofu-plan:
   stage: plan
   script:
     - tofu init -input=false
-    - tofu plan -out=tfplan
-  artifacts:
-    paths:
-      - infrastructure/tfplan
-  rules:
-    - when: on_success
+    - tofu plan -detailed-exitcode -out=tfplan.prod
 
 opentofu-apply:
   stage: apply
+  environment:
+    name: prod
   script:
     - tofu init -input=false
-    - tofu apply -auto-approve tfplan
-  needs: ["opentofu-plan"]
+    - tofu apply -auto-approve tfplan.prod
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-      when: on_success
+      when: manual

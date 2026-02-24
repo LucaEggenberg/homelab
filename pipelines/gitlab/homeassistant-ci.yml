@@ -1,0 +1,11 @@
+stages:
+  - test
+
+homeassistant-test:
+  stage: test
+  tags: ["internal"]
+  image:
+    name: homeassistant/amd64-homeassistant:stable
+    entrypoint: [""]
+  script:
+    - hass --script check_config -c applications/homeassistant/config

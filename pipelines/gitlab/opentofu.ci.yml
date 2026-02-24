@@ -1,0 +1,29 @@
+stages:
+  - validate
+  - plan
+
+variables:
+  TOFU_VERSION: "1.10.6"
+
+default:
+  image:
+    name: ghcr.io/opentofu/opentofu:${TOFU_VERSION}
+    entrypoint: [""]
+  tags: ["internal"]
+  before_script:
+    - cd infrastructure
+    - tofu init -input=false
+
+opentofu-validate:
+  stage: validate
+  script:
+    - tofu validate
+
+opentofu-plan:
+  stage: plan
+  script:
+    - tofu plan -detailed-exitcode -out=tfplan
+    - tofu show -json tfplan > tfplan.json
+  artifacts:
+    reports:
+      terraform: infrastructure/tfplan.json

@@ -1,22 +1,9 @@
 stages:
-  - test
   - deploy
-
-default:
-  tags: [ "internal" ]
-
-homeassistant-test:
-  stage: test
-  image:
-    name: homeassistant/amd64-homeassistant:stable
-    entrypoint: [""]
-  script:
-    - hass --script check_config -c applications/homeassistant/config
-  rules:
-    - when: always
 
 homeassistant-deploy:
   stage: deploy
+  tags: [ "internal" ]
   only:
     - main
   image: ubuntu:24.04
@@ -42,4 +29,3 @@ homeassistant-deploy:
     - tar -cf - -C applications/homeassistant/config . | ssh -p "$SSH_PORT" $REMOTE_USER@$REMOTE_HOST "tar -xf - -C /config/"
     - echo "Restarting home-assistant..."
     - ssh -p $SSH_PORT $REMOTE_USER@$REMOTE_HOST "ha core restart"
-
