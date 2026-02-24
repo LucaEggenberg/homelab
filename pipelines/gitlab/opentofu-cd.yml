@@ -27,6 +27,8 @@ opentofu-plan:
   artifacts:
     paths:
       - infrastructure/tfplan.prod
+      - infrastructure/.terraform/
+      - infrastructure/.terraform.lock.hcl
     expire_in: 1 hour
 
 opentofu-apply:
