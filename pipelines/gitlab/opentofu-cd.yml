@@ -24,13 +24,6 @@ opentofu-plan:
     - set -e
     # tf reports exit-code 2 on changes; gitlab marks non 0 as fails
     - if [ $TF_EXIT_CODE -eq 1 ]; then echo 'plan failed!'; exit 1; fi
-    - tofu show -json tfplan.prod > tfplan.json
-  artifacts:
-    paths:
-      - infrastructure/tfplan.prod
-      - infrastructure/tfplan.json
-    reports:
-      terraform: infrastructure/tfplan.json
 
 opentofu-apply:
   stage: apply
@@ -42,4 +35,3 @@ opentofu-apply:
     - tofu apply -auto-approve tfplan.prod
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-      when: manual
