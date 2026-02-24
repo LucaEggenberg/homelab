@@ -24,7 +24,7 @@ opentofu-plan:
     - set -e
     # tf reports exit-code 2 on changes; gitlab marks non 0 as fails
     - if [ $TF_EXIT_CODE -eq 1 ]; then echo 'plan failed!'; exit 1; fi
-    - tofu show -json tfplan > tfplan.json
+    - tofu show -json tfplan.prod > tfplan.json
   artifacts:
     paths:
       - infrastructure/tfplan.prod
