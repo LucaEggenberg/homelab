@@ -7,7 +7,7 @@ spec:
   sources:
   - repoURL: https://traefik.github.io/charts
     chart: traefik
-    targetRevision: 35.2.0
+    targetRevision: 38.0.1
     helm:
       valueFiles:
         - $values/applications/kubernetes/traefik-internal/helm-values.yml
