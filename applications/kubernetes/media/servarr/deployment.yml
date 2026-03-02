@@ -146,18 +146,6 @@ spec:
             - mountPath: /config
               name: cleanuparr-pv
 
-        - image: ghcr.io/plexguide/huntarr:latest
-          name: huntarr
-          ports:
-            - containerPort: 9705
-              protocol: TCP
-          env:
-            - name: HUNTARR_PORT
-              value: "9705"
-          volumeMounts:
-            - mountPath: /config
-              name: huntarr-pv
-
       restartPolicy: Always
       volumes:
         - name: nfs
