@@ -1,13 +1,14 @@
+global:
+  envFrom:
+    - secretRef:
+        name: authentik-secrets
+
 authentik:
   secret_key: ""
   error_reporting:
     enabled: false
   allowed_hosts:
     - "auth.eggenberg.io"
-
-envFrom:
-  - secretRef:
-      name: authentik-secrets
 
 postgresql:
   enabled: true
