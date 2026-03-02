@@ -1,20 +1,4 @@
 { config, pkgs, ... }: {
-  fileSystems."/srv/immich-backups" = {
-    device = "10.10.10.20:/mnt/Storage/backups/immich";
-    fsType = "nfs";
-    options = [
-      "noauto"
-      "x-systemd.automount"
-      "nofail"
-      "_netdev"
-      "nfsvers=4.1"
-      "rsize=1048576"
-      "wsize=1048576"
-      "hard"
-      "timeo=600"
-    ];
-  };
-
   systemd.timers.immich-backup = {
     description = "Immich backup";
     wants = [ "immich-backup.service" ];
@@ -27,61 +11,60 @@
 
   systemd.services.immich-backup = {
     description = "Backup Immich (Postgres dump + app state)";
-    after = [ "network-online.target" "immich.service" ];
-    wants = [ "network-online.target" ];
+    after = [ "network-online.target" "immich-server.service" "mnt-share.mount" ];
+    requires = [ "mnt-share.mount" ];
 
     serviceConfig = {
       Type = "oneshot";
       User = "root";
-      Group = "root";
     };
 
-    path = [
-      pkgs.postgresql_16
-      pkgs.rsync
-      pkgs.zstd
-      pkgs.coreutils
-      pkgs.findutils
-      pkgs.gnutar
-      pkgs.util-linux # runuser
+    path = with pkgs; [
+      postgresql_16
+      rsync
+      zstd
+      coreutils
+      findutils
+      gnutar
+      util-linux
     ];
 
     script = ''
       set -euo pipefail
 
-      BACKUPROOT="/srv/immich-backups"
+      # Path updated to your new structure
+      BACKUPROOT="/mnt/share/backups"
       TODAY="$(date +%Y-%m-%d)"
-      TMPDIR="/var/lib/immich-backup-$TODAY"
+      TMPDIR="/var/lib/immich-backup-tmp"
       ARCHIVE="$BACKUPROOT/immich-$TODAY.tar.zst"
 
+      mkdir -p "$BACKUPROOT"
       mkdir -p "$TMPDIR"
+      
+      # FIX: Give postgres permission to write the dump here
+      chown postgres:postgres "$TMPDIR"
 
-      echo "dumping postgres database (immich)"
+      echo "Dumping postgres database..."
       runuser -u postgres -- pg_dump -Fc -d immich -f "$TMPDIR/immich.pg.dump"
 
-      echo "copying immich app state"
+      echo "Copying app state (excluding heavy media/library)..."
+      # exclude 'library' because that's already on the NAS
       rsync -aH --delete \
+        --exclude "library" \
         --exclude "cache" \
         --exclude "tmp" \
-        /var/lib/immich/ "$TMPDIR/var-lib-immich" || true
+        /var/lib/immich/ "$TMPDIR/var-lib-immich"
 
-      echo "capturing service unit environment (optional)"
-      systemctl cat immich.service > "$TMPDIR/immich.service.txt" 2>/dev/null || true
-
-      echo "creating archive"
+      echo "Creating archive..."
       tar -C "$TMPDIR" -c . | zstd -T0 -19 -o "$ARCHIVE"
 
-      echo "fixing ownership for TrueNAS share"
-      chown nobody:nogroup "$ARCHIVE" || true
-
-      echo "cleaning up tempdir"
+      # Cleanup
       rm -rf "$TMPDIR"
 
-      echo "pruning old archives"
+      echo "Pruning archives older than 60 days..."
       find "$BACKUPROOT" -name "immich-*.tar.zst" -mtime +60 -delete
 
       echo "Backup complete: $ARCHIVE"
     '';
   };
 }
-

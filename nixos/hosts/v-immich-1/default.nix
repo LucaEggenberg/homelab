@@ -14,8 +14,8 @@
     
   # Ensure mountpoints exist so systemd doesn’t fail at boot
   systemd.tmpfiles.rules = [
-    "d /media 0755 root root -"
-    "d /media/photos 0755 immich immich -"
+    "d /mnt/share 0755 root root -"
+    "d /mnt/share/photos 0755 immich immich -"
 
     "d /var/lib/immich 0750 immich immich -"
     "d /var/lib/immich/upload 0750 immich immich -"
@@ -43,8 +43,8 @@
     redis.enable = true;
   };
 
-  fileSystems."/media" = {
-    device = "10.10.10.20:/mnt/Storage/media";
+  fileSystems."/mnt/share" = {
+    device = "10.10.10.20:/mnt/Storage/applications/immich";
     fsType = "nfs";
     options = [
     "noauto"
@@ -60,12 +60,14 @@
   };
 
   fileSystems."/var/lib/immich/library" = {
-    device = "/media/photos";
+    device = "/mnt/share/photos";
     fsType = "none";
-    options = [ "bind" "nofail" "x-systemd.requires-mounts-for=/media" "x-systemd.automount" ];
+    options = [ "bind" "nofail" ];
+    depends = [ "/mnt/share" ];
   };
 
-  systemd.services.immich-server.serviceConfig = {
-    RequiresMountsFor = [ "/media" "/var/lib/immich/library" ];
+  systemd.services = {
+    immich-server.unitConfig.RequiresMountsFor = [ "/var/lib/immich/library" ];
+    immich-microservices.unitConfig.RequiresMountsFor = [ "/var/lib/immich/library" ];
   };
 }
