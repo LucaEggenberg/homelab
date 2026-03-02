@@ -2,16 +2,12 @@ authentik:
   secret_key: ""
   error_reporting:
     enabled: false
+  allowed_hosts:
+    - "auth.eggenberg.io"
 
-externalSecrets:
-  enabled: true
-  name: authentik-secrets
-
-server:
-  ingress:
-    enabled: false
-  gateway:
-    enabled: false
+envFrom:
+  - secretRef:
+      name: authentik-secrets
 
 postgresql:
   enabled: true
@@ -20,3 +16,17 @@ postgresql:
     secretKeys:
       adminPasswordKey: "AUTHENTIK_POSTGRESQL__PASSWORD"
       userPasswordKey: "AUTHENTIK_POSTGRESQL__PASSWORD"
+
+redis:
+  enabled: true
+
+server:
+  ingress:
+    enabled: false
+  gateway:
+    enabled: false
+  service:
+    type: ClusterIP
+
+outposts:
+  docker_image_base: "ghcr.io/goauthentik/outpost"
