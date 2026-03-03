@@ -2,6 +2,8 @@ global:
   envFrom:
     - secretRef:
         name: authentik-secrets
+    - secretRef:
+        name: smtp-secrets
 
 authentik:
   secret_key: ""
@@ -13,12 +15,6 @@ authentik:
     host: "smtp.protonmail.ch"
     port: 587
     use_tls: true
-    username:
-      secret: smtp-secrets
-      key: 'AUTHENTIK_EMAIL__USERNAME'
-    password:
-      secret: smtp-secrets
-      key: 'AUTHENTIK_EMAIL__PASSWORD'
     from: "admin@eggenberg.io"
 
 postgresql:
