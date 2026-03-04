@@ -6,7 +6,7 @@ homeassistant-deploy:
   tags: [ "internal" ]
   only:
     - main
-  image: ubuntu:24.04
+  image: ubuntu:25.10
   variables:
     REMOTE_USER: "root"
     REMOTE_HOST: "10.10.30.10"
