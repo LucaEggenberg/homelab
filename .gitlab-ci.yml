@@ -4,8 +4,6 @@ stages:
 
 pre-ci:
   stage: CI
-  variables:
-    FF_USE_ATTACH_STRATEGY: "false"
   script:
     - echo "Checking changes..."
 
@@ -57,8 +55,6 @@ homeassistant-cd:
 
 k8s-ci:
   stage: CI
-  variables:
-    FF_USE_ATTACH_STRATEGY: "false"
   rules:
     - changes:
       - argocd/**/*
@@ -68,8 +64,6 @@ k8s-ci:
 
 nixos-ci:
   stage: CI
-  variables:
-    FF_USE_ATTACH_STRATEGY: "false"
   rules:
     - changes:
       - nixos/**/*
