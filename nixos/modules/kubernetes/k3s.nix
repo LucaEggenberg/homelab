@@ -11,6 +11,8 @@
         8472 # Required only for Flannel VXLAN
     ];
 
+    networking.firewall.checkReversePath = false;
+
     services.k3s = {
         enable = true;
         role = "server";
@@ -20,6 +22,7 @@
         extraFlags = [
             "--disable=servicelb"
             "--disable=traefik"
+            "--kubelet-arg=cgroup-driver=systemd"
         ];
     };
 }
