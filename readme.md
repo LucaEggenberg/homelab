@@ -145,8 +145,8 @@ wan_allow_traefik_public_https:
 #### Services
 | Service | IP | Description |
 | :--- | :--- | :--- |
-| kube-public | 10.10.10.40 | public/external kube vip |
-| kube-internal | 10.10.10.50 | internal kube vip |
+| kube-public | 10.10.20.40 | public/external kube vip |
+| kube-internal | 10.10.20.50 | internal kube vip |
 | ILO | 10.10.11.222 | HPE ILO (for p-prmx-1) |
 
 ### Kubernetes
