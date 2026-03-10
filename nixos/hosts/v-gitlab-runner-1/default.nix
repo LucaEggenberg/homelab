@@ -17,8 +17,15 @@
     };
 
     boot.kernel.sysctl."net.ipv4.ip_forward" = true; # 1
-    virtualisation.docker.enable = true;
-    virtualisation.docker.autoPrune.enable = true;
+    virtualisation.docker = {
+        enable = true;
+        
+        autoPrune = {
+            enable = true;
+            dates = "daily";
+            flags = [ "--all" "--filter" "until=24h" ];
+        };
+    };
 
     services.gitlab-runner = {
         enable = true;
