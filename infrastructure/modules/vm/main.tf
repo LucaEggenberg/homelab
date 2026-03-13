@@ -29,6 +29,12 @@ resource "proxmox_vm_qemu" "server" {
 
   scsihw   = "virtio-scsi-single"
 
+  startup_shutdown {
+    order            = -1
+    shutdown_timeout = -1
+    startup_delay    = -1
+  }
+
   network {
     id      = 0
     bridge  = "vmbr0"
