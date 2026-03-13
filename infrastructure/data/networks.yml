@@ -28,3 +28,26 @@ networks:
     dhcp_stop: "10.10.30.254"
     dhcp_dns: []
     multicast_dns: false
+
+  management:
+    name: "Management"
+    vlan_id: 4
+    subnet: "10.10.11.1/24"
+    gateway: "10.10.11.1"
+    dhcp_start: "10.10.11.100"
+    dhcp_stop: "10.10.10.254"
+    dhcp_dns: [ "10.10.10.1" ]
+    multicast_dns: true
+
+  guest:
+    name: "Guest"
+    vlan_id: 5
+    subnet: "10.10.40.1/24"
+    gateway: "10.10.40.1"
+    dhcp_start: "10.10.40.6"
+    dhcp_stop: "10.10.10.254"
+    dhcp_dns: 
+      - "10.10.20.53"
+      - "1.1.1.1"
+      - "1.0.0.1"
+    multicast_dns: true
