@@ -18,6 +18,15 @@ policies:
     dst_ports: "web_ports"
     logging: true
 
+  guest_allow_dns:
+    name: "Hotspot -> Traefik Internal (DNS)"
+    action: "ALLOW"
+    src_zone: "hotspot"
+    dst_zone: "dmz"
+    dst_ip: "10.10.20.53"
+    dst_port: 53
+    auto_allow_return: true
+
   kube_allow_smb_nfs:
     name: "Kube -> NAS (SMB/NFS)"
     action: "ALLOW"
