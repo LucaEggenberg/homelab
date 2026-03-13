@@ -14,5 +14,12 @@ spec:
     services:
     - name: pihole-web
       port: 80
+      sticky:
+        cookie:
+          name: pihole-admin-session
+          httponly: true
+          secure: true
   tls:
     secretName: pihole-certificate-secret
+
+
