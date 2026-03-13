@@ -17,7 +17,7 @@ spec:
       sticky:
         cookie:
           name: pihole-admin-session
-          httponly: true
+          httpOnly: true
           secure: true
   tls:
     secretName: pihole-certificate-secret
