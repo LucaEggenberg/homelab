@@ -1,17 +1,12 @@
 replicaCount: 2
 
-extraEnvVars:
-  TZ: "Europe/Zurich"
-  DNSMASQ_LISTENING: "all"
-  VIRTUAL_HOST: "pihole.kube.eggenberg.io"
+DNS1: "1.1.1.1"
+DNS2: "1.0.0.1"
 
 admin:
   enabled: true
   existingSecret: "pihole-secrets"
   passwordKey: "WEBPASSWORD"
-
-DNS1: "1.1.1.1"
-DNS2: "1.0.0.1"
 
 serviceDns:
   enabled: true
@@ -31,8 +26,3 @@ persistentVolumeClaim:
   accessModes:
     - ReadWriteMany
   size: 10Gi
-
-livenessProbe:
-  enabled: true
-readinessProbe:
-  enabled: true
