@@ -5,10 +5,10 @@ extraEnvVars:
   DNSMASQ_LISTENING: "all"
   VIRTUAL_HOST: "pihole.kube.eggenberg.io"
 
-extraEnvVarsSecret:
-  WEBPASSWORD:
-    name: pihole-secrets
-    key: WEBPASSWORD
+admin:
+  enabled: true
+  existingSecret: "pihole-secrets"
+  passwordKey: "WEBPASSWORD"
 
 DNS1: "1.1.1.1"
 DNS2: "1.0.0.1"
