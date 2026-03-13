@@ -1,0 +1,38 @@
+replicaCount: 2
+
+extraEnvVars:
+  TZ: "Europe/Zurich"
+  DNSMASQ_LISTENING: "all"
+  VIRTUAL_HOST: "pihole.kube.eggenberg.io"
+
+extraEnvVarsSecret:
+  WEBPASSWORD:
+    name: pihole-secrets
+    key: WEBPASSWORD
+
+DNS1: "1.1.1.1"
+DNS2: "1.0.0.1"
+
+serviceDns:
+  enabled: true
+  type: LoadBalancer
+  loadBalancerIP: 10.10.20.53
+  annotations:
+    kube-vip.io/loadbalancerIPs: 10.10.20.53
+  externalTrafficPolicy: Local
+
+serviceWeb:
+  enabled: true
+  type: ClusterIP
+
+persistentVolumeClaim:
+  enabled: true
+  storageClass: "longhorn-daily-backup"
+  accessModes:
+    - ReadWriteMany
+  size: 10Gi
+
+livenessProbe:
+  enabled: true
+readinessProbe:
+  enabled: true
