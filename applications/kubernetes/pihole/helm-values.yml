@@ -17,7 +17,7 @@ serviceDns:
   loadBalancerIP: 10.10.20.53
   annotations:
     kube-vip.io/loadbalancerIPs: 10.10.20.53
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
 
 serviceWeb:
   enabled: true
