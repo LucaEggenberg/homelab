@@ -3,6 +3,9 @@ replicaCount: 2
 DNS1: "1.1.1.1"
 DNS2: "1.0.0.1"
 
+extraEnvVars:
+  DNSMASQ_LISTENING: "all"
+
 admin:
   enabled: true
   existingSecret: "pihole-secrets"
